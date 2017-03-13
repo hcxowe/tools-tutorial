@@ -1,0 +1,44 @@
+// out: ../css/index.css, compress: false, sourceMap: true
+
+// 变量的使用
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+body {
+    background-color: @nice-blue;
+}
+
+// Mixins 混合
+.bordered {
+    border: 1px solid @light-blue;
+}
+
+body {
+    .bordered;
+}
+
+// Nested Rules 嵌套规则
+#header {
+    color: red;
+    #wrap {
+        color: green;
+
+        #content {
+            color: blue;
+        };
+    };
+}
+
+.clearfix {
+    display: block;
+    zoom: 1;
+
+    &:after {
+        content: " ";
+        display: block;
+        font-size: 0;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+}

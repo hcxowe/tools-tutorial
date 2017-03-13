@@ -1,0 +1,30 @@
+body {
+  background-color: #5B83AD;
+}
+.bordered {
+  border: 1px solid #6c94be;
+}
+body {
+  border: 1px solid #6c94be;
+}
+#header {
+  color: red;
+}
+#header #wrap {
+  color: green;
+}
+#header #wrap #content {
+  color: blue;
+}
+.clearfix {
+  display: block;
+  zoom: 1;
+}
+.clearfix:after {
+  content: " ";
+  display: block;
+  font-size: 0;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
