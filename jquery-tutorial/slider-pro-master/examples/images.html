@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				box-sizing: border-box;
+				padding: 0;
+				margin: 0;
+				font-family: "微软雅黑";
+			}
+			
+			body {
+				position: relative;
+			}
+			
+			.image-container {
+				float: left;
+				cursor: move;
+			}
+		
+
+			.tools {
+				float: left;
+			}
+			
+			.mask {
+				position: absolute;
+				width: 800px;
+				height: 809px;
+				z-index: 99;
+				cursor: crosshair;
+				background:url(0) no-repeat;
+			}
+			
+			.tools {
+				width: 300px;
+				height: 809px;
+				border: 1px solid #ccc;
+			}
+			
+			.markLabel {
+				text-align: center;
+			    border: 1px solid red;
+			    border-radius: 8px;
+			    width: 200px;
+			    height: 40px;
+			    float: right;
+			    margin-top: 5px;
+			}
+			.markLabel > label {
+				vertical-align: middle;
+				line-height: 40px;
+			}
+			.markLabel > select {
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<div class="mask">
+		</div>
+		
+		<div class="image-container">
+			<img src="111.png" alt="" />
+		</div>
+		
+		<div class="tools">
+			
+		</div>
+		
+		<div class="funBar">
+			<button id='btnDraw'>重绘</button>
+			<button id="btnClear">清空</button>
+		</div>
+		
+		
+		<script src="../libs/es5-shim.js"></script>
+		<script src="../libs/jquery-1.11.0.min.js"></script>
+		
+		<script>
+
+			$(function() {
+				var drawMode = false,
+					startLeft= 0,
+					startTop = 0,
+					$drawElement = null;
+					
+				var $tools = $('.tools'),
+					$mask = $('.mask'),
+					markAry = [],
+					markData = [],
+					markData2 = [],
+					markContent = '';
+					
+			 	markContent = '<div class="markLabel"><label>扣分项:</label>';
+				markContent += '<select><option>不可描述, 扣1分</option><option>不可描述, 扣2分</option><option>不可描述, 扣3分</option><option>不可描述, 扣4分</option><option>不可描述, 扣5分</option></select></div>'; 
+				
+				function createMarkLabel($ele) {
+					var obj = {};
+					var data = {};
+					var $label = $(markContent);
+					
+					$tools.append($label);
+					
+					obj.label = $label;
+					obj.marker = $ele;
+					
+					markAry.push(obj);
+					
+					data.top = $ele.css('top');
+					data.left= $ele.css('left');
+					data.width = $ele.outerWidth();
+					data.height = $ele.outerHeight();
+					data.score = 1;
+					
+					markData.push(data);
+				}
+				
+				$('#btnDraw').on('click', function() {
+					
+					var $ele = null;
+					
+					markData2.forEach(function(item) {
+						$ele = $('<div></div>');
+						$ele.css({
+							position: 'absolute',
+							top: item.top,
+							left: item.left,
+							border: '1px dotted red'
+						});
+						
+						$ele.width(item.width);
+						$ele.height(item.height);
+						
+						$mask.append($ele);
+						
+						createMarkLabel($ele);
+					});
+					
+					markData2 = [];
+				});
+				
+				$('#btnClear').on('click', function() {
+					$mask.empty();
+					$tools.empty();
+					
+					markData.forEach(function(data) {
+						markData2.push(data);
+					});
+					
+					markData = [];
+				});
+				
+				$tools.on('click', '.markLabel', function(evt) {
+					
+					var $this = $(this);
+					
+					markAry.forEach(function(item) {
+						if ($this[0] == item.label[0]) {
+							item.label.css('border-width', 3);
+							item.marker.css('border-width', 3);
+							//return false;
+						}
+						else {
+							item.label.css('border-width', 1);
+							item.marker.css('border-width', 1);
+						}
+					});
+					
+				});
+				
+				$('.mask').on('mousedown', function(event){
+					startLeft = event.pageX;
+					startTop  = event.pageY;
+					
+					$drawElement = $('<div></div>');
+					$drawElement.css({
+						position: 'absolute',
+						left: startLeft,
+						top: startTop,
+						width: 0,
+						height: 0,
+						border: '1px dotted red'
+					});
+					
+					$(this).append($drawElement);
+					
+					drawMode = true;
+				});
+				
+				$('.mask').on('mousemove', function(event){
+					
+					if (!drawMode) {
+						return;
+					}
+					
+					var width = Math.abs(event.pageX - startLeft);
+					var height= Math.abs(event.pageY - startTop);
+					var left  = event.pageX <= startLeft ? event.pageX : startLeft;
+					var top   = event.pageY <= startTop ? event.pageY : startTop;
+					
+					$drawElement.css({
+						left: left,
+						top: top,
+						width: width,
+						height: height
+					});
+				});
+				
+				$('.mask').on('mouseup', function(){
+					drawMode = false;
+					
+					//alert('这里是选择扣分项弹窗')
+					
+					createMarkLabel($drawElement);
+				});
+				
+				$('.mask').on('mouseleave', function() {
+					
+					if (!drawMode) {
+						return;
+					}
+					
+					drawMode = false;
+					
+					//alert('这里是选择扣分项弹窗')
+					
+					createMarkLabel($drawElement);
+				});
+			
+			});
+		</script>
+	</body>
+</html>
