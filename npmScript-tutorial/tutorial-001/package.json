@@ -1,0 +1,23 @@
+{
+  "name": "tutorial-001",
+  "version": "1.0.0",
+  "description": "this a first test getting start",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hcx",
+    "test",
+    "npm"
+  ],
+  "author": "hcxowe",
+  "license": "ISC",
+  "engines": {
+    "node": ">=0.80"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hcxowe/npmtutorial.git"
+  }
+}
