@@ -22,8 +22,10 @@ console.log(arr2); // ['a', 'b', 'c']
 // [1 ,2 ,3]
 // [1 ,2 ,3]
 
-Array.from('hcxowe');   // ["h", "c", "x", "o", "w", "e"]
-Array.from({ length: 3 }); // [undefined, undefined, undefined]
+Array.from('hcxowe'); // ["h", "c", "x", "o", "w", "e"]
+Array.from({
+    length: 3
+}); // [undefined, undefined, undefined]
 Array.from([1, 2, 3], (x) => x * x); // [1, 4, 9]
 
 // 字符串转为数组，然后返回字符串的长度。
@@ -34,8 +36,8 @@ function countSymbols(string) {
 
 // Array.of-------------------------------------------------------------------------------------
 
-Array.of(1,2,3);    // [1, 2, 3]
-Array.of(1);    // [1]
+Array.of(1, 2, 3); // [1, 2, 3]
+Array.of(1); // [1]
 
 // Array.copyWithin------------------------------------------------------------------------------
 
@@ -45,23 +47,23 @@ Array.of(1);    // [1]
 // Array.find----------------------------------------------------------------------------------------------
 
 // 找到第一个大于9的元素并返回
-[1, 5, 10, 15].find(function(value, index, arr) {
-  return value > 9;
+[1, 5, 10, 15].find(function (value, index, arr) {
+    return value > 9;
 }); // 10
 
 // Array.findIndex----------------------------------------------------------------------------------------------
 
 // 找到第一个大于9的元素的位置并返回
-[1, 5, 10, 15].find(function(value, index, arr) {
-  return value > 9;
+[1, 5, 10, 15].find(function (value, index, arr) {
+    return value > 9;
 }); // 2
 
 // Array.fill----------------------------------------------------------------------------------------------
 
 // 使用7填充1-2-位置, 1, 2 位置可选
-['a', 'b', 'c'].fill(7, 1, 2);  // ['a', 7, 'c']
+['a', 'b', 'c'].fill(7, 1, 2); // ['a', 7, 'c']
 
-['a', 'b', 'c'].fill(7);    // [7, 7, 7]
+['a', 'b', 'c'].fill(7); // [7, 7, 7]
 
 // Array.entries------------------------------------------------------------------------------------------
 
@@ -93,8 +95,8 @@ console.log(entries.next().value); // 'c'
 // Array.includes-----------------------------------------------------------------------------------------
 
 // 从位置2开始查找数组是否存在值3
-[1, 2, 3].includes(3, 2);   // true
-[1, 2, 3].includes(3, 3);   // false
+[1, 2, 3].includes(3, 2); // true
+[1, 2, 3].includes(3, 3); // false
 
 
 // 数组的空位---------------------------------------------------------------------------------------
@@ -111,49 +113,49 @@ let ary = Array(4); // [undefined × 3]
 */
 
 // forEach方法
-[,'a'].forEach((x,i) => console.log(i)); // 1
+[, 'a'].forEach((x, i) => console.log(i)); // 1
 
 // filter方法
-['a',,'b'].filter(x => true) // ['a','b']
+['a', , 'b'].filter(x => true) // ['a','b']
 
 // every方法
-[,'a'].every(x => x==='a') // true
+[, 'a'].every(x => x === 'a') // true
 
 // some方法
-[,'a'].some(x => x !== 'a') // false
+[, 'a'].some(x => x !== 'a') // false
 
 // map方法
-[,'a'].map(x => 1) // [,1]
+[, 'a'].map(x => 1) // [,1]
 
 // join方法
-[,'a',undefined,null].join('#') // "#a##"
+[, 'a', undefined, null].join('#') // "#a##"
 
 // toString方法
-[,'a',undefined,null].toString() // ",a,,"
+[, 'a', undefined, null].toString() // ",a,,"
 
 // ES6则是明确将空位转为undefined
-Array.from(['a',,'b']);         // [ "a", undefined, "b" ]
-[,'a','b',,].copyWithin(2,0);   // [,"a",,"a"]
-new Array(3).fill('a');         // ["a","a","a"]
+Array.from(['a', , 'b']); // [ "a", undefined, "b" ]
+[, 'a', 'b', , ].copyWithin(2, 0); // [,"a",,"a"]
+new Array(3).fill('a'); // ["a","a","a"]
 
-let arr = [, ,];
+let arr = [, , ];
 for (let i of arr) {
     console.log(1);
 } // 1 1
 
 // entries()
-[...[,'a'].entries()] // [[0,undefined], [1,"a"]]
+[...[, 'a'].entries()] // [[0,undefined], [1,"a"]]
 
 // keys()
-[...[,'a'].keys()] // [0,1]
+[...[, 'a'].keys()] // [0,1]
 
 // values()
-[...[,'a'].values()] // [undefined,"a"]
+[...[, 'a'].values()] // [undefined,"a"]
 
 // find()
-[,'a'].find(x => true) // undefined
+[, 'a'].find(x => true) // undefined
 
 // findIndex()
-[,'a'].findIndex(x => true) // 0
+[, 'a'].findIndex(x => true) // 0
 
 // 避免空位的出现
