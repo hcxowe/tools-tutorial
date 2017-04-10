@@ -18,14 +18,33 @@
     </head>
     <body>
         <div id="app">
-            {{ message }}
+
+            <h1 v-if="show">{{ message }}</h1>
+
+            <h2 v-show="visible">{{ message }}</h2>
+            
             <p v-bind:class="{ active: isActive, 'hidden': isHidden }">
                 {{ reversedMessage }}
             </p>
 
+            <!--阻止默认事件处理，阻止事件冒泡，元素本身触发事件， 触发一次， 捕获触发-->
+            <button v-on:click.prevent.stop.self.once.capture="counter">累加</button>
+            <input type="text" v-on:keyup.enter="counter"/>
+            <p>累加次数: {{ count }} </p>
+
             <p>
-                "{{ clock() }}"
+                {{ clock() }}
             </p>
+
+            <ul>
+                <template v-for="(item, index) in items">
+                    <li>{{item.message}} - {{ index }}</li>
+                </template>
+            </ul>
+        </div>
+
+        <div id="example">
+            <my-component></my-component>
         </div>
 
         <script src="../node_modules/vue/dist/vue.js"></script>

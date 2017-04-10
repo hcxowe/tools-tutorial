@@ -1,11 +1,19 @@
 var Vue = require('vue');
+require('./component/dome-component/dome-component');
 
 var app = new Vue({
     el: '#app',
     data: {
         message: 'hello vue!', 
+        show: true,
+        visible: false,
         isActive: true,
-        isHidden: false
+        isHidden: false,
+        items: [
+            {message: 'hcxowe'},
+            {message: 'owexch'}
+        ],
+        count: 0
     },
     computed: {
         reversedMessage: function() {
@@ -15,6 +23,9 @@ var app = new Vue({
     methods: {
         clock: function() {
             return Date.now();
+        },
+        counter: function() {
+            this.count++;
         }
     },
     beforeCreate: function() {
@@ -42,3 +53,7 @@ var app = new Vue({
         console.log("app destroyed");
     }
 });
+
+new Vue({
+    el: '#example'
+})
