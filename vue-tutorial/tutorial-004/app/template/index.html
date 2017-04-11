@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+      .active {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <p v-bind:class="{ active: isActive }">Hello Vue~!</p>
+
+      <p v-bind:style="{ color: activeColor, fontSize: activeSize + 'px' }">v-bind:style 的对象语法十分直观——看着非常像 CSS ，其实它是一个 JavaScript 对象。 CSS 属性名可以用驼峰式（camelCase）或短横分隔命名（kebab-case）</p>
+
+      <p v-bind:style="styleObject">直接绑定到一个样式对象通常更好，让模板更清晰</p>
+    </div>    
+  </body>
+</html>
