@@ -6,4 +6,4 @@ Vue.component('my-component', {
 
 new Vue({
     el: '#example'
-})
+});
