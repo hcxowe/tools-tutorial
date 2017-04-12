@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      .fade-enter {
+        opacity: 0;
+      }
+      .fade-enter-active {
+        transition: opacity 1s;
+      }
+
+      .fade-leave {
+        opacity: 1;
+      }
+      .fade-leave-active {
+        opacity: 0;
+        transition: opacity 1s;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <button v-on:click="show = !show">toggle</button>
+
+      <transition name="fade">
+        <p v-if="show">Vuejs</p>
+      </transition>
+    </div>    
+  </body>
+</html>
