@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <ul id="list">
+      <li v-for="(item, index) in items">
+        {{ forIn }} - 索引{{ index }} - {{ item.message }}
+      </li>
+    </ul> 
+
+    在遍历对象时，是按 Object.keys() 的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下是一致的。
+    <ul id="list2">
+      <template v-for="(value, key, index) of dataObj">
+        <li>
+          {{ index }} - {{ key }}: {{ value }}
+        </li>
+      </template>
+
+      <div>
+        <span v-for="n in 10">{{ n }}</span>
+      </div>
+    </ul>   
+
+    <!--<div id="to-do-demo">
+      <input type="text" v-model="newTodoText" v-on:keyup.enter="addNew">
+      <ul>
+        <li is="todo-item" v-for="(todo index) in todos" v-bind:title="todo" v-on:remove="todos.splice(index, 1)"></li>
+      </ul>
+    </div>-->
+    
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="app">
+      <my-component></my-component>
+
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+
+      <br>
+      <br>
+      <br>
+      父子组件的关系可以总结为 props down, events up 。父组件通过 props 向下传递数据给子组件，子组件通过 events 给父组件发送消息。
+      <br>
+      HTML 特性是不区分大小写的。所以，当使用的不是字符串模版，camelCased (驼峰式) 命名的 prop 需要转换为相对应的 kebab-case (短横线隔开式) 命名
+      <br>
+
+      <input type="text" v-model="parentMessage">
+      <br>
+      <child big-message="good time" v-bind:parent-message="parentMessage"></child>
+    
+      <br>
+      <br>
+      {{ total }}
+      <child-two v-on:increment="incrementTotal"></child-two>
+      <child-two v-on:increment="incrementTotal"></child-two>
+
+      <br>
+      除非子组件模板包含至少一个 <slot> 插口，否则父组件的内容将会被丢弃
+      <br>
+
+      <child-three>
+        <p slot="slot1">这是app中的段落</p>
+        <p slot="slot2">这是app中的段落</p>
+      </child-three>
+
+    </div>
+  </body>
+</html>
