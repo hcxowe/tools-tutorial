@@ -7,11 +7,6 @@
     <link href="https://unpkg.com/animate.css@3.5.1/animate.min.css" rel="stylesheet" type="text/css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
     <style>
-
-      html, body {
-        /*overflow: hidden;*/
-      }
-
       #app {
         padding-left: 100px;
         padding-top: 100px;
@@ -72,6 +67,77 @@
           transform: scale(0);
         }
       }
+
+      .list-item {
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .list-enter-active, .list-leave-active {
+        transition: all 1s;
+      }
+      .list-enter, .list-leave-active {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      .flip-list-move {
+        transition: transform 1s;
+      }
+
+      .list-complete-item {
+        transition: all 1s;
+        display: inline-block;
+        margin-right: 10px;
+      }
+      .list-complete-enter, .list-complete-leave-active {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .list-complete-leave-active {
+        position: absolute;
+      }
+
+
+      #list-more-demo div {
+        width: 250px;
+      }
+      #list-more-demo span {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #1d1a1a;
+        text-align: center;
+        display: inline-block;
+        line-height: 25px;
+      }
+      .list-more-move {
+        transition: transform 1s;
+      }
+
+      .container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 238px;
+        margin-top: 10px;
+      }
+      .cell {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        border: 1px solid #aaa;
+        margin-right: -1px;
+        margin-bottom: -1px;
+      }
+      .cell:nth-child(3n) {
+        margin-right: 0;
+      }
+      .cell:nth-child(27n) {
+        margin-bottom: 0;
+      }
+      .cell-move {
+        transition: transform 1s;
+      }
     </style>
   </head>
   <body>
@@ -99,7 +165,68 @@
       <!--JS动画-->
       <transition v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:leave="leave" v-bind:css="false">
         <p v-if="show">Demo</p>
-      </transition>
+      </transition> 
     </div>    
+
+    <div id="list-demo" class="demo">
+      <button v-on:click="add">Add</button>
+      <button v-on:click="remove">Remove</button>
+      <transition-group name="list" tag="p">
+        <span v-for="item in items" v-bind:key="item" class="list-item">
+          {{ item }}
+        </span>
+      </transition-group>
+    </div>
+
+    <div id="flip-list-demo" class="demo">
+      <button v-on:click="shuffle">Shuffle</button>
+      <transition-group name="flip-list" tag="ul">
+        <li v-for="item in items" v-bind:key="item">
+          {{ item }}
+        </li>
+      </transition-group>
+    </div>
+
+    <div id="list-complete-demo" class="demo">
+      <button v-on:click="shuffle">Shuffle</button>
+      <button v-on:click="add">Add</button>
+      <button v-on:click="remove">Remove</button>
+      <transition-group name="list-complete" tag="p">
+        <span
+          v-for="item in items"
+          v-bind:key="item"
+          class="list-complete-item"
+        >
+          {{ item }}
+        </span>
+      </transition-group>
+    </div>
+
+    <div id="list-more-demo" class="demo">
+      <button v-on:click="shuffle">Shuffle</button>
+      <transition-group name="list-more" tag="div">
+        <span
+          v-for="item in items"
+          v-bind:key="item.id" 
+          class="list-more"
+        >
+          {{ item.number }}
+        </span>
+      </transition-group>
+    </div>
+
+    <div id="sudoku-demo" class="demo">
+      <h1>Lazy Sudoku</h1>
+      <p>Keep hitting the shuffle button until you win.</p>
+
+      <button @click="shuffle">
+        Shuffle
+      </button>
+      <transition-group name="cell" tag="div" class="container">
+        <div v-for="cell in cells" :key="cell.id" class="cell">
+          {{ cell.number }}
+        </div>
+      </transition-group>
+    </div>
   </body>
 </html>
