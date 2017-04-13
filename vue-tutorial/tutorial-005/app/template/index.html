@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="app">
+      <h1 v-if="ok">v-if 是“真正的”条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建</h1>
+      <h2 v-else>v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块</h2>  
+
+      <template v-if="loginStep == 1">
+        <label>User</label>
+        <input type="text" placeholder="please input user name~!" key="username-input">
+      </template>
+      <template v-else-if="loginStep == 2">
+        <label>Password</label>
+        <input type="text" placeholder="please input password~!" key="password-input">
+      </template>
+      <template v-else>
+        not found step to login.
+      </template>
+
+      <button v-on:click="toggleStep">toggle</button>
+
+      <div v-show="display">v-show 控制隐藏显示 通过css的display:none;实现</div>
+    </div>
+  </body>
+</html>

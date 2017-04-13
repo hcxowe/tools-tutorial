@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="example1">
+      <!-- 事件修饰符
+          .stop      阻止冒泡
+          .prevent   阻止默认事件处理
+          .capture   捕获模式
+          .self      元素本身触发事件
+          .once      执行一次
+      -->
+      <button v-on:click.stop.prevent.self="addNum">add1</button>
+      <button v-on:click.once="subNum(1, $event)">subtract</button>
+      {{ count }}
+
+      <input type="text" v-on:keyup.enter="alert('enter')">
+    </div>
+  </body>
+</html>

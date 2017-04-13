@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="example">
+      <p>Original message: {{ message }}</p>
+
+      <p>Computed reversed message: {{ reverseMessage }}</p>
+
+      <input type="text" v-model="firstname">
+      <input type="text" v-model="secondname">
+      <p> {{ fullname }} </p>
+
+      <p> now: {{ now() }}</p>
+    </div>
+
+    <div id="watch-example">
+      <p>
+        Ask a yes/no question:
+        <input v-model="question">
+      </p>
+      <p>{{ answer }}</p>
+    </div>
+  </body>
+</html>
