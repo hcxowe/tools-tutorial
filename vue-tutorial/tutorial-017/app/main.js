@@ -1,6 +1,8 @@
 var Vue = require('vue');
 
-// 全局配置
+/**
+ * 全局配置
+ */
 Vue.config.silent = false; // 取消Vue所有日志与警告
 Vue.config.optionMergeStrategies = {}; // 自定义合并策略
 Vue.config.devtools = true; // 是否允许 vue-devtools 检查代码
@@ -11,8 +13,10 @@ Vue.config.keyCodes = {  // 给 v-on 自定义键位别名
     f1: 112
 };
 
-// 全局API
 
+/**
+ * 全局API
+ */
 //使用基础 Vue 构造器，创建一个“子类”。参数是一个包含组件选项的对象
 var Profile = Vue.extend({
     template: '<p> {{ firstname}} {{ secondname }} aka {{ alias }} </p>',
@@ -107,14 +111,3 @@ new Vue({
     render: res.render,
     staticRenderFns: res.staticRenderFns
 });
-
-
-
-
-
-
-
-
-
-
-
