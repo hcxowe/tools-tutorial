@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/tween.js@16.3.4"></script>
+    <script src="https://unpkg.com/color-js@1.0.3/color.js"></script>
+
+    <style>
+      .example-7-color-preview {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+      }
+    </style>
+  
+  </head>
+  <body>
+    <div id="app">
+      <input type="number" step="10" v-model.number="number">
+      <p> {{ animatedNumber }} </p>
+    </div>
+
+    <div id="app1">
+      <input
+        v-model="colorQuery"
+        v-on:keyup.enter="updateColor"
+        placeholder="Enter a color"
+      >
+      <button v-on:click="updateColor">Update</button>
+      <p>Preview:</p>
+      <span
+        v-bind:style="{ backgroundColor: tweenedCSSColor }"
+        class="example-7-color-preview"
+      ></span>
+      <p>{{ tweenedCSSColor }}</p>
+    </div>
+
+    <div id="app2">
+      <input v-model.number="firstNumber" type="number" step="20"> +
+      <input v-model.number="secondNumber" type="number" step="20"> =
+      {{ result }}
+      <p>
+        <animated-integer v-bind:value="firstNumber"></animated-integer> +
+        <animated-integer v-bind:value="secondNumber"></animated-integer> =
+        <animated-integer v-bind:value="result"></animated-integer>
+      </p>
+    </div>
+  </body>
+</html>
