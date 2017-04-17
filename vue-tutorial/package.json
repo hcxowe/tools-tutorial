@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "html-webpack-plugin": "^2.28.0",
+    "vue-router": "^2.4.0",
     "webpack": "^2.3.3"
   }
 }

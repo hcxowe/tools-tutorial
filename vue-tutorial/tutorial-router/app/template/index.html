@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>webpack-vue</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <router-link to="/home">Home</router-link>        
+        <router-link to="/list">List</router-link>
+        <router-link to="/user">User</router-link>
+        <router-link to="/user/1">User/1</router-link>
+        <router-link to="/user/2">User/2</router-link>
+        <router-link to="/user/1/profile">User/2/profile</router-link>
+        <router-link to="/user/1/posts">User/2/posts</router-link>
+        <router-link to="/user/2/profile">User/2/profile</router-link>
+        <router-link to="/user/2/posts">User/2/posts</router-link>
+        <router-link to="/redirect">redirect</router-link>
+        <!--命名路由不生效？-->
+        <router-link to="{name: 'nameTrfes'}">namePosts</router-link>
+        <button v-on:click="routePush">router.push</button>
+        <button v-on:click="routeReplace">router.replace</button>
+        <button v-on:click="routeGo">router.go</button>
+      </div>
+
+      <router-view></router-view>
+    </div>
+  </body>
+</html>
