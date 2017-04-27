@@ -1,40 +1,138 @@
 body {
-  background-color: #5B83AD;
+  background-color: #664944;
+  background-image: url("../images/xxx.png");
 }
 .bordered {
-  border: 1px solid #6c94be;
-}
-body {
-  border: 1px solid #6c94be;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 #header {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: greenyellow;
+}
+div {
+  border: 3px dotted blue;
+}
+.caller {
+  display: none;
+  width: 100%;
+  height: 200px;
+}
+.class1 {
+  background-color: black;
+  color: #ddd;
+}
+.class2 {
+  background-color: white;
+  color: #444;
+}
+#header .wrap {
+  width: 100%;
+  min-height: 500px;
+}
+#header .wrap .content {
+  border: 2px dotted red;
+  box-shadow: 0 0 5px 0 red;
+}
+#header .wrap input:focus {
+  border: 1px solid blue;
+}
+input {
+  width: 200px;
+}
+ul li {
+  float: left;
+}
+.inline,
+ul li {
+  color: white;
+}
+div {
+  width: 10px;
+  width: 20px;
+  width: 30px;
+  width: 40px;
+  width: 50px;
+}
+.column-1 {
+  width: 25%;
+}
+.column-2 {
+  width: 50%;
+}
+.column-3 {
+  width: 75%;
+}
+.column-4 {
+  width: 100%;
+}
+.myclass {
+  box-shadow: inset 0 0 10px #555, 0 0 20px black;
+}
+.button-ok {
+  background-image: url("ok.png");
+}
+.button-cancel {
+  background-image: url("cancel.png");
+}
+.button-custom {
+  background-image: url("custom.png");
+}
+.link + .link {
   color: red;
 }
-#header #wrap {
+.link .link {
   color: green;
 }
-#header #wrap #content {
+.link.link {
   color: blue;
 }
-.clearfix {
-  display: block;
-  zoom: 1;
+.link,
+.linkish {
+  color: cyan;
 }
-.clearfix:after {
-  content: " ";
-  display: block;
-  font-size: 0;
-  height: 0;
-  clear: both;
-  visibility: hidden;
-}
-.content::before {
-  content: 'x';
-  color: black;
-}
-.content {
-  color: black;
-}
-.content:hover {
+.grand .parent > .grand .parent {
   color: red;
 }
+.grand .parent .grand .parent {
+  color: green;
+}
+.grand .parent.grand .parent {
+  color: blue;
+}
+.grand .parent,
+.grand .parentish {
+  color: cyan;
+}
+.header .menu {
+  border-radius: 5px;
+}
+.no-borderradius .header .menu {
+  background-image: url('images/button-background.png');
+}
+p,
+a,
+ul,
+li {
+  border-top: 2px dotted #366;
+}
+p + p,
+p + a,
+p + ul,
+p + li,
+a + p,
+a + a,
+a + ul,
+a + li,
+ul + p,
+ul + a,
+ul + ul,
+ul + li,
+li + p,
+li + a,
+li + ul,
+li + li {
+  border-top: 0;
+}
+/*# sourceMappingURL=./index.css.map */
