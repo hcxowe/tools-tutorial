@@ -5,27 +5,27 @@
 
 ### jQuery --- 掌握 & 正在使用
 
-### Vue.js --- 皮毛
+### Vue.js --- 熟悉
 
-### angular --- 吃瓜群众
+### angular --- 了解
 
-### react --- 皮毛
+### react --- 了解
 
-### react-native --- 未知大陆
+### react-native --- 未了解
 
 ## 模块化 & 工程化
 
-### node & npm --- 进修中
+### node & npm --- 熟悉
 
-### webpack --- 进修中
+### webpack --- 熟悉 
 
 ## CSS预处理
 
-### less --- 进修中
+### less --- 熟悉
 
 ## javascript
 
-### ES6 --- 进修中
+### ES6 --- 熟悉
 
 ## 模块引擎
 
