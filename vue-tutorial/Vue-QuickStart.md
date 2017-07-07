@@ -767,3 +767,274 @@ Vue.component('example', {
 ```html
 <input type="date" data-3d-date-picker="true" class="form-control date-picker-theme-dark">
 ```
+
+### 自定义事件
+
+子组件使用 $emit(eventName) 触发事件， 父组件可以在使用子组件的地方直接用 v-on 来监听子组件触发的事件
+```html
+<div id="counter-event-example">
+  <p>{{ total }}</p>
+  <button-counter v-on:increment="incrementTotal"></button-counter>
+</div>
+```
+
+```js
+Vue.component('button-counter', {
+    template: '<button v-on:click="increment">{{ counter }}</button>',
+    data: function () {
+        return {
+            counter: 0
+        }
+    },
+    methods: {
+        increment: function () {
+        this.counter += 1
+        this.$emit('increment')
+        }
+    },
+});
+
+new Vue({
+    el: '#counter-event-example',
+    data: {
+        total: 0
+    },
+    methods: {
+        incrementTotal: function () {
+            this.total += 1
+        }
+    }
+});
+```
+
+在某个组件的根元素上监听一个原生事件。可以使用 .native 修饰 v-on 
+```html
+<my-component v-on:click.native="doTheThing"></my-component>
+```
+
+### .sync 修饰符
+
+在子组件中更新父组件的数据，它只是作为一个编译时的语法糖存在。它会被扩展为一个自动更新父组件属性的 v-on 侦听器
+```html
+<comp :foo.sync="bar"></comp>
+```
+扩展为
+```html
+<comp :foo="bar" @update:foo="val => bar = val"></comp>
+```
+子组件通过`this.$emit('update:foo', newValue)` 触发更新事件
+
+### 自定义组件的 v-model
+
+```js
+Vue.component('my-checkbox', {
+    model: {
+        prop: 'checked',
+        event: 'change'
+    },
+    props: {
+        checked: Boolean,
+        // this allows using the `value` prop for a different purpose
+        value: String
+    }
+})
+```
+```html
+<my-checkbox v-model="foo" value="some value"></my-checkbox>
+```
+等价为
+```html
+<my-checkbox :checked="foo" @change="val => { foo = val }" value="some value"></my-checkbox>
+```
+
+### 非父子组件通信
+
+简单情况创建一个空的Vue实例来触发与监听自定义事件
+```js
+var bus = new Vue();
+
+bus.$emit('my-event', 123);
+
+bus.$on('my-event', function(id) {
+    console.log(id);
+});
+```
+复杂情况使用 状态管理模式 Vuex
+
+### Slot 分发内容
+
+分发内容是在父作用域内编译
+
+除非子组件模板包含至少一个 `<slot>` 插口，否则父组件的内容将会被丢弃。
+
+当子组件模板只有一个没有属性的 `slot` 时，父组件整个内容片段将插入到 `slot` 所在的 `DOM` 位置，并替换掉 `slot` 标签本身
+
+在 `<slot>` 标签中的任何内容都被视为备用内容。备用内容在子组件的作用域内编译，并且只有在宿主元素为空，且没有要插入的内容时才显示备用内容
+
+`<slot>` 元素可以用一个特殊的属性 `name` 来配置如何分发内容。
+
+具名 `slot` 将匹配内容片段中有对应 `slot` 特性的元素。
+
+匿名 `slot` ，它是默认 `slot` ，作为找不到匹配的内容片段的备用插槽。
+
+如果没有默认的 `slot` ，这些找不到匹配的内容片段将被抛弃
+
+如果子组件有多个 同名的 slot 则每个 slot 都会被匹配并替换
+
+### 作用域插槽
+
+子组件模板
+```html
+<!--child-->
+<div class="child">
+    <slot text="hello from child"></slot>
+</div>
+```
+父组件模板
+```html
+<div class="parent">
+    <child>
+        <template scope="props">
+            <span>hello from parent</span>
+            <span>{{ props.text }}</span>
+        </template>
+    </child>
+</div>
+```
+渲染为
+```html
+<div class="parent">
+    <div class="child">
+        <span>hello from parent</span>
+        <span>hello from child</span>
+    </div>
+</div>
+```
+父组件`template`标签指定一个变量`props`用于接受从子组件`slot`中传递的对象`{text: 'hello from child'}`, 其中不会带有`name`属性
+
+### 动态组件
+
+通过使用保留的 <component> 元素，动态地绑定到它的 is 特性，我们让多个组件可以使用同一个挂载点，并动态切换
+
+```js
+var vm = new Vue({
+    el: '#example',
+    data: {
+        currentView: 'home'
+    },
+    components: {
+        home: { /* ... */ },
+        posts: { /* ... */ },
+        archive: { /* ... */ }
+    }
+})
+```
+
+```html
+<keep-alive>
+    <component v-bind:is="currentView">
+    <!-- 组件在 vm.currentview 变化时改变！ -->
+    </component>
+</keep-alive>
+```
+如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。为此可以添加一个 keep-alive 指令参数
+
+### 杂项
+
+#### 子组件索引
+需要在 JavaScript 中直接访问子组件。为此可以使用 ref 为子组件指定一个索引 ID
+```html
+<div id="parent">
+    <user-profile ref="profile"></user-profile>
+</div>
+```
+如何访问
+```js
+var parent = new Vue({ el: '#parent' })
+// 访问子组件
+var child = parent.$refs.profile
+```
+$refs 只在组件渲染完成后才填充，并且它是非响应式的
+
+### 异步组件
+
+在大型应用中，我们可能需要将应用拆分为多个小模块，按需从服务器下载
+
+Vue.js 允许将组件定义为一个工厂函数，动态地解析组件的定义。Vue.js 只在组件需要渲染时触发工厂函数，并且把结果缓存起来，用于后面的再次渲染
+
+```js
+Vue.component('async-example', function (resolve, reject) {
+    setTimeout(function () {
+        // Pass the component definition to the resolve callback
+        resolve({
+            template: '<div>I am async!</div>'
+        })
+    }, 1000)
+})
+```
+配合使用 ：Webpack 的代码分割功能
+```js
+Vue.component('async-webpack-example', function (resolve) {
+    // 这个特殊的 require 语法告诉 webpack
+    // 自动将编译后的代码分割成不同的块，
+    // 这些块将通过 Ajax 请求自动下载。
+    require(['./my-async-component'], resolve)
+})
+```
+
+### 组件命名约定
+
+当注册组件（或者 props）时，可以使用 kebab-case，camelCase，或 PascalCase
+
+在 HTML 模版中，请使用 kebab-case 形式
+
+当使用字符串模式时，可以不受 HTML 的 case-insensitive 限制
+
+### 递归组件
+
+组件在它的模板内可以递归地调用自己，不过，只有当它有 name 选项时才可以
+
+### 组件间的循环引用
+
+### 内联模板
+
+如果子组件有 inline-template 特性，组件将把它的内容当作它的模板，而不是把它当作分发内容
+
+```html
+<my-component inline-template>
+    <div>
+        <p>These are compiled as the component's own template.</p>
+        <p>Not parent's transclusion content.</p>
+    </div>
+</my-component>
+```
+
+### X-Templates
+
+在 JavaScript 标签里使用 text/x-template 类型，并且指定一个id
+
+```html
+<script type="text/x-template" id="hello-world-template">
+    <p>Hello hello hello</p>
+</script>
+```
+
+```js
+Vue.component('hello-world', {
+    template: '#hello-world-template'
+})
+```
+
+### 对的开销的静态组件使用 v-once
+
+当组件中包含大量静态内容时，可以考虑使用 v-once 将渲染结果缓存起来
+
+```js
+Vue.component('terms-of-service', {
+    template: '\
+        <div v-once>\
+        <h1>Terms of Service</h1>\
+        ... a lot of static content ...\
+        </div>'
+})
+```
