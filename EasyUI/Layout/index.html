@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="../jquery-easyui-1.5.2/themes/default/easyui.css" rel="stylesheet">
+        <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/icon.css">
+        <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/color.css">
+    </head>
+    <body>
+        <div class="easyui-layout" style="width:400px; height:200px;">
+            <div region="west" split="true" title="Navigator" style="width:150px;">
+                <p style="padding:5px; margin:0;">Select language</p>
+                <ul>
+                    <li><a href="javascript:void(0);" onclick="showContent('java')">Java</a></li>
+                    <li><a href="javascript:void(0);" onclick="showContent('c++')">C++</a></li>
+                    <li><a href="javascript:void(0);" onclick="showContent('javascript')">JS</a></li>
+                    <li><a href="javascript:void(0);" onclick="showContent('actionscript')">AS</a></li>
+                    <li><a href="javascript:void(0);" onclick="showContent('erlang')">Erlang</a></li>
+                </ul>
+            </div>
+
+            <div id="content" region="center" title="Languages" style="padding:5px;">
+            </div>
+        </div>
+
+        <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+        <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+        <script>
+            function showContent(language) {
+                $('#content').html('selected language:' + language + '.');
+            }
+        </script>
+    </body>
+</html>
