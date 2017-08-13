@@ -3,7 +3,7 @@
 
 ## 库 & 框架
 
-### jQuery --- 掌握 & 正在使用
+### jQuery --- 熟悉
 
 ### Vue.js --- 熟悉
 
@@ -21,7 +21,7 @@
 
 ## CSS预处理
 
-### less --- 熟悉
+### less --- 了解
 
 ## javascript
 
@@ -47,15 +47,14 @@
 
 ## UI框架
 
-### bootstrap --- 掌握 & 使用中
+### bootstrap --- 熟悉
 
 ### Ant Design --- 未使用
 
 ## 社区
 
-### stackoverflow
+### stack overflow
 
 ### segmentfault
 
 ### github
-
