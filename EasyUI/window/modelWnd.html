@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Window - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+	<script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Modal Window</h2>
+	<p>Click the open button below to open the modal window.</p>
+	<div style="margin:20px 0;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('open')">Open</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#w').window('close')">Close</a>
+    </div>
+    <div style="margin:20px 0;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#bj').window('open')">Open</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#bj').window('close')">Close</a>
+    </div>
+    <div style="margin:20px 0;">
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dd').window('open')">Open</a>
+		<a href="javascript:void(0)" class="easyui-linkbutton" onclick="$('#dd').window('close')">Close</a>
+    </div>
+    
+    <!-- 基本弹窗 -->
+	<div id="w" class="easyui-window" title="Modal Window" data-options="modal:true,closed:true,iconCls:'icon-save'" style="width:500px;height:200px;padding:10px;">
+		The window content.
+    </div>
+    
+    <!-- 窗口中添加布局 -->
+    <div id="bj" class="easyui-window" title="Layout Window" icon="icon-help" style="width:500px;height:250px;padding:5px;background: #fafafa;">
+		<div class="easyui-layout" fit="true">
+			<div region="west" split="true" style="width:120px;">
+				<ul class="easyui-tree">
+					<li>
+						<span>Library</span>
+						<ul>
+							<li><span>easyui</span></li>
+							<li><span>Music</span></li>
+							<li><span>Picture</span></li>
+							<li><span>Database</span></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div region="center" border="false" border="false">
+				<div class="easyui-tabs" fit="true">
+					<div title="Home" style="padding:10px;">
+						jQuery easyui framework help you build your web page easily.
+					</div>
+					<div title="Contacts">
+						No contact data.
+					</div>
+				</div>
+			</div>
+			<div region="south" border="false" style="text-align:right;height:30px;line-height:30px;">
+				<a class="easyui-linkbutton" icon="icon-ok" href="javascript:void(0)">Ok</a>
+				<a class="easyui-linkbutton" icon="icon-cancel" href="javascript:void(0)">Cancel</a>
+			</div>
+		</div>
+	</div>
+
+    <!-- 对话框 -->
+    <div id="dd" class="easyui-dialog" style="padding:5px;width:400px;height:200px;" 
+        title="My Dialog" iconCls="icon-ok" toolbar="#dlg-toolbar" buttons="#dlg-buttons">
+        Dialog Content.
+    </div>
+
+    <div id="dlg-toolbar">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:alert('Add')">Add</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true" onclick="javascript:alert('Save')">Save</a>
+	</div>
+	<div id="dlg-buttons">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="javascript:alert('Ok')">Ok</a>
+		<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dd').dialog('close')">Cancel</a>
+	</div>
+</body>
+</html>
