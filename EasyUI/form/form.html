@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="../jquery-easyui-1.5.2/themes/default/easyui.css" rel="stylesheet">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/color.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <form id="ff" method="post">   
+        <div>   
+            <label for="name">Name:</label>   
+            <input class="easyui-validatebox" type="text" name="name" data-options="required:true" />   
+        </div>   
+        <div>   
+            <label for="email">Email:</label>   
+            <input class="easyui-validatebox" type="text" name="email" data-options="validType:'email'" />   
+        </div>   
+    </form>  
+    
+    <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+</body>
+</html>
