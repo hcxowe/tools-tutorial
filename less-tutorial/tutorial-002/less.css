@@ -1,0 +1,105 @@
+@import "type.css";
+body {
+  background-color: #6c94be;
+}
+.banner {
+  font-weight: bold;
+}
+body {
+  background: url("images/1.png");
+}
+body {
+  color: #FFF;
+}
+nav ul {
+  background: blue;
+}
+.inline,
+nav ul {
+  color: red;
+}
+.bucket tr,
+.some-class {
+  color: blue;
+}
+tr .bucket,
+.some-class {
+  color: blue;
+}
+.bordered {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+a {
+  border-top: dotted 1px black;
+  border-bottom: solid 2px black;
+}
+#header {
+  color: red;
+}
+#header .navigation {
+  font-size: 12px;
+}
+#header .logo {
+  width: 100px;
+}
+#header:hover {
+  color: blue;
+}
+@media screen {
+  .screen-color {
+    color: green;
+  }
+}
+@media screen and (min-width: 768px) {
+  .screen-color {
+    color: red;
+  }
+}
+@media tv {
+  .screen-color {
+    color: black;
+  }
+}
+a {
+  color: blue;
+  padding: 2px;
+}
+@font-face {
+  src: made-up-url;
+}
+.class {
+  width: 50%;
+  color: #f6430f;
+  background-color: #f8b38d;
+}
+#bundle .button {
+  display: block;
+  border: 1px solid black;
+  background-color: grey;
+}
+#bundle .button:hover {
+  background-color: white;
+}
+#bundle .tab {
+  text-decoration: underline;
+}
+#bundle .citation {
+  outline: none;
+}
+.new-bundle {
+  color: orange;
+  text-decoration: underline;
+}
+#page #header {
+  color: white;
+}
+#page #header {
+  color: white;
+}
+/* One hell of a block
+style comment! */
+* {
+  padding: 0;
+  margin: 0;
+}

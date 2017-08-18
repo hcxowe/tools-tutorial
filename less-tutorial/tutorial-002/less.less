@@ -1,0 +1,166 @@
+// 定义变量
+@nice-blue: #5B83AD;
+@light-blue: @nice-blue + #111;
+
+body {
+    background-color: @light-blue;
+}
+
+// 变量插值
+@my-selector: banner;
+
+.@{my-selector} {
+  font-weight: bold;
+}
+
+// URLs插值
+@imagePath: "./images";
+body {
+    background: url("@{imagePath}/1.png");
+}
+
+// import表达式插值
+@basePath: "./";
+@import "@{basePath}/library.less";
+
+// 属性插值
+@prop: color;
+body {
+    @{prop}: #FFF;
+}
+// --------------------------------------------------------
+// 扩展
+nav ul {
+    &:extend(.inline);
+    background: blue;
+}
+.inline {
+    color: red;
+}
+
+.bucket {
+    tr { // nested ruleset with target selector
+        color: blue;
+    }
+}
+.some-class:extend(.bucket tr) {} 
+
+.bucket {
+    tr & { // nested ruleset with target selector
+      color: blue;
+    }
+  }
+  .some-class:extend(tr .bucket) {} 
+  
+// --------------------------------------------------------
+// 简单的混合
+.bordered {
+    border-top: dotted 1px black;
+    border-bottom: solid 2px black;
+}
+
+a {
+    .bordered;
+}
+
+// 嵌套
+#header {
+    color: red;
+    .navigation {
+        font-size: 12px;
+    }
+    .logo {
+        width: 100px;
+    }
+    &:hover {
+        color: blue;
+    }
+}
+
+// 嵌套指令与冒泡 @Media, @supports and @document
+.screen-color {
+    @media screen {
+        color: green;
+
+        @media (min-width: 768px) {
+            color: red;
+        }
+    }
+    @media tv {
+        color: black;
+    }
+}
+
+// 非条件指令冒泡，保持自身 @font-face or @keyframes
+a {
+    color: blue;
+    @font-face {
+        src: made-up-url;
+    }
+    padding: 2px;
+}
+
+// 运算
+@conversion-1: 5cm + 10mm; // result is 6cm
+@conversion-2: 2 - 3cm - 5mm; // result is 1.5cm
+@incompatible-units: 2 + 5px - 3cm; // result is 4px
+@base: 5%;
+@filler: @base * 2; // result is 10%
+@other: @base + @filler; // result is 15%
+
+// 方法
+@base-color: #f04615;
+@width: 0.5;
+.class {
+    width: percentage(@width);
+    color: saturate(@base-color, 5%);
+    background-color: spin(lighten(@base-color, 25%), 8);
+}
+
+// 命名空间
+#bundle {
+    .button {
+      display: block;
+      border: 1px solid black;
+      background-color: grey;
+      &:hover {
+        background-color: white
+      }
+    }
+    .tab {
+        text-decoration: underline;
+    }
+    .citation {
+        outline: none;
+    }
+}
+.new-bundle {
+    color: orange;
+    #bundle > .tab;
+}
+
+// 作用域
+@var: red;
+#page {
+    @var: white;
+    #header {
+        color: @var; // white
+    }
+}
+
+@var: red;
+#page {
+  #header {
+    color: @var; // white
+  }
+  @var: white;
+}
+
+// 注释
+/* One hell of a block
+style comment! */
+
+
+// 导入
+@import "library"; // library.less
+@import "type.css";
