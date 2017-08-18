@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正新订单管理系统</title>
+    <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
+
+    <style>
+        html, body {
+            height: 100%;    
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑";
+        }
+        .breadcrumb > li {
+            float: left;
+            list-style: none;
+            line-height: 40px;
+            vertical-align: middle;
+        }
+        .breadcrumb > li + li:before {
+            color: #CCCCCC;
+            content: "/ ";
+            padding: 0 5px;
+        }
+        .breadcrumb-home {
+            text-decoration: none;
+            color: cornflowerblue;
+        }
+        .breadcrumb-home:hover {
+            text-decoration: underline;
+        }
+        .nav-main {
+            list-style: none;
+        }
+        .nav-main > li {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            margin-top: 10px;
+            text-align:center;
+            background-color: cornflowerblue;
+        }
+        .nav-main > li:hover {
+            background-color: rgb(51, 133, 255);
+        }
+        .nav-icon {
+            display: block;
+            font-size: 53px;
+            text-align: center;
+        }
+
+        .nav-main > li:hover > .nav-child {
+            display: block;
+        }
+
+        .nav-child {
+            display: none;
+            list-style: none;
+            background-color: #585858;
+            position: relative;
+            left: 100px;
+            top: -91px;
+            padding-left: 5px;
+        }
+        .nav-child > li {
+            height: 36px;
+            margin: 0 auto;
+            text-align:center;
+            line-height: 36px;
+            vertical-align: middle;
+            background-color: cornflowerblue;
+            
+        }
+        .nav-child > li + li {
+            border-top: 1px solid #ccc;
+        }
+        .nav-child > li:hover {
+            background-color: rgb(51, 133, 255);
+        }
+    </style>
+</head>
+<body>
+    <div style="position:relative; width:100%; height:100%;overflow:hidden;">
+        <div style="position:absolute; top:0; bottom:0; left:0; width:200px; background:#585858; color:#FFF; z-index:9;">
+            <div style="text-align:center; height:40px; vertical-align: middle; line-height:40px; font-size:20px; font-weight:bold;">正新订单管理系统</div>
+            <ul class="nav-main">
+                <li>
+                    <span class="nav-icon"><i class="fa fa-user"></i></span>
+                    <label>张小三</label>
+                    <ul class="nav-child">
+                        <li>修改密码</li>
+                        <li>安全退出</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="nav-icon"><i class="fa fa-blind"></i></span>
+                    <label>订单管理</label>
+                    <ul class="nav-child">
+                    </ul>
+                </li>
+                <li>
+                    <span class="nav-icon"><i class="fa fa-building"></i></span>
+                    <label>仓库管理</label>
+                </li>
+                <li>
+                    <span class="nav-icon"><i class="fa fa-bus"></i></span>
+                    <label>车间管理</label>
+                </li>
+                <li>
+                    <span class="nav-icon"><i class="fa fa-line-chart"></i></span>
+                    <label>报表统计</label>
+                </li>
+            </ul>
+        </div>
+        <div style="position:absolute; top:0; bottom:0; left:200px; right:0; z-index:1;">
+            <div style="height:40px; border-bottom:1px solid #ccc; padding-left: 10px;">
+                <ul class="breadcrumb">
+                    <li><a href="#" class="breadcrumb-home"><i class="fa fa-home" aria-hidden="true"></i> 首页</a></li>
+                    <li>订单管理</li>
+                    <li>订单历史</li>
+                </ul>
+            </div>
+            <div style="position:absolute; top:40px; left:0; right:0; bottom:0;">
+                <iframe src="./order-manege.html" style="width:100%; height:100%; border:none;"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

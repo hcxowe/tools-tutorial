@@ -1,0 +1,34 @@
+[
+    {
+        "itemid": 1,
+        "productid": 2,
+        "listprice": 3,
+        "unitcost": 4,
+        "attr1": 200,
+        "status": 404
+    },
+    {
+        "itemid": 1,
+        "productid": 2,
+        "listprice": 3,
+        "unitcost": 4,
+        "attr1": 200,
+        "status": 404
+    },
+    {
+        "itemid": 1,
+        "productid": 2,
+        "listprice": 3,
+        "unitcost": 4,
+        "attr1": 200,
+        "status": 404
+    },
+    {
+        "itemid": 1,
+        "productid": 2,
+        "listprice": 3,
+        "unitcost": 4,
+        "attr1": 200,
+        "status": 404
+    }
+]

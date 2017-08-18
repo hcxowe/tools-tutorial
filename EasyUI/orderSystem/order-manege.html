@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/color.css">
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .search-area {
+            list-style: none;
+            font-size: 14px;
+        }
+        .search-area > li {
+            float: left;
+            margin: 5px 10px;
+        }
+
+        a {
+            outline: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="easyui-layout" style="width:100%; height:100%;">
+        <div data-options="region:'north'">
+            <ul class="search-area">
+                <li>
+                    <label>订单日期:</label>
+                    <input class="easyui-datebox" editable="false" style="width:160px"> 
+                </li>
+                <li>
+                    <label>经销商:</label>
+                    <select class="easyui-combobox" style="width:160px;">   
+                        <option>全部</option>   
+                        <option>腾讯</option>   
+                        <option>阿里</option>   
+                        <option>百度</option>   
+                        <option>节点</option>   
+                        <option>华为</option>   
+                    </select>  
+                </li>
+                <li>
+                    <label>订单号:</label>
+                    <input type="text" class="easyui-numberbox"></input>  
+                </li>
+                <li>
+                    <label>订单状态:</label>
+                    <select class="easyui-combobox" style="width:160px;">   
+                        <option>全部</option>   
+                        <option>出库</option>   
+                        <option>配送</option>   
+                        <option>完成</option>   
+                    </select> 
+                </li>
+                <li>
+                    <label>其他条件:</label>
+                    <input type="text" class="easyui-numberbox" value="100" data-options="min:0,precision:2"></input>  
+                </li>
+                <li>
+                    <label>其他条件:</label>
+                    <input class="easyui-textbox" style="width:160px"> 
+                </li>
+                <li>
+                    <label>其他条件:</label>
+                    <input class="easyui-textbox" style="width:160px"> 
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="width:120px">查询</a>
+                </li>
+            </ul>
+        </div>
+        <div data-options="region:'center'">
+            <table class="easyui-datagrid" data-options="fit:true,fitColumns:true,striped:true,border:false,rownumbers:true,pagination:true,
+                    singleSelect:true,url:'datagrid_data1.json',method:'get',toolbar:'#tb'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'itemid'">ID</th>
+                        <th data-options="field:'productid'">订单号</th>
+                        <th data-options="field:'listprice',align:'right'">订单价格</th>
+                        <th data-options="field:'unitcost',align:'right'">订单数量</th>
+                        <th data-options="field:'status',align:'center'">状态</th>
+                        <th data-options="field:'attr1'">备注</th>
+                    </tr>
+                </thead>
+            </table>
+
+            <div id="tb" style="padding:5px;height:auto">
+                <div style="margin-bottom:5px">
+                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">编辑</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" plain="true">保存</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-cut" plain="true">剪切</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="p" class="easyui-window" title="My Panel" style="width:500px;height:150px;padding:10px;background:#fafafa;display:none;"   
+            data-options="iconCls:'icon-save',closable:true,collapsible:false,minimizable:false,maximizable:false,modal:true">   
+            <p>panel content.</p>   
+            <p>panel content.</p>   
+        </div>  
+    </div>
+    
+    <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    <script src="../jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+
+    <script>
+        $(function(){
+            $('#btnAdd').on('click', function(evt) {
+                $('#p').panel('open');
+            });
+        });
+    </script>
+</body>
+</html>
