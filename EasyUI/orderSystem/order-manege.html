@@ -45,7 +45,7 @@
                     <input class="easyui-datebox" editable="false" style="width:160px"> 
                 </li>
                 <li>
-                    <label>经销商:</label>
+                    <label>客户名称:</label>
                     <select class="easyui-combobox" style="width:160px;">   
                         <option>全部</option>   
                         <option>腾讯</option>   
@@ -102,11 +102,10 @@
 
             <div id="tb" style="padding:5px;height:auto">
                 <div style="margin-bottom:5px">
-                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">编辑</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" plain="true">保存</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-cut" plain="true">剪切</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" plain="true">审批订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除订单</a>
                 </div>
             </div>
         </div>
@@ -124,6 +123,9 @@
 
     <script>
         $(function(){
+
+            $('#p').panel('close');
+
             $('#btnAdd').on('click', function(evt) {
                 $('#p').panel('open');
             });
