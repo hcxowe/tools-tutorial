@@ -1,0 +1,47 @@
+/*color*/
+body {
+    color: color('red');
+}
+
+/*convert 单位转换*/
+body {
+    padding: convert(1cm, px);
+}
+
+/*data-uri 内联图片 */
+body {
+    background: data-uri('./back.png');
+}
+
+/*unit 删除或更换单位*/
+body {
+    font-size: unit(20, px);
+    height: unit(100px, %);
+}
+
+/*escape URL-encoding 编码*/
+a::after {
+    content: escape("http://www.baidu.com?query=xxxx");
+}
+
+/*% 字符串格式化*/
+body {
+    background: linear-gradient(%("0 %s, 50% %s, 50% %s, 100% %s", 'red', 'red', 'blue', 'blue'));
+}
+
+/*replace 字符串替换*/
+body {
+    content: replace("Hello, Mars?", "Mars\?", "Earth!");
+}
+
+/*length 返回列表元素个数*/
+@list: "banana", "tomato", "potato", "peach";
+ul {
+    height: convert(10 * length(@list), px);
+}
+
+/*extract 返回列表指定位置的元素*/
+@list: green, red, blue, orange;
+body {
+    background: extract(@list, 3);
+}
