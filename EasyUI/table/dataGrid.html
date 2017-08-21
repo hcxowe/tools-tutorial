@@ -11,13 +11,35 @@
     </head>
     <body>
         <table id="dg" title="My Users" class="easyui-datagrid" style="width:550px;height:250px"
-                url="./data.json" toolbar="#toolbar" rownumbers="true" fitColumns="true" singleSelect="true">
+                data-options="iconCls: 'icon-edit',
+                            url:'./data.json',
+                            method:'get',
+                            toolbar:'#toolbar',
+                            singleSelect: true,
+                            onClickRow: onClickRow">
             <thead>
                 <tr>
                     <th field="firstname" width="50">First Name</th>
-                    <th field="lastname" width="50">Last Name</th>
+                    <th field="lastname" width="50" data-options="editor:{
+                                                                    type: 'combobox',
+                                                                    options: {
+                                                                        valueField: 'value',
+                                                                        textField: 'label',
+                                                                        data: [
+                                                                            {
+                                                                                label: '123',
+                                                                                value: 'oew'
+                                                                            },
+                                                                            {
+                                                                                label: '321',
+                                                                                value: 'owe'
+                                                                            }
+                                                                        ]
+                                                                    }
+                        }">Last Name</th>
                     <th field="phone" width="50">Phone</th>
                     <th field="email" width="50">Email</th>
+                    <th field="age" width="50" data-options="editor:{type:'numberbox',options:{precision:1}}">age</th>
                 </tr>
             </thead>
         </table>
@@ -58,6 +80,33 @@
             function newUser(){
                 $('#dlg').dialog('open').dialog('setTitle','New User');
                 $('#fm').form('clear');
+            }
+
+            var editIndex = undefined;
+            function endEditing(){
+                if (editIndex == undefined){return true}
+                if ($('#dg').datagrid('validateRow', editIndex)){
+                    // var ed = $('#dg').datagrid('getEditor', {index:editIndex,field:'age'});
+                    // var productname = $(ed.target).combobox('getText');
+                    // $('#dg').datagrid('getRows')[editIndex]['age'] = productname;
+                    $('#dg').datagrid('endEdit', editIndex);
+                    editIndex = undefined;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            function onClickRow(index){
+                $('#dg').datagrid('selectRow', index).datagrid('beginEdit', index);
+                if (editIndex != index){
+                    if (endEditing()){
+                        $('#dg').datagrid('selectRow', index)
+                                .datagrid('beginEdit', index);
+                        editIndex = index;
+                    } else {
+                        $('#dg').datagrid('selectRow', editIndex);
+                    }
+                }
             }
         </script>
     </body>
