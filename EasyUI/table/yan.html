@@ -1,0 +1,319 @@
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+
+        <style>
+            .table {
+                width: 100%;
+                table-layout: fixed;
+                font-size: 14px;
+                font-family: '微软雅黑';
+                border-top: 1px solid #ccc;
+                border-left: 1px solid #ccc;
+            }
+
+            .table td {
+                padding: 3px;
+                text-align: center;
+                border-right: 1px solid #ccc;
+                border-bottom: 1px solid #ccc;
+                width: 8.33%
+            }
+
+            .table-textbox {
+                width: 100%;
+                border: none;
+                outline: none;
+                text-align: center;
+            }
+
+            .table-number {
+                width: 100% !important;
+                border: none;
+                outline: none;
+                text-align: center;
+                border: none;
+                box-shadow: none;
+            }
+        </style>
+
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+    </head>
+    <body>
+        <div id="dd" class="easyui-dialog" title="验收单" style="width:860px;height:600px;font-family:'微软雅黑'" data-options="resizable:false,modal:true,buttons:'#btnTool'">   
+            <div class="easyui-layout" fit="true">
+                <div data-options="region:'center'">
+                    <h1 style="text-align:center;">正新技术服务站店形象制品验收单</h1>
+
+                    <table class="table" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">制作公司</td>
+                                <td colspan="2"><input type="text" class="table-textbox"></td>
+                                <td colspan="2">下单制单时间</td>
+                                <td colspan="2"><input class="easyui-datetimebox" data-options="showSeconds:true,editable:false,hasDownArrow:false,cls:'table-textbox'" style="width:100%;"></td>
+                                <td colspan="2">物品寄送时间</td>
+                                <td colspan="2"><input class="easyui-datetimebox" data-options="showSeconds:true,editable:false,hasDownArrow:false,cls:'table-textbox'" style="width:100%;"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">专业店名称</td>
+                                <td colspan="2"><input type="text" class="table-textbox"></td>
+                                <td colspan="4"></td>
+                                <td colspan="2">字体规格</td>
+                                <td colspan="2"><input type="text" class="table-textbox"></td>
+                            </tr>
+                            <tr>
+                                <td>项目</td>
+                                <td>序号</td>
+                                <td colspan="2">品名</td>
+                                <td colspan="4">备注</td>
+                                <td>数量</td>
+                                <td>单位</td>
+                                <td>广告公司确认</td>
+                                <td>装潢公司确认</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="10">固定部分</td>
+                                <td>1</td>
+                                <td colspan="2">正新轮胎LED字</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>字</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td colspan="2">卡车轮胎</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>套</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td colspan="2">炮台LED字</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>字</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>    
+                            <tr>
+                                <td>4</td>
+                                <td colspan="2">CST字</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>字</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td colspan="2">技术服务站LED字</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>字</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>    
+                            <tr>
+                                <td>6</td>
+                                <td colspan="2">包装</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>套</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td colspan="2">变压器</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>个</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td colspan="2">定时开关器</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>个</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td colspan="2">1:1喷绘图</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>副</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+
+                            <tr>
+                                <td>10</td>
+                                <td colspan="2">安装说明书</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>份</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+
+                            <!-- 可变部分 -->
+                            <tr>
+                                <td rowspan="12">可变部分</td>
+                                <td>1</td>
+                                <td colspan="2">店招编号</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>个</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td colspan="2">公司名称</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>字</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td colspan="2">电话号码</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>字</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>    
+                            <tr>
+                                <td>4</td>
+                                <td colspan="2">接待台</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>张</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td colspan="2" rowspan="2">背景墙文字</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td rowspan="2"><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td rowspan="2">字</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>    
+                            <tr>
+                                <td>6</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td colspan="2">嵌入式筒灯</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>套</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td colspan="2">小节能灯</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>个</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td colspan="2">授权牌</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>个</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+
+                            <tr>
+                                <td>10</td>
+                                <td colspan="2">防撞条</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>个</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="2">11</td>
+                                <td colspan="2" rowspan="2">正新技术服</td>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>套</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><input type="text" class="table-textbox"></td>
+                                <td><input type="text" class="easyui-numberbox" value="" data-options="min:0,max:9999999,cls:'table-number'"/></td>
+                                <td>套</td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                                <td><label><input type="checkbox" style="vertical-align: bottom;"/>确认</label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>  
+
+        <div id="btnTool" style="text-align:center;">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="">提交</a>
+        </div>
+
+        <script>
+            function dateFormater(date, format) {
+                var datestr = {
+                    "M+": date.getMonth() + 1,
+                    "d+": date.getDate(),
+                    "h+": date.getHours(),
+                    "m+": date.getMinutes(),
+                    "s+": date.getSeconds(),
+                    "q+": Math.floor((date.getMonth() + 3) / 3),
+                    "S+": date.getMilliseconds()
+                };
+                if (/(y+)/i.test(format)) {
+                    format = format.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+                }
+                for (var k in datestr) {
+                    if (new RegExp("(" + k + ")").test(format)) {
+                        format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                                        ? datestr[k] : ("00" + datestr[k]).substr(("" + datestr[k]).length));
+                    }
+                }
+                
+                return format;
+            }
+            $(function() {
+                $('.easyui-datetimebox').datetimebox('setValue', dateFormater(new Date(), 'yyyy-MM-dd hh:mm:ss'));
+            })
+        </script>
+    </body>
+</html>
