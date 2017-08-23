@@ -1,34 +1,57 @@
 [
     {
-        "itemid": 1,
-        "productid": 2,
-        "listprice": 3,
-        "unitcost": 4,
-        "attr1": 200,
-        "status": 404
+        "orderID": 123456,
+        "orderName": "郫县辣条",
+        "orgName": "成都市辣条厂",
+        "orderTime": "2017-08-23",
+        "orders": "李三",
+        "number": 1000,
+        "price": 100000,
+        "status": "未完成",
+        "desc": "请在8月底完成"
     },
     {
-        "itemid": 1,
-        "productid": 2,
-        "listprice": 3,
-        "unitcost": 4,
-        "attr1": 200,
-        "status": 404
+        "orderID": 123456,
+        "orderName": "郫县辣条",
+        "orgName": "成都市辣条厂",
+        "orderTime": "2017-08-23",
+        "orders": "李三",
+        "number": 1000,
+        "price": 100000,
+        "status": "未完成",
+        "desc": "请在8月底完成"
     },
     {
-        "itemid": 1,
-        "productid": 2,
-        "listprice": 3,
-        "unitcost": 4,
-        "attr1": 200,
-        "status": 404
+        "orderID": 123456,
+        "orderName": "郫县辣条",
+        "orgName": "成都市辣条厂",
+        "orderTime": "2017-08-23",
+        "orders": "李三",
+        "number": 1000,
+        "price": 100000,
+        "status": "未完成",
+        "desc": "请在8月底完成"
     },
     {
-        "itemid": 1,
-        "productid": 2,
-        "listprice": 3,
-        "unitcost": 4,
-        "attr1": 200,
-        "status": 404
+        "orderID": 123456,
+        "orderName": "郫县辣条",
+        "orgName": "成都市辣条厂",
+        "orderTime": "2017-08-23",
+        "orders": "李三",
+        "number": 1000,
+        "price": 100000,
+        "status": "未完成",
+        "desc": "请在8月底完成"
+    },
+    {
+        "orderID": 123456,
+        "orderName": "郫县辣条",
+        "orgName": "成都市辣条厂",
+        "orderTime": "2017-08-23",
+        "orders": "李三",
+        "number": 1000,
+        "price": 100000,
+        "status": "未完成",
+        "desc": "请在8月底完成"
     }
 ]

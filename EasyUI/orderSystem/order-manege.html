@@ -38,6 +38,45 @@
         a {
             outline: none !important;
         }
+
+        .info-list {
+            list-style: none;
+            overflow: hidden;
+        }
+
+        .info-list label {
+            display: inline-block;
+            width: 60px;
+            text-align: right;
+        }
+
+        .info-list > li {
+            float: left;
+            width: 33.33%;
+            margin-top: 5px;
+        }
+
+        .table-input {
+            width:160px;
+            border:none;
+            border-bottom:1px solid;
+        }
+        .table-input:focus {
+            outline: none;
+        }
+
+        .table-order {
+            margin-top: 10px;
+            width:100%;
+            border-top:1px solid;
+            border-left:1px solid;
+        }
+        .table-order td {
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+            text-align: center;
+            height: 30px;
+        }
     </style>
 </head>
 
@@ -47,29 +86,21 @@
             <ul class="search-area">
                 <li>
                     <label>订单日期:</label>
-                    <input class="easyui-datebox" editable="false" style="width:160px">
+                    <input class="easyui-datebox" editable="false" value="2017-08-26" style="width:160px">
                 </li>
                 <li>
-                    <label>客户名称:</label>
-                    <select class="easyui-combobox" style="width:160px;">
-                        <option>全部</option>
-                        <option>腾讯</option>
-                        <option>阿里</option>
-                        <option>百度</option>
-                        <option>节点</option>
-                        <option>华为</option>
-                    </select>
+                    <label>单位名称:</label>
+                    <input class="easyui-textbox" style="width:160px">
                 </li>
                 <li>
                     <label>订单号:</label>
-                    <input type="text" class="easyui-numberbox"></input>
+                    <input class="easyui-textbox" style="width:160px">
                 </li>
                 <li>
                     <label>订单状态:</label>
-                    <select class="easyui-combobox" style="width:160px;">
+                    <select class="easyui-combobox" data-options="panelHeight:78" style="width:160px;">
                         <option>全部</option>
-                        <option>出库</option>
-                        <option>配送</option>
+                        <option>未完成</option>
                         <option>完成</option>
                     </select>
                 </li>
@@ -79,56 +110,178 @@
             </ul>
         </div>
         <div data-options="region:'center'">
-            <table class="easyui-datagrid" data-options="fit:true,striped:true,fitColumns:true,striped:true,border:false,rownumbers:true,pagination:true,singleSelect:true,url:'datagrid_data1.json',method:'get',toolbar:'#tb'">
+            <table class="easyui-datagrid" data-options="fit:true,striped:true,fitColumns:false,striped:true,border:false,rownumbers:true,pagination:true,singleSelect:true,url:'datagrid_data1.json',method:'get',toolbar:'#tb'">
                 <thead>
                     <tr>
-                        <th data-options="field:'productid',align:'center'">订单编号</th>
-                        <th data-options="field:'customname',align:'center'">客户名称</th>
-                        <th data-options="field:'datetime',align:'center'">下单时间</th>
-                        <th data-options="field:'orders',align:'center'">下单人员</th>
-                        <th data-options="field:'prosnum',align:'center'">产品数量</th>
-                        <th data-options="field:'listprice',align:'center'">订单价格</th>
-                        <th data-options="field:'status',align:'center'">当前状态</th>
-                        <th data-options="field:'attr1',align:'center'">备注</th>
-                        <th data-options="field:'attr1',align:'center'">操作</th>
+                        <th data-options="field:'x',width:120,align:'center',formatter:formatter">操作</th>
+                        <th data-options="field:'orderID',width:120,align:'center'">订单编号</th>
+                        <th data-options="field:'orderName',width:120,align:'center'">订单名称</th>
+                        <th data-options="field:'orgName',width:120,align:'center'">单位名称</th>
+                        <th data-options="field:'orderTime',width:120,align:'center'">下单时间</th>
+                        <th data-options="field:'orders',width:120,align:'center'">下单人员</th>
+                        <th data-options="field:'number',width:120,align:'center'">产品数量</th>
+                        <th data-options="field:'price',width:120,align:'center'">订单价格</th>
+                        <th data-options="field:'status',width:120,align:'center'">当前状态</th>
+                        <th data-options="field:'desc',width:120,align:'center'">备注</th>
                     </tr>
                 </thead>
             </table>
 
             <div id="tb" style="padding:5px;height:auto">
                 <div style="margin-bottom:5px">
-                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">添加订单</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">修改订单</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" plain="true">审批订单</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除订单</a>
+                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">催促订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" plain="true">交付订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true">重新下单</a>
                 </div>
             </div>
         </div>
-
-        <div id="p" class="easyui-window" title="My Panel" style="width:500px;height:150px;padding:10px;background:#fafafa;display:none;"
-            data-options="iconCls:'icon-save',closable:true,collapsible:false,minimizable:false,maximizable:false,modal:true">
-            <p>panel content.</p>
-            <p>panel content.</p>
-        </div>
     </div>
+
+    <div id="dd" class="easyui-dialog" title="新增订单" style="width:800px;height:450px;" data-options="resizable:false,modal:true">   
+        <div class="easyui-layout" style="width:100%; height:100%;">
+            <div data-options="region:'center'" style="padding:10px;font-size:14px;">
+                <div style="text-align:center;padding:10px;">
+                    <label style="font-size:24px;font-weight:bold;border-bottom:2px solid">&nbsp;&nbsp;销售订单&nbsp;&nbsp;</label>
+                </div>
+                <ul class="info-list">
+                    <li>
+                        <label>购货单位:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                    <li>
+                        <label>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                    <li>
+                        <label>编&nbsp;&nbsp;号:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                    <li>
+                        <label class="table-label">销售方式:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                    <li>
+                        <label>结算方式:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                    <li>
+                        <label>币&nbsp;&nbsp;别:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                    <li>
+                        <label class="table-label">交货方式:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                    <li>
+                        <label>交货地点:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                    <li>
+                        <label>汇&nbsp;&nbsp;率:</label>
+                        <input class="table-input" type="text">
+                    </li>
+                </ul>
+                <table class="table-order" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td>产品代码</td>
+                            <td>产品名称</td>
+                            <td>规格型号</td>
+                            <td>单位</td>
+                            <td>数量</td>
+                            <td>含税单价</td>
+                            <td>折扣率</td>
+                            <td>价税合计</td>
+                            <td>备注</td>
+                        </tr>
+                        <tr>
+                            <td>123</td>
+                            <td>辣条</td>
+                            <td>60</td>
+                            <td>根</td>
+                            <td>1000</td>
+                            <td>1</td>
+                            <td>80</td>
+                            <td>20</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                        </tr>
+                        <tr>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                        </tr>
+                        <tr>
+                            <td>合计</td>
+                            <td colspan="2"><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td>汇率折扣</td>
+                            <td colspan="2"><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td>汇总价格合计</td>
+                            <td colspan="2"><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="padding-top:15px;text-align:center;">  
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:120px">提交订单</a>
+                </div>  
+            </div>
+        </div>
+    </div>  
     
     <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
     <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
     <script src="../jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
 
-
     <script>
         $(function () {
-            test();
-            $('#p').panel('close');
+            $('#dd').panel('close');
             
             $('#btnAdd').on('click', function (evt) {
-                $('#p').panel('open');
+                $('#dd').panel('open');
             });
         });
 
-        function test(par1, par2) {
-
+        function formatter(value,row,index) {
+            return '<a href="javascript:void(0);">详情</a>';
         }
     </script>
 </body>
