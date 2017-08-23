@@ -54,7 +54,9 @@
                                 }
                             ]
                         }}">Phone</th>
-                    <th field="email" width="50">Email</th>
+                    <th field="email" width="250" data-options="
+                            formatter: formatter
+                        ">Email</th>
                     <th field="age" width="50" data-options="editor:{type:'numberbox',options:{precision:1}}">age</th>
                 </tr>
             </thead>
@@ -145,6 +147,18 @@
                 var phone = $(ed.target).combotree('tree').tree('getSelected');
                 if (phone) 
                     $("#dg").datagrid('getRows')[editIndex]['phone'] = phone.text;
+            }
+
+            function formatter(value,row,index){
+                return '<div style="position:relative;width:100%;height:100%;text-align:right;height:50px;"> \
+                            <span onclick="onSpanClick();" style="position:absolute;top:0;left:0;background:#ccc;border-radius:50%;color:red;width:18px;height:18px;text-align:center;">' + index + '</span> \
+                            <span onclick="onSpanClick();" style="position:absolute;bottom:0;left:0;background:blue;border-radius:50%;color:white;width:18px;height:18px;text-align:center;">' + index + '</span> \
+                            ' + value +'\
+                        </div>';
+            }
+
+            function onSpanClick() {
+                alert('span was clicked');
             }
         </script>
     </body>
