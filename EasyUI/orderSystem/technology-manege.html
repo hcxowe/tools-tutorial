@@ -143,36 +143,23 @@
                 </li>
             </ul>
         </div>
-        <!-- <div data-options="region:'center'">
-            <table class="easyui-datagrid" data-options="fit:true,striped:true,fitColumns:false,striped:true,border:false,rownumbers:true,pagination:true,singleSelect:true,url:'datagrid_data1.json',method:'get',toolbar:'#tb'">
+        <div data-options="region:'center'">
+            <table id="tt" class="easyui-datagrid" data-options="fit:true,striped:true,fitColumns:false,striped:true,border:false,rownumbers:true,pagination:true,singleSelect:true,toolbar:'#tb'">
                 <thead>
                     <tr>
-                        <th data-options="field:'x',width:120,align:'center',formatter:formatter">操作</th>
                         <th data-options="field:'orderID',width:120,align:'center'">订单编号</th>
                         <th data-options="field:'orderName',width:120,align:'center'">订单名称</th>
                         <th data-options="field:'orgName',width:120,align:'center'">单位名称</th>
-                        <th data-options="field:'orderTime',width:120,align:'center'">下单时间</th>
+                        <th data-options="field:'orderTime',width:120,align:'center'">下单日期</th>
+                        <th data-options="field:'deliveryTime',width:120,align:'center'">交货日期</th>
                         <th data-options="field:'orders',width:120,align:'center'">下单人员</th>
                         <th data-options="field:'number',width:120,align:'center'">产品数量</th>
-                        <th data-options="field:'price',width:120,align:'center'">订单价格</th>
                         <th data-options="field:'status',width:120,align:'center'">当前状态</th>
                         <th data-options="field:'desc',width:120,align:'center'">备注</th>
                     </tr>
                 </thead>
             </table>
 
-            <div id="tb" style="padding:5px;height:auto">
-                <div style="margin-bottom:5px">
-                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增订单</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">催促订单</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" plain="true">交付订单</a>
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true">重新下单</a>
-                </div>
-            </div>
-        </div> -->
-        
-        <div data-options="region:'center'">
-            <table id="tt"></table> 
             <div id="tb" style="padding:5px;height:auto">
                 <div style="margin-bottom:5px">
                     <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增工艺单</a>
@@ -182,7 +169,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <div id="dd" class="easyui-dialog" title="新增工艺单" style="width:1000px;height:600px;" data-options="resizable:false,modal:true,closed:true,buttons:'#btnGrounds'">   
@@ -194,7 +180,7 @@
                         <label>下单日期: 2017-08-01</label>
                     </div>
                     <div style="float:right;">
-                        <label>下单日期: 2017-08-31</label>
+                        <label>交货日期: 2017-08-31</label>
                     </div>
                 </div>
                 <table class="tech-table" cellspacing="0" cellpadding="0">
@@ -330,77 +316,13 @@
                 $('#dd').panel('setTitle', "编辑工艺单");
             });
 
-            $('#tt').datagrid({
-                fit:true,
-                striped:true,
-                fitColumns:false,
-                border:false,
-                pagination:true,
-                singleSelect:true,
-                //url:'datagrid_data1.json',
-                //method:'get',
-                toolbar:'#tb',
-                columns:[[ 
-                    // {field:'x',title:'操作',width:120,align:'center',formatter: formatter}, 
-                    {field:'orderID',title:'订单编号',width:120,align:'center'}, 
-                    {field:'orderName',title:'订单名称',width:120,align:'center'}, 
-                    {field:'orgName',title:'单位名称',width:120,align:'center'}, 
-                    {field:'orderTime',title:'下单时间',width:120,align:'center'}, 
-                    {field:'orders',title:'下单人员',width:120,align:'center'}, 
-                    {field:'number',title:'产品数量',width:120,align:'center'}, 
-                    {field:'price',title:'订单价格',width:120,align:'center'}, 
-                    {field:'status',title:'当前状态',width:120,align:'center'}, 
-                    {field:'desc',title:'备注',width:120,align:'center',align:'center'} 
-                ]], 
-                view: detailview, 
-                detailFormatter: function(rowIndex, rowData){ 
-                    return '<table class="child-list" cellspacing="0" cellpadding="0">\
-                                <thead>\
-                                    <tr>\
-                                        <td style="width:100px">名称</td>\
-                                        <td style="width:100px">规格</td>\
-                                        <td style="width:100px">单价</td>\
-                                        <td style="width:100px">总价</td>\
-                                        <td style="width:100px">进度</td>\
-                                        <td style="width:140px">预计完成时间</td>\
-                                    </tr>\
-                                </thead>\
-                                <tbody>\
-                                    <tr>\
-                                        <td style="width:100px">辣条</td>\
-                                        <td style="width:100px">60g</td>\
-                                        <td style="width:100px">1</td>\
-                                        <td style="width:100px">1000</td>\
-                                        <td style="width:100px">未完成</td>\
-                                        <td style="width:100px">2017-08-31</td>\
-                                    </tr>\
-                                    <tr>\
-                                        <td style="width:100px">辣条</td>\
-                                        <td style="width:100px">60g</td>\
-                                        <td style="width:100px">1</td>\
-                                        <td style="width:100px">1000</td>\
-                                        <td style="width:100px">未完成</td>\
-                                        <td style="width:100px">2017-08-31</td>\
-                                    </tr>\
-                                    <tr>\
-                                        <td style="width:100px">辣条</td>\
-                                        <td style="width:100px">60g</td>\
-                                        <td style="width:100px">1</td>\
-                                        <td style="width:100px">1000</td>\
-                                        <td style="width:100px">未完成</td>\
-                                        <td style="width:100px">2017-08-31</td>\
-                                    </tr>\
-                                    <tr>\
-                                        <td style="width:100px">辣条</td>\
-                                        <td style="width:100px">60g</td>\
-                                        <td style="width:100px">1</td>\
-                                        <td style="width:100px">1000</td>\
-                                        <td style="width:100px">未完成</td>\
-                                        <td style="width:100px">2017-08-31</td>\
-                                    </tr>\
-                                </tbody>\
-                            </table>';
-                } 
+            $('#btnRepeat').on('click', () => {
+                $('#dd').panel('open');
+                $('#dd').panel('setTitle', "工艺单信息录入");
+            });
+
+            $('#btnDelivery').on('click', () => {
+                $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">操作成功，工艺单已暂定！</div>', 'info');
             });
 
             $('#btnSearch').on('click', function() {
@@ -410,10 +332,11 @@
                                                     "orderName": "郫县辣条",
                                                     "orgName": "成都市辣条厂",
                                                     "orderTime": "2017-08-23",
+                                                    "deliveryTime": "2017-08-31",
                                                     "orders": "李三",
                                                     "number": 1000,
                                                     "price": 100000,
-                                                    "status": "未完成",
+                                                    "status": "印刷中",
                                                     "desc": "请在8月底完成"
                                                 },
                                                 {
@@ -421,28 +344,14 @@
                                                     "orderName": "郫县辣条",
                                                     "orgName": "成都市辣条厂",
                                                     "orderTime": "2017-08-23",
+                                                    "deliveryTime": "2017-08-31",
                                                     "orders": "李三",
                                                     "number": 1000,
                                                     "price": 100000,
-                                                    "status": "完成",
+                                                    "status": "分切中",
                                                     "desc": "请在8月底完成"
                                                 }
                                             ]);
-            });
-
-            $('#btnUrge').on('click', () => {
-                var item = $('#tt').datagrid('getSelected');
-                (item.status != '完成') && $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">已催促，订单将尽快处理！</div>', 'info');
-            });
-
-            $('#btnRepeat').on('click', () => {
-                var item = $('#tt').datagrid('getSelected');
-                (item.status == '完成') && $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">已重新下单！</div>', 'info');
-            });
-
-            $('#btnDelivery').on('click', () => {
-                var item = $('#tt').datagrid('getSelected');
-                (item.status == '完成') && $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">操作成功，订单已交付！</div>', 'info');
             });
         });
 
