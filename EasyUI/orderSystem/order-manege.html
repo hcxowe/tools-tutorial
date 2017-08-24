@@ -77,6 +77,20 @@
             text-align: center;
             height: 30px;
         }
+
+        .child-list {
+			table-layout: fixed;
+			border: 1px solid #ccc;
+		}
+
+		.child-list > thead {
+			background: #ccc;
+		}
+
+		.child-list td {
+            height: 26px;
+            text-align: center
+		}
     </style>
 </head>
 
@@ -109,7 +123,7 @@
                 </li>
             </ul>
         </div>
-        <div data-options="region:'center'">
+        <!-- <div data-options="region:'center'">
             <table class="easyui-datagrid" data-options="fit:true,striped:true,fitColumns:false,striped:true,border:false,rownumbers:true,pagination:true,singleSelect:true,url:'datagrid_data1.json',method:'get',toolbar:'#tb'">
                 <thead>
                     <tr>
@@ -135,10 +149,23 @@
                     <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true">重新下单</a>
                 </div>
             </div>
+        </div> -->
+        
+        <div data-options="region:'center'">
+            <table id="tt"></table> 
+            <div id="tb" style="padding:5px;height:auto">
+                <div style="margin-bottom:5px">
+                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">催促订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" plain="true">交付订单</a>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true">重新下单</a>
+                </div>
+            </div>
         </div>
+
     </div>
 
-    <div id="dd" class="easyui-dialog" title="新增订单" style="width:800px;height:450px;" data-options="resizable:false,modal:true">   
+    <div id="dd" class="easyui-dialog" title="新增订单" style="width:800px;height:450px;" data-options="resizable:false,modal:true,closed:true">   
         <div class="easyui-layout" style="width:100%; height:100%;">
             <div data-options="region:'center'" style="padding:10px;font-size:14px;">
                 <div style="text-align:center;padding:10px;">
@@ -266,18 +293,85 @@
             </div>
         </div>
     </div>  
-    
+
     <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
     <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    <script src="./datagrid-detailview.js"></script>
     <script src="../jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
 
     <script>
         $(function () {
-            $('#dd').panel('close');
-            
             $('#btnAdd').on('click', function (evt) {
                 $('#dd').panel('open');
             });
+
+            $('#tt').datagrid({
+                fit:true,
+                striped:true,
+                fitColumns:false,
+                border:false,
+                pagination:true,
+                singleSelect:true,
+                url:'datagrid_data1.json',
+                method:'get',
+                toolbar:'#tb',
+                columns:[[ 
+                    {field:'x',title:'操作',width:120,align:'center',formatter: formatter}, 
+                    {field:'orderID',title:'订单编号',width:120,align:'center'}, 
+                    {field:'orderName',title:'订单名称',width:120,align:'center',align:'right',}, 
+                    {field:'orgName',title:'单位名称',width:120,align:'center',align:'right'}, 
+                    {field:'orderTime',title:'下单时间',wwidth:120,align:'center'}, 
+                    {field:'orders',title:'下单人员',wwidth:120,align:'center'}, 
+                    {field:'number',title:'产品数量',wwidth:120,align:'center',align:'center'}, 
+                    {field:'price',title:'订单价格',wwidth:120,align:'center',align:'center'}, 
+                    {field:'status',title:'当前状态',wwidth:120,align:'center',align:'center'}, 
+                    {field:'desc',title:'备注',wwidth:120,align:'center',align:'center'} 
+                ]], 
+                view: detailview, 
+                detailFormatter: function(rowIndex, rowData){ 
+                    return '<table class="child-list" cellspacing="0" cellpadding="0">\
+                                <thead>\
+                                    <tr>\
+                                        <td style="width:100px">名称</td>\
+                                        <td style="width:100px">规格</td>\
+                                        <td style="width:100px">单价</td>\
+                                        <td style="width:100px">总价</td>\
+                                        <td style="width:100px">进度</td>\
+                                    </tr>\
+                                </thead>\
+                                <tbody>\
+                                    <tr>\
+                                        <td style="width:100px">辣条</td>\
+                                        <td style="width:100px">60g</td>\
+                                        <td style="width:100px">1</td>\
+                                        <td style="width:100px">1000</td>\
+                                        <td style="width:100px">未完成</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <td style="width:100px">辣条</td>\
+                                        <td style="width:100px">60g</td>\
+                                        <td style="width:100px">1</td>\
+                                        <td style="width:100px">1000</td>\
+                                        <td style="width:100px">未完成</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <td style="width:100px">辣条</td>\
+                                        <td style="width:100px">60g</td>\
+                                        <td style="width:100px">1</td>\
+                                        <td style="width:100px">1000</td>\
+                                        <td style="width:100px">未完成</td>\
+                                    </tr>\
+                                    <tr>\
+                                        <td style="width:100px">辣条</td>\
+                                        <td style="width:100px">60g</td>\
+                                        <td style="width:100px">1</td>\
+                                        <td style="width:100px">1000</td>\
+                                        <td style="width:100px">未完成</td>\
+                                    </tr>\
+                                </tbody>\
+                            </table>';
+                } 
+            })
         });
 
         function formatter(value,row,index) {
