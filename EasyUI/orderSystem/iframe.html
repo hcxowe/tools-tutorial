@@ -100,13 +100,13 @@
                         <li>安全退出</li>
                     </ul>
                 </li>
-                <li>
+                <li url="./order-manege.html" url-title="订单管理" url-id="order">
                     <span class="nav-icon"><i class="fa fa-blind"></i></span>
                     <label>订单管理</label>
                     <ul class="nav-child">
                     </ul>
                 </li>
-                <li>
+                <li url="./technology-manege.html" url-title="工艺单管理" url-id="technology">
                     <span class="nav-icon"><i class="fa fa-blind"></i></span>
                     <label>工艺单管理</label>
                     <ul class="nav-child">
@@ -141,14 +141,39 @@
             <div style="height:40px; border-bottom:1px solid #ccc; padding-left: 10px;">
                 <ul class="breadcrumb">
                     <li><a href="#" class="breadcrumb-home"><i class="fa fa-home" aria-hidden="true"></i> 首页</a></li>
-                    <li>订单管理</li>
+                    <li id="breadcrumbChild">订单管理</li>
                     <!-- <li>订单历史</li> -->
                 </ul>
             </div>
-            <div style="position:absolute; top:40px; left:0; right:0; bottom:0;">
-                <iframe src="./order-manege.html" style="width:100%; height:100%; border:none;"></iframe>
+            <div id="iframeContainer" style="position:absolute; top:40px; left:0; right:0; bottom:0;">
+                <!-- <iframe id="iframeorder" src="./order-manege.html" style="width:100%; height:100%; border:none;"></iframe> -->
+                <iframe id="iframetechnology" src="./technology-manege.html" style="width:100%; height:100%; border:none;"></iframe>
             </div>
         </div>
     </div>
+
+    <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+
+    <script>
+        $(function() {
+            var $container = $('#iframeContainer');
+
+            $('.nav-main').on('click', 'li', function() {
+                var $this = $(this);
+                $('#breadcrumbChild').text($this.attr('url-title'));
+                
+                var idName = 'iframe' + $this.attr('url-id');
+                var url = $this.attr('url');
+
+                if($('#' + idName).length == 0) {
+                    $container.children().hide();
+                    $container.append('<iframe id="' + idName + '" src="' + url + '" style="width:100%;height:100%;border:none;"/>');
+                }
+                else {
+                    $('#' + idName).show().siblings().hide();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

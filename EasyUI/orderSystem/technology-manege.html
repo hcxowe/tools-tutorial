@@ -92,6 +92,20 @@
             height: 26px;
             text-align: center
 		}
+
+        .tech-table {
+            width: 100%;
+            table-layout: fixed;
+            border-top: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+        }
+
+        .tech-table td {
+            padding: 2px;
+            text-align: center;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
     </style>
 </head>
 
@@ -112,10 +126,15 @@
                     <input class="easyui-textbox" style="width:160px">
                 </li>
                 <li>
-                    <label>订单状态:</label>
+                    <label>产品名称:</label>
+                    <input class="easyui-textbox" style="width:160px">
+                </li>
+                <li>
+                    <label>工艺单状态:</label>
                     <select class="easyui-combobox" data-options="panelHeight:78" style="width:160px;">
                         <option>全部</option>
-                        <option>未完成</option>
+                        <option>未制作</option>
+                        <option>生产中</option>
                         <option>完成</option>
                     </select>
                 </li>
@@ -156,144 +175,143 @@
             <table id="tt"></table> 
             <div id="tb" style="padding:5px;height:auto">
                 <div style="margin-bottom:5px">
-                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增订单</a>
-                    <a id="btnUrge" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">催促订单</a>
-                    <a id="btnDelivery" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" plain="true">交付订单</a>
-                    <a id="btnRepeat" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true">重新下单</a>
+                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增工艺单</a>
+                    <a id="btnEdit" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">编辑工艺单</a>
+                    <a id="btnDelivery" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" plain="true">暂停工艺单</a>
+                    <a id="btnRepeat" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true">信息录入</a>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div id="dd" class="easyui-dialog" title="新增订单" style="width:800px;height:450px;" data-options="resizable:false,modal:true,closed:true">   
-        <div class="easyui-layout" style="width:100%; height:100%;">
+    <div id="dd" class="easyui-dialog" title="新增工艺单" style="width:1000px;height:600px;" data-options="resizable:false,modal:true,closed:true,buttons:'#btnGrounds'">   
+        <div class="easyui-layout" data-options="fit:true">
             <div data-options="region:'center'" style="padding:10px;font-size:14px;">
-                <div style="text-align:center;padding:10px;">
-                    <label style="font-size:24px;font-weight:bold;border-bottom:2px solid">&nbsp;&nbsp;销售订单&nbsp;&nbsp;</label>
+                <h1 style="text-align:center;margin-bottom:10px;">成都和达印务包装公司生产工艺通知单</h1>
+                <div style="overflow:hidden;">
+                    <div style="float:left;">
+                        <label>下单日期: 2017-08-01</label>
+                    </div>
+                    <div style="float:right;">
+                        <label>下单日期: 2017-08-31</label>
+                    </div>
                 </div>
-                <ul class="info-list">
-                    <li>
-                        <label>购货单位:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                    <li>
-                        <label>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                    <li>
-                        <label>编&nbsp;&nbsp;号:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                    <li>
-                        <label class="table-label">销售方式:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                    <li>
-                        <label>结算方式:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                    <li>
-                        <label>币&nbsp;&nbsp;别:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                    <li>
-                        <label class="table-label">交货方式:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                    <li>
-                        <label>交货地点:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                    <li>
-                        <label>汇&nbsp;&nbsp;率:</label>
-                        <input class="table-input" type="text">
-                    </li>
-                </ul>
-                <table class="table-order" cellspacing="0" cellpadding="0">
+                <table class="tech-table" cellspacing="0" cellpadding="0">
                     <tbody>
                         <tr>
-                            <td>产品代码</td>
-                            <td>产品名称</td>
-                            <td>规格型号</td>
-                            <td>单位</td>
-                            <td>数量</td>
-                            <td>含税单价</td>
-                            <td>折扣率</td>
-                            <td>价税合计</td>
-                            <td>备注</td>
+                            <td colspan="2">订货单位</td>
+                            <td colspan="10">成都红灯笼食品有限公司</td>
+                            <td colspan="2">订货单号</td>
+                            <td colspan="2">SC2017080112</td>
                         </tr>
                         <tr>
-                            <td>123</td>
-                            <td>辣条</td>
-                            <td>60</td>
-                            <td>根</td>
-                            <td>1000</td>
-                            <td>1</td>
-                            <td>80</td>
-                            <td>20</td>
-                            <td></td>
+                            <td colspan="2">产品名称</td>
+                            <td colspan="14">100g红灯笼水煮肉片</td>
                         </tr>
                         <tr>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td colspan="2">订货数量</td>
+                            <td colspan="10">88,999.00</td>
+                            <td colspan="2">营销员</td>
+                            <td colspan="2">张三</td>
                         </tr>
                         <tr>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td colspan="2">数量控制</td>
+                            <td colspan="2">最高</td>
+                            <td colspan="2">10000</td>
+                            <td colspan="2">最低</td>
+                            <td colspan="2">199</td>
+                            <td colspan="2"></td>
+                            <td colspan="2">版号</td>
+                            <td colspan="2">1.2.3</td>
                         </tr>
                         <tr>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td colspan="16" style="padding:4px; font-weight:bold;">材料结构</td>
                         </tr>
                         <tr>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td colspan="2">层数</td>
+                            <td colspan="4">材料名称</td>
+                            <td colspan="2">材料宽度(mm)</td>
+                            <td colspan="2">材料厚度(mm)</td>
+                            <td colspan="2">材料密度</td>
+                            <td colspan="2">米数</td>
+                            <td colspan="2">重量(kg)</td>
                         </tr>
                         <tr>
-                            <td>合计</td>
-                            <td colspan="2"><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td>汇率折扣</td>
-                            <td colspan="2"><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
-                            <td>汇总价格合计</td>
-                            <td colspan="2"><input class="table-input" type="text" style="width:100%;border:none;text-align:center;"></td>
+                            <td colspan="2">第一层</td>
+                            <td colspan="4">BOPP 910*1.5</td>
+                            <td colspan="2">910</td>
+                            <td colspan="2">1.5</td>
+                            <td colspan="2">0.92</td>
+                            <td colspan="2">6,000.00</td>
+                            <td colspan="2">89.32</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">第二层</td>
+                            <td colspan="4">BOPP 910*1.5</td>
+                            <td colspan="2">910</td>
+                            <td colspan="2">1.5</td>
+                            <td colspan="2">0.92</td>
+                            <td colspan="2">6,000.00</td>
+                            <td colspan="2">89.32</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">第三层</td>
+                            <td colspan="4">BOPP 910*1.5</td>
+                            <td colspan="2">910</td>
+                            <td colspan="2">1.5</td>
+                            <td colspan="2">0.92</td>
+                            <td colspan="2">6,000.00</td>
+                            <td colspan="2">89.32</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" rowspan="7">印刷要求</td>
+                            <td colspan="2">色数</td>
+                            <td colspan="4">7色</td>
+                            <td colspan="4">上墨用量</td>
+                            <td colspan="4">3.5g/m*m</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">图案尺寸</td>
+                            <td colspan="4">225*144mm</td>
+                            <td colspan="4"></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">印刷颜色</td>
+                            <td colspan="4">大红</td>
+                            <td colspan="4"></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">套色要求</td>
+                            <td colspan="4"><=0.1mm</td>
+                            <td colspan="4"></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">印刷方式</td>
+                            <td colspan="4">里印</td>
+                            <td colspan="4"></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">色序</td>
+                            <td colspan="12">红、橙、黄、绿、蓝</td>
+                        </tr>
+                        <tr>
+                            <td colspan="14">其他要求</td>
                         </tr>
                     </tbody>
                 </table>
-                <div style="padding-top:15px;text-align:center;">  
-                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:120px">提交订单</a>
-                </div>  
             </div>
         </div>
     </div>  
+
+    <div id="btnGrounds" style="text-align:center;">
+        <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save" style="width:100px;">保存</a>
+        <a id="btnUrge" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:100px;">提交</a>
+    </div>
 
     <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
     <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
@@ -304,6 +322,12 @@
         $(function () {
             $('#btnAdd').on('click', function (evt) {
                 $('#dd').panel('open');
+                $('#dd').panel('setTitle', "新增工艺单");
+            });
+
+            $('#btnEdit').on('click', function (evt) {
+                $('#dd').panel('open');
+                $('#dd').panel('setTitle', "编辑工艺单");
             });
 
             $('#tt').datagrid({
