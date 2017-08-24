@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    </head>
+    <body>
+        <table id="dg" title="My Users" class="easyui-datagrid" style="width:550px;height:250px"
+                data-options="iconCls: 'icon-edit',
+                            toolbar:'#toolbar',
+                            singleSelect: true">
+            <thead>
+                <tr>
+                    <th field="firstname" width="50">First Name</th>
+                    <th data-options="field:'lastname',width:100">Last Name</th>
+                    <th field="phone" width="50">Phone</th>
+                    <th field="email" width="250">Email</th>
+                    <th field="age" width="50">age</th>
+                </tr>
+            </thead>
+        </table>
+        <div id="toolbar">
+            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
+            <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+        </div>
+
+        <script>
+            $(function() {
+                $('#dg').datagrid('loadData', [
+                        {
+                            "firstname": "hcx",
+                            "lastname": "owe",
+                            "age": 28,
+                            "phone": "13245678912",
+                            "email": "hcxowe@126.com"
+                        },
+                        {
+                            "firstname": "hcx",
+                            "lastname": "owe",
+                            "age": 28,
+                            "phone": "13245678912",
+                            "email": "hcxowe@126.com"
+                        },
+                        {
+                            "firstname": "hcx",
+                            "lastname": "owe",
+                            "age": 28,
+                            "phone": "13245678912",
+                            "email": "hcxowe@126.com"
+                        },
+                        {
+                            "firstname": "hcx",
+                            "lastname": "owe",
+                            "age": 28,
+                            "phone": "13245678912",
+                            "email": "hcxowe@126.com"
+                        }
+                    ]);
+            });
+        </script>
+    </body>
+</html>
