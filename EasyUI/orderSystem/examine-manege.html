@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/color.css">
+    <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    <script src="./datagrid-detailview.js"></script>
+    <script src="../jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            color: #FFF;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .search-area {
+            list-style: none;
+            font-size: 14px;
+        }
+
+        .search-area>li {
+            float: left;
+            margin: 5px 10px;
+        }
+
+        a {
+            outline: none !important;
+        }
+
+        .info-list {
+            list-style: none;
+            overflow: hidden;
+        }
+
+        .info-list label {
+            display: inline-block;
+            width: 60px;
+            text-align: right;
+        }
+
+        .info-list > li {
+            float: left;
+            width: 33.33%;
+            margin-top: 5px;
+        }
+
+        .table-input {
+            width:160px;
+            border:none;
+            border-bottom:1px solid;
+        }
+        .table-input:focus {
+            outline: none;
+        }
+
+        .table-order {
+            margin-top: 10px;
+            width:100%;
+            border-top:1px solid;
+            border-left:1px solid;
+        }
+        .table-order td {
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+            text-align: center;
+            height: 30px;
+        }
+
+        .child-list {
+			table-layout: fixed;
+            border: 1px solid #ccc;
+            margin: 10px;
+		}
+
+		.child-list > thead {
+            background-color: #E0ECFF;
+		}
+
+		.child-list td {
+            height: 26px;
+            text-align: center
+		}
+
+        .list-purchase li {
+            height:40px;
+            line-height:40px;
+            border:1px solid #ccc;
+            border-radius:4px;
+            padding-left:10px;
+            padding-right:10px;
+            margin-bottom: 10px;
+        }
+
+        .list-purchase li:hover {
+            background-color: rgb(230, 240, 255);
+        }
+
+        .active {
+            background-color: rgb(230, 240, 255);
+        }
+
+        .tech-table {
+            width: 100%;
+            table-layout: fixed;
+            border-top: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+        }
+
+        .tech-table td {
+            padding: 2px;
+            height: 26px;
+            text-align: center;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="easyui-layout" style="width:100%; height:100%;">
+        <div data-options="region:'north'">
+            <ul class="search-area">
+                <li>
+                    <label>产品名称:</label>
+                    <input class="easyui-textbox" style="width:160px">
+                </li>
+                <li>
+                    <label>订单号:</label>
+                    <input class="easyui-textbox" style="width:160px">
+                </li>
+                <li>
+                    <label>起始时间:</label>
+                    <input class="easyui-datebox" editable="false" value="2017-08-27" style="width:160px">
+                </li>
+                <li>
+                    <label>结束时间:</label>
+                    <input class="easyui-datebox" editable="false" value="2017-08-27" style="width:160px">
+                </li>
+                <li>
+                    <a id="btnSearch" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="width:120px">查询</a>
+                    <a id="btnReset" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" style="width:120px">重置</a>
+                </li>
+            </ul>
+        </div>
+        <div data-options="region:'center'">
+            <table id="tt" class="easyui-datagrid" data-options="fit:true,striped:true,fitColumns:false,striped:true,border:false,rownumbers:true,pagination:true,singleSelect:true,toolbar:'#tb'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'productName',width:160,align:'center'">产品名称</th>
+                        <th data-options="field:'productType',width:100,align:'center'">产品类型</th>
+                        <th data-options="field:'orderID',width:120,align:'center'">订单编号</th>
+                        <th data-options="field:'orgName',width:180,align:'center'">客户名称</th>
+                        <th data-options="field:'number',width:120,align:'center'">订货数量</th>
+                        <th data-options="field:'endTime',width:100,align:'center'">交货日期</th>
+                        <th data-options="field:'desc',width:120,align:'center'">备注</th>
+                    </tr>
+                </thead>
+            </table>
+
+            <div id="tb" style="padding:5px;height:auto">
+                <div style="margin-bottom:5px">
+                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增评审单</a>
+                    <a id="btnCheck" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">查看评审单</a>
+                    <a id="btnUrge" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">编辑评审单</a>
+                </div>
+            </div>
+        </div>
+
+        <div data-options="region:'east',split:false" title="新增订单产品" style="width: 400px;">
+            <ul id="productList" class="list-purchase" style="padding:10px;">
+                <li style="">
+                    <label>产品名称</label> - <label>产品代码</label> * <label>数量</label>
+                    <div style="float:right;line-height:35px;height:35px;">
+                        <label>2017-08-31</label>
+                    </div>
+                </li>
+                <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                    <label>红灯笼水煮肉片</label> - <label>SC2017080112</label> * <label>1000</label>
+                    <div style="float:right;line-height:35px;height:35px;">
+                        <label>2017-08-31</label>
+                    </div>
+                </li>
+                <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                    <label>红灯笼水煮肉片</label> - <label>SC2017080112</label> * <label>1000</label>
+                    <div style="float:right;line-height:35px;height:35px;">
+                        <label>2017-08-31</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="dd" class="easyui-dialog" title="新增评审单" style="width:950px;height:600px;" data-options="resizable:false,modal:true,closed:true,buttons:'#tbr'">
+        <div class="easyui-layout" style="width:100%; height:100%;">
+            <div data-options="region:'center'" style="padding:10px;font-size:14px;">
+                <div>
+                    <h2 style="text-align:center;margin-bottom:5px;">成都和达印务包装有限公司</h2>
+                    <h1 style="text-align:center;margin-bottom:5px;">订单评审记录表</h1>
+                    <table class="tech-table" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">订单类型</td>
+                                <td colspan="1">
+                                    <label><input type="checkbox"/>新顾客</label>
+                                </td>
+                                <td colspan="1">
+                                    <label><input type="checkbox"/>新单</label>
+                                </td>
+                                <td colspan="1">
+                                    <label><input type="checkbox"/>新版</label>
+                                </td>
+                                <td colspan="1">
+                                    <label><input type="checkbox"/>老单重评</label>
+                                </td>
+                                <td colspan="2">业务员</td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">客户名称</td>
+                                <td colspan="4"></td>
+                                <td colspan="2">产品名称</td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">材料结构</td>
+                                <td colspan="4"></td>
+                                <td colspan="2">产品类型</td>
+                                <td colspan="4">
+                                    <label><input type="checkbox"/>卷盘</label>
+                                    <label><input type="checkbox"/>袋</label>
+                                    <label><input type="checkbox"/>单片</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">成品尺寸</td>
+                                <td colspan="4"></td>
+                                <td colspan="6">制版拼排版图</td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2" rowspan="6">物理性能</td>
+                                <td colspan="2">耐热性</td>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">耐介性</td>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">机械性</td>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">阻隔性</td>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">摩擦系数</td>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">其他</td>
+                                <td colspan="8"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">特别说明</td>
+                                <td colspan="10"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" rowspan="4">制袋要求</td>
+                                <td colspan="2" rowspan="2">制袋类型</td>
+                                <td colspan="8" >制袋类型</td>
+                            </tr>
+                            <tr>
+                                <td colspan="8" >制袋类型</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">热封宽度</td>
+                                <td colspan="8">热封宽度</td>
+                            </tr>
+                            <tr>
+                                <td colspan="10"></td>
+                            </tr>
+                        </tbody>
+                    </table>   
+                </div>
+            </div>
+        </div>
+    </div> 
+
+    <div id="ddeidt" class="easyui-dialog" title="复制评审单" style="width:1220px;height:600px;" data-options="resizable:false,modal:true,closed:true,buttons:'#tbr'">
+            <div class="easyui-layout" style="width:100%; height:100%;">
+                <div data-options="region:'center'" style="padding:10px;font-size:14px;overflow:auto;">
+                    <div style="float:left;margin-right:5px; width: 900px;">
+                        <h2 style="text-align:center;margin-bottom:5px;">成都和达印务包装有限公司</h2>
+                        <h1 style="text-align:center;margin-bottom:5px;">订单评审记录表</h1>
+                        <table class="tech-table" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2">订单类型</td>
+                                    <td colspan="1">
+                                        <label><input type="checkbox" checked/>新顾客</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <label><input type="checkbox"/>新单</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <label><input type="checkbox"/>新版</label>
+                                    </td>
+                                    <td colspan="1">
+                                        <label><input type="checkbox"/>老单重评</label>
+                                    </td>
+                                    <td colspan="2">业务员</td>
+                                    <td colspan="4">张三</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">客户名称</td>
+                                    <td colspan="4">成都红灯笼食品有限公司</td>
+                                    <td colspan="2">产品名称</td>
+                                    <td colspan="4">红灯笼水煮肉片</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">材料结构</td>
+                                    <td colspan="4"></td>
+                                    <td colspan="2">产品类型</td>
+                                    <td colspan="4">
+                                        <label><input type="checkbox"/>卷盘</label>
+                                        <label><input type="checkbox" checked/>袋</label>
+                                        <label><input type="checkbox"/>单片</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">成品尺寸</td>
+                                    <td colspan="4"></td>
+                                    <td colspan="6">制版拼排版图</td>
+                                </tr>
+    
+                                <tr>
+                                    <td colspan="2" rowspan="6">物理性能</td>
+                                    <td colspan="2">耐热性</td>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">耐介性</td>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">机械性</td>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">阻隔性</td>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">摩擦系数</td>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">其他</td>
+                                    <td colspan="8"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">特别说明</td>
+                                    <td colspan="10"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" rowspan="4">制袋要求</td>
+                                    <td colspan="2" rowspan="2">制袋类型</td>
+                                    <td colspan="8" >制袋类型</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8" >制袋类型</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">热封宽度</td>
+                                    <td colspan="8">热封宽度</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="10"></td>
+                                </tr>
+                            </tbody>
+                        </table>   
+                    </div>
+                    <div style="float:right;width:270px;height:100%;">
+                        <div id="aa" class="easyui-accordion" style="width:100%;height:100%;">   
+                            <div id="productOrder" title="产品相关评审单" data-options="selected:true">   
+                                <ul class="list-purchase" style="padding:10px;">
+                                    <li style="">
+                                        <label>产品评审单</label> - <label>日期</label>
+                                        <!-- <div style="float:right;line-height:35px;height:35px;">
+                                            <label>日期</label>
+                                        </div> -->
+                                    </li>
+                                    <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                                        <label>红灯笼水煮肉片</label> - <label>2017-08-01</label>
+                                        <!-- <div style="float:right;line-height:35px;height:35px;">
+                                            <a id="btnDelivery" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok">2017-08-01</a>
+                                        </div> -->
+                                    </li>
+                                </ul>
+                            </div>   
+                            <div title="品牌相关评审单" style="overflow:auto;">   
+                                <ul class="list-purchase" style="padding:10px;">
+                                    <li style="">
+                                        <label>产品评审单</label> - <label>日期</label>
+                                        <!-- <div style="float:right;line-height:35px;height:35px;">
+                                            <label>日期</label>
+                                        </div> -->
+                                    </li>
+                                    <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                                        <label>红灯笼五香豆腐干</label> - <label>20170701</label>
+                                        <!-- <div style="float:right;line-height:35px;height:35px;">
+                                            <a id="btnDelivery" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok">2017-08-01</a>
+                                        </div> -->
+                                    </li>
+                                </ul>
+                            </div>   
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+    <div id="tbr" style="padding-top:15px;text-align:center;">  
+        <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:120px">提交订单</a>
+    </div>
+
+    <script>
+        $(function () {
+
+            $('.list-purchase').on('click', 'li', function() {
+                $(this).addClass('active').siblings().removeClass('active');
+            });
+
+            // 新增
+            $('#btnAdd').on('click', function (evt) {
+                var item = $('#tt').datagrid('getSelected');
+                var item2 = $('#productList > .active');
+
+                if(item2.length == 0) {
+                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个产品！</div>', 'info');
+                    return;
+                }
+
+                $('#ddeidt').panel('open');
+            });
+
+            $('#btnCheck').on('click', () => {
+                var item  = $('#tt').datagrid('getSelected');
+                
+                if(!item) {
+                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个评审单！</div>', 'info');
+                    return;
+                }
+
+                $('#dd').panel('open');
+            });
+
+            $('#btnSearch').on('click', function() {
+                $('#tt').datagrid('loadData', [
+                                                {
+                                                    "productName": "红灯笼水煮肉片",
+                                                    "productType": "袋",
+                                                    "orderID": "SC2017080112",
+                                                    "orgName": "成都红灯笼食品有限公司",
+                                                    "endTime": "2017-08-31",
+                                                    "number": 1000,
+                                                    "desc": "请在8月底完成"
+                                                },
+                                                {
+                                                    "productName": "红灯笼水煮肉片",
+                                                    "productType": "袋",
+                                                    "orderID": "SC2017080112",
+                                                    "orgName": "成都红灯笼食品有限公司",
+                                                    "endTime": "2017-08-31",
+                                                    "number": 1000,
+                                                    "desc": "请在8月底完成"
+                                                }
+                                            ]);
+            });
+
+            $('#btnUrge').on('click', () => {
+                var item  = $('#tt').datagrid('getSelected');
+                
+                if(!item) {
+                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个评审单！</div>', 'info');
+                    return;
+                }
+
+                $('#dd').panel('open');
+            });
+        });
+
+        function formatter(value,row,index) {
+            return '<a href="javascript:void(0);">详情</a>';
+        }
+    </script>
+</body>
+
+</html>

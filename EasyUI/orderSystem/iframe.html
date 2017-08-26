@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>正新订单管理系统</title>
+    <title>和达订单管理系统</title>
     <link rel="stylesheet" href="../font-awesome-4.7.0/css/font-awesome.min.css">
 
     <style>
@@ -85,12 +85,16 @@
         .nav-child > li:hover {
             background-color: rgb(51, 133, 255);
         }
+
+        .notice-text {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <div style="position:relative; width:100%; height:100%;overflow:hidden;">
         <div style="position:absolute; top:0; bottom:0; left:0; width:200px; background:#585858; color:#FFF; z-index:9;">
-            <div style="text-align:center; height:40px; vertical-align: middle; line-height:40px; font-size:20px; font-weight:bold;">正新订单管理系统</div>
+            <div style="text-align:center; height:40px; vertical-align: middle; line-height:40px; font-size:20px; font-weight:bold;">和达订单管理系统</div>
             <ul class="nav-main">
                 <li>
                     <span class="nav-icon"><i class="fa fa-user"></i></span>
@@ -101,8 +105,14 @@
                     </ul>
                 </li>
                 <li url="./order-manege.html" url-title="订单管理" url-id="order">
-                    <span class="nav-icon"><i class="fa fa-blind"></i></span>
+                    <span class="nav-icon"><i class="fa fa-wpforms" aria-hidden="true"></i></span>
                     <label>订单管理</label>
+                    <ul class="nav-child">
+                    </ul>
+                </li>
+                <li url="./examine-manege.html" url-title="评审单管理" url-id="examine">
+                    <span class="nav-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <label>评审单管理</label>
                     <ul class="nav-child">
                     </ul>
                 </li>
@@ -118,7 +128,7 @@
                     <ul class="nav-child">
                     </ul>
                 </li>
-                <li>
+                <!-- <li>
                     <span class="nav-icon"><i class="fa fa-bus"></i></span>
                     <label>车间管理</label>
                     <ul class="nav-child">
@@ -127,10 +137,14 @@
                         <li>复合工序列表管理</li>
                         <li>分切制袋工序列表管理</li>
                     </ul>
+                </li> -->
+                <li url="./plank-manege.html" url-title="母板管理" url-id="plank">
+                    <span class="nav-icon"><i class="fa fa-server" aria-hidden="true"></i></span>
+                    <label>母板管理</label>
                 </li>
-                <li>
-                    <span class="nav-icon"><i class="fa fa-line-chart"></i></span>
-                    <label>报表统计</label>
+                <li url="./products-manege.html" url-title="成品库管理" url-id="products">
+                    <span class="nav-icon"><i class="fa fa-cubes" aria-hidden="true"></i></span>
+                    <label>成品库管理</label>
                 </li>
             </ul>
         </div>
@@ -141,6 +155,10 @@
                     <li id="breadcrumbChild">订单管理</li>
                     <!-- <li>订单历史</li> -->
                 </ul>
+
+                <div style="float:right;margin-right: 30px;line-height: 40px;">
+                    <label>您有</label><a href="javascript:void(0);" class="notice-text">3条新消息</a>
+                </div>
             </div>
             <div id="iframeContainer" style="position:absolute; top:40px; left:0; right:0; bottom:0;">
                 <!-- <iframe id="iframeorder" src="./order-manege.html" style="width:100%; height:100%; border:none;"></iframe> -->
@@ -157,10 +175,15 @@
 
             $('.nav-main').on('click', 'li', function() {
                 var $this = $(this);
-                $('#breadcrumbChild').text($this.attr('url-title'));
-                
-                var idName = 'iframe' + $this.attr('url-id');
                 var url = $this.attr('url');
+
+                if(!url) {
+                    return;
+                }
+
+                var idName = 'iframe' + $this.attr('url-id');
+
+                $('#breadcrumbChild').text($this.attr('url-title'));
 
                 if($('#' + idName).length == 0) {
                     $container.children().hide();
