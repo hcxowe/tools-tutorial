@@ -10,28 +10,124 @@
         <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
     </head>
     <body>
-        <table id="dg" title="My Users" class="easyui-datagrid" style="width:550px;height:250px"
+        <table id="dg" title="My Users" class="easyui-datagrid" style="width:800px;height:250px"
                 data-options="iconCls: 'icon-edit',
+                            fitColumns: true,
                             toolbar:'#toolbar',
                             singleSelect: true">
             <thead>
                 <tr>
-                    <th field="firstname" width="50">First Name</th>
+                    <th field="firstname" data-options="width:100">First Name</th>
                     <th data-options="field:'lastname',width:100">Last Name</th>
-                    <th field="phone" width="50">Phone</th>
-                    <th field="email" width="250">Email</th>
-                    <th field="age" width="50">age</th>
+                    <th field="phone" data-options="width:100">Phone</th>
+                    <th field="email" data-options="width:100">Email</th>
+                    <th field="x" data-options="width:100">Phone</th>
+                    <th field="cc" data-options="width:100">Email</th>
+                    <th field="xx" data-options="width:100">Phone</th>
+                    <th field="z" data-options="width:100">Email</th>
+                    <th field="df" data-options="width:100">Phone</th>
+                    <th field="ref" data-options="width:100">Email</th>
+                    <th field="age" data-options="width:100">age</th>
                 </tr>
             </thead>
         </table>
         <div id="toolbar">
-            <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
+            <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
             <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
         </div>
 
         <script>
             $(function() {
+                
+            });
+
+            $('#dg').datagrid({
+                onBeforeLoad: function() {
+                    // $('#dg').datagrid('options').fitColumns = false;
+                    // $('#dg').datagrid('autoSizeColumn', 'age');
+                    // $('#dg').datagrid('autoSizeColumn', 'firstname');
+                    // $('#dg').datagrid('autoSizeColumn', 'lastname');
+                    // $('#dg').datagrid('autoSizeColumn', 'phone');
+                    // $('#dg').datagrid('autoSizeColumn', 'email');
+                    // $('#dg').datagrid('autoSizeColumn', 'x');
+                    // $('#dg').datagrid('autoSizeColumn', 'cc');
+                    // $('#dg').datagrid('autoSizeColumn', 'xx');
+                    // $('#dg').datagrid('autoSizeColumn', 'z');
+                    // $('#dg').datagrid('autoSizeColumn', 'df');
+                    // $('#dg').datagrid('autoSizeColumn', 'ref');
+                    $('#dg').datagrid('fitColumns');
+                },
+                onLoadSuccess: function(data) {
+                    if (data.total != 0) {
+                        $('#dg').datagrid('options').fitColumns = false;
+                        $('#dg').datagrid('autoSizeColumn', 'age');
+                        $('#dg').datagrid('autoSizeColumn', 'firstname');
+                        $('#dg').datagrid('autoSizeColumn', 'lastname');
+                        $('#dg').datagrid('autoSizeColumn', 'phone');
+                        $('#dg').datagrid('autoSizeColumn', 'email');
+                        $('#dg').datagrid('autoSizeColumn', 'x');
+                        $('#dg').datagrid('autoSizeColumn', 'cc');
+                        $('#dg').datagrid('autoSizeColumn', 'xx');
+                        $('#dg').datagrid('autoSizeColumn', 'z');
+                        $('#dg').datagrid('autoSizeColumn', 'df');
+                        $('#dg').datagrid('autoSizeColumn', 'ref');
+                    }
+                    else {
+                        
+                        $('#dg').datagrid('fitColumns');
+                        $('#dg').datagrid('options').fitColumns = false;
+
+                        var $header = $(".datagrid-header-inner table tr:first-child");
+                        
+                        var headerWidth = $header.parents('.datagrid-wrap').width();
+                        //datagrid头部 table 的第一个tr 的td们，即columns的集合
+                        var headerTds = $header.children();
+
+                        var length = headerTds.length;
+
+                        var tdWidth = Math.floor((headerWidth - 10) / length);
+
+                        headerTds.each(function(i, obj) {
+                            $(this).width(tdWidth);
+                        });
+
+                        //datagrid主体 table 的第一个tr 的td们，即第一个数据行
+                        // var bodyTds = $(".datagrid-body table tr:first-child").children();
+                        // var totalWidth = 0; //合计宽度，用来为datagrid头部和主体设置宽度
+                        // //循环设置宽度
+                        // bodyTds.each(function (i, obj) {
+                        //     var headerTd = $(headerTds.get(i));
+                            
+                        //     $("div:first-child", headerTds.get(i)).css("text-align", "center");
+                        //     var headerTdWidth = headerTd.width(); //获取第i个头部td的宽度
+                        //     //这里加5个像素 是因为数据主体我们取的是第一行数据，不能确保第一行数据宽度最宽，预留5个像素。有兴趣的朋友可以先判断最大的td宽度都在进行设置
+                        //     var bodyTdWidth = bodyTd.width() + 5;
+                        //     var width = 0;
+                        //     //如果头部列名宽度比主体数据宽度宽，则它们的宽度都设为头部的宽度。反之亦然
+                        //     if (headerTdWidth > bodyTdWidth) {
+                        //         width = headerTdWidth;
+                        //         bodyTd.width(width);
+                        //         headerTd.width(width);
+                        //         totalWidth += width;
+                        //     } else {
+                        //         width = bodyTdWidth;
+                        //         headerTd.width(width);
+                        //         bodyTd.width(width);
+                        //         totalWidth += width;
+                        //     }
+                        // });
+                    }
+                }
+            })
+
+            function editUser() {
+                $('#dg').datagrid('loadData', []);
+            }
+
+            function newUser() {
+                
+
                 $('#dg').datagrid('loadData', [
                         {
                             "firstname": "hcx",
@@ -43,7 +139,7 @@
                         {
                             "firstname": "hcx",
                             "lastname": "owe",
-                            "age": 28,
+                            "age": "sdfsdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
                             "phone": "13245678912",
                             "email": "hcxowe@126.com"
                         },
@@ -61,8 +157,8 @@
                             "phone": "13245678912",
                             "email": "hcxowe@126.com"
                         }
-                    ]);
-            });
+                ]);
+            }
         </script>
     </body>
 </html>
