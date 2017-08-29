@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/color.css">
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            color: #FFF;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .search-area {
+            list-style: none;
+            font-size: 14px;
+        }
+
+        .search-area>li {
+            float: left;
+            margin: 5px 10px;
+        }
+
+        a {
+            outline: none !important;
+        }
+
+        .info-list {
+            list-style: none;
+            overflow: hidden;
+        }
+
+        .info-list label {
+            display: inline-block;
+            width: 60px;
+            text-align: right;
+        }
+
+        .info-list > li {
+            float: left;
+            width: 33.33%;
+            margin-top: 5px;
+        }
+
+        .table-input {
+            width:160px;
+            border:none;
+            border-bottom:1px solid;
+        }
+        .table-input:focus {
+            outline: none;
+        }
+
+        .table-order {
+            margin-top: 10px;
+            width:100%;
+            border-top:1px solid;
+            border-left:1px solid;
+        }
+        .table-order td {
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+            text-align: center;
+            height: 30px;
+        }
+
+        .child-list {
+			table-layout: fixed;
+            border: 1px solid #ccc;
+            margin: 10px;
+		}
+
+		.child-list > thead {
+            background-color: #E0ECFF;
+		}
+
+		.child-list td {
+            height: 26px;
+            text-align: center
+		}
+    </style>
+</head>
+
+<body>
+    <div class="easyui-layout" style="width:100%; height:100%;">
+        <div data-options="region:'north'">
+            <ul class="search-area">
+                <li>
+                    <label>产品名称:</label>
+                    <input class="easyui-datebox" editable="false" value="2017-08-26" style="width:160px">
+                </li>
+                <li>
+                    <label>入库时间:</label>
+                    <input class="easyui-datetimebox" value="2017-08-27" style="width:160px">
+                </li>
+                <li>
+                    <a id="btnSearch" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="width:120px">查询</a>
+                </li>
+            </ul>
+        </div>
+        <div data-options="region:'center'">
+            <table id="tt" class="easyui-datagrid" data-options="fit:true,striped:true,fitColumns:false,striped:true,border:false,rownumbers:true,pagination:true,singleSelect:true,toolbar:'#tb'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'productName',width:120,align:'center'">产品名称</th>
+                        <th data-options="field:'productID',width:120,align:'center'">产品编号</th>
+                        <th data-options="field:'createTime',width:120,align:'center'">入库时间</th>
+                        <th data-options="field:'number',width:120,align:'center'">数量</th>
+                        <th data-options="field:'desc',width:120,align:'center'">备注</th>
+                    </tr>
+                </thead>
+            </table>
+
+            <div id="tb" style="padding:5px;height:auto">
+                <div style="margin-bottom:5px">
+                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">入库登记</a>
+                    <a id="btnUse" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-redo" plain="true">出库登记</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dd" class="easyui-dialog" title="产品入库" style="width:400px;height:260px;" data-options="resizable:false,modal:true,closed:true">   
+        <div class="easyui-layout" style="width:100%; height:100%;">
+            <div data-options="region:'center'" style="padding:10px;font-size:14px;">
+                <div style="text-align:center; margin: 10px;">
+                    <label style="width:60px;">产品名称:</label>
+                    <input type="text" class="easyui-textbox">
+                </div>
+                <div style="text-align:center; margin: 10px;">
+                    <label style="width:60px;">产品编号:</label>
+                    <input type="text" class="easyui-textbox">
+                </div>
+                <div style="text-align:center; margin: 10px;">
+                    <label style="width:60px;">入库时间:</label>
+                    <input type="text" class="easyui-datetimebox">
+                </div>
+                <div style="text-align:center; margin: 10px;">
+                    <label style="width:60px;display:inline-block;text-align:right;">备注:</label>
+                    <input type="text" class="easyui-textbox">
+                </div>
+                <div style="padding-top:15px;text-align:center;">  
+                    <label style="width:60px;display:inline-block;"></label>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:171px">提交</a>
+                </div>  
+            </div>
+        </div>
+    </div>
+
+    <div id="ff" class="easyui-dialog" title="产品出库" style="width:400px;height:260px;" data-options="resizable:false,modal:true,closed:true">   
+        <div class="easyui-layout" style="width:100%; height:100%;">
+            <div data-options="region:'center'" style="padding:10px;font-size:14px;">
+                <div style="text-align:center; margin: 10px;">
+                    <label style="width:60px;">产品名称:</label>
+                    <input type="text" class="easyui-textbox">
+                </div>
+                <div style="text-align:center; margin: 10px;">
+                    <label style="width:60px;">产品编号:</label>
+                    <input type="text" class="easyui-textbox">
+                </div>
+                <div style="text-align:center; margin: 10px;">
+                    <label style="width:60px;">出库时间:</label>
+                    <input type="text" class="easyui-datetimebox">
+                </div>
+                <div style="text-align:center; margin: 10px;">
+                    <label style="width:60px;display:inline-block;text-align:right;">备注:</label>
+                    <input type="text" class="easyui-textbox">
+                </div>
+                <div style="padding-top:15px;text-align:center;">  
+                    <label style="width:60px;display:inline-block;"></label>
+                    <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:171px">提交</a>
+                </div>  
+            </div>
+        </div>
+    </div> 
+
+    <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    <script src="./datagrid-detailview.js"></script>
+    <script src="../jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+
+    <script>
+        $(function () {
+            $('#btnAdd').on('click', function (evt) {
+                $('#dd').panel('open');
+            });
+
+            $('#btnUse').on('click', function (evt) {
+                $('#ff').panel('open');
+            });
+
+            $('#btnSearch').on('click', function() {
+                $('#tt').datagrid('loadData', [
+                                                {
+                                                    "productID": 123456,
+                                                    "productName": "XXXX产品",
+                                                    "createTime": "2017-08-23",
+                                                    "number": 199,
+                                                    "desc": ""
+                                                },
+                                                {
+                                                    "productID": 123456,
+                                                    "productName": "XXXX产品",
+                                                    "createTime": "2017-08-23",
+                                                    "number": 1000,
+                                                    "desc": ""
+                                                }
+                                            ]);
+            });
+        });
+
+        function formatter(value,row,index) {
+            return '<a href="javascript:void(0);"></a>';
+        }
+    </script>
+</body>
+
+</html>

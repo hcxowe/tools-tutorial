@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/color.css">
+    <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    <script src="./datagrid-detailview.js"></script>
+    <script src="../jquery-easyui-1.5.2/locale/easyui-lang-zh_CN.js"></script>
+
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            color: #FFF;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .search-area {
+            list-style: none;
+            font-size: 14px;
+        }
+
+        .search-area>li {
+            float: left;
+            margin: 5px 10px;
+        }
+
+        a {
+            outline: none !important;
+        }
+
+        .info-list {
+            list-style: none;
+            overflow: hidden;
+        }
+
+        .info-list label {
+            display: inline-block;
+            width: 60px;
+            text-align: right;
+        }
+
+        .info-list > li {
+            float: left;
+            width: 33.33%;
+            margin-top: 5px;
+        }
+
+        .table-input {
+            width:160px;
+            border:none;
+            border-bottom:1px solid;
+        }
+        .table-input:focus {
+            outline: none;
+        }
+
+        .table-order {
+            margin-top: 10px;
+            width:100%;
+            border-top:1px solid;
+            border-left:1px solid;
+        }
+        .table-order td {
+            border-right: 1px solid;
+            border-bottom: 1px solid;
+            text-align: center;
+            height: 30px;
+        }
+
+        .child-list {
+			table-layout: fixed;
+            border: 1px solid #ccc;
+            margin: 10px;
+		}
+
+		.child-list > thead {
+            background-color: #E0ECFF;
+		}
+
+		.child-list td {
+            height: 26px;
+            text-align: center
+		}
+
+        .tech-table {
+            width: 100%;
+            table-layout: fixed;
+            empty-cells: show;
+            border-top: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+        }
+
+        .tech-table td {
+            padding: 2px;
+            height: 26px;
+            text-align: center;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="easyui-layout" style="width:100%; height:100%;">
+        <div data-options="region:'north'">
+            <ul class="search-area">
+                <li>
+                    <label>审核类型:</label>
+                    <select class="easyui-combobox" data-options="panelHeight:78" style="width:160px;">
+                        <option>全部</option>
+                        <option>采购</option>
+                        <option>出库</option>
+                    </select>
+                </li>
+                <li>
+                    <label>起始时间:</label>
+                    <input class="easyui-datebox" editable="false" value="2017-08-27" style="width:160px">
+                </li>
+                <li>
+                    <label>结束时间:</label>
+                    <input class="easyui-datebox" editable="false" value="2017-08-27" style="width:160px">
+                </li>
+                
+                <li>
+                    <a id="btnSearch" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="width:120px">查询</a>
+                </li>
+            </ul>
+        </div>
+
+        <div data-options="region:'center'">
+            <table id="tt" class="easyui-datagrid" data-options="fit:true,striped:true,fitColumns:false,striped:true,border:false,rownumbers:true,pagination:true,singleSelect:true,toolbar:'#tb'">
+                <thead>
+                    <tr>
+                        <th data-options="field:'auditType',width:120,align:'center'">审核类型</th>
+                        <th data-options="field:'startTime',width:180,align:'center'">发起时间</th>
+                        <th data-options="field:'sponsor',width:180,align:'center'">发起人</th>
+                        <th data-options="field:'desc',width:120,align:'center'">备注</th>
+                    </tr>
+                </thead>
+            </table>
+
+            <div id="tb" style="padding:5px;height:auto">
+                <div style="margin-bottom:5px">
+                    <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">审核</a>
+                    <a id="btnUrge" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-remove" plain="true">删除</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="dd" class="easyui-dialog" title="审核" style="width:800px;height:400px;" data-options="resizable:false,modal:true,closed:true,buttons:'#Neworder'">   
+        <div class="easyui-layout" style="width:100%; height:100%;">
+            <div data-options="region:'center'" style="padding:10px;font-size:14px;">
+                <h1 style="text-align:center;margin-bottom:10px;">成都和达印务包装有限公司产品入库单</h1>
+                <div style="overflow:hidden;">
+                    <div style="float:left;">
+                        <label>交货部门: 制袋车间</label>
+                    </div>
+                    <div style="float:right;">
+                        <label>日期: 2017-08-27</label>
+                    </div>
+                </div>
+                <table class="tech-table" cellspacing="0" cellpadding="0">  
+                    <tbody>
+                        <tr>
+                            <td colspan="1">序号</td>
+                            <td colspan="4">物料名称</td>
+                            <td colspan="2">规格型号</td>
+                            <td colspan="1">单位</td>
+                            <td colspan="2">数量</td>
+                            <td colspan="2">单价</td>
+                            <td colspan="2">金额</td>
+                            <td colspan="4">备注</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">1</td>
+                            <td colspan="4">友伦山椒泡凤爪</td>
+                            <td colspan="2">30g</td>
+                            <td colspan="1">根</td>
+                            <td colspan="2">100</td>
+                            <td colspan="2">3.00</td>
+                            <td colspan="2">300.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">1</td>
+                            <td colspan="4">友伦山椒泡凤爪</td>
+                            <td colspan="2">30g</td>
+                            <td colspan="1">根</td>
+                            <td colspan="2">100</td>
+                            <td colspan="2">3.00</td>
+                            <td colspan="2">300.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">1</td>
+                            <td colspan="4">友伦山椒泡凤爪</td>
+                            <td colspan="2">30g</td>
+                            <td colspan="1">根</td>
+                            <td colspan="2">100</td>
+                            <td colspan="2">3.00</td>
+                            <td colspan="2">300.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">1</td>
+                            <td colspan="4">友伦山椒泡凤爪</td>
+                            <td colspan="2">30g</td>
+                            <td colspan="1">根</td>
+                            <td colspan="2">100</td>
+                            <td colspan="2">3.00</td>
+                            <td colspan="2">300.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">1</td>
+                            <td colspan="4">友伦山椒泡凤爪</td>
+                            <td colspan="2">30g</td>
+                            <td colspan="1">根</td>
+                            <td colspan="2">100</td>
+                            <td colspan="2">3.00</td>
+                            <td colspan="2">300.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">1</td>
+                            <td colspan="4">友伦山椒泡凤爪</td>
+                            <td colspan="2">30g</td>
+                            <td colspan="1">根</td>
+                            <td colspan="2">100</td>
+                            <td colspan="2">3.00</td>
+                            <td colspan="2">300.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">本页小计</td>
+                            <td colspan="6"></td>
+                            <td colspan="2">3468.70</td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="4">100</td>
+                        </tr>
+                    </tbody>
+                </table>              
+            </div>
+        </div>
+        <div id="Neworder" style="text-align:center;">  
+            <a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:120px">提交订单</a>
+        </div>  
+    </div>  
+
+    <div id="dtt" class="easyui-dialog" title="审核" style="width:1000px;height:400px;" data-options="resizable:false,modal:true,closed:true,buttons:'#btnGrounds'">   
+        <div class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'center'" style="padding:10px;font-size:14px;">
+                <h1 style="text-align:center;margin-bottom:10px;">成都和达印务包装有限公司采购入库单</h1>
+                <div style="overflow:hidden;">
+                    <div style="float:left;">
+                        <label>供货商: 成都市鑫福来彩印厂</label>
+                    </div>
+                    <div style="float:right;">
+                        <label>日期: 2017-08-31</label>
+                    </div>
+                </div>
+                <table class="tech-table" cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr>
+                            <td colspan="1">序号</td>
+                            <td colspan="4">物料名称</td>
+                            <td colspan="4">规格型号</td>
+                            <td colspan="1">单位</td>
+                            <td colspan="2">数量</td>
+                            <td colspan="2">单价</td>
+                            <td colspan="2">金额</td>
+                            <td colspan="4">备注</td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">1</td>
+                            <td colspan="4">MPE耐酸碱</td>
+                            <td colspan="4">1015*7.2</td>
+                            <td colspan="1">KG</td>
+                            <td colspan="2">431.23</td>
+                            <td colspan="2">11.20</td>
+                            <td colspan="2">5420.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1">2</td>
+                            <td colspan="4">MPE耐酸碱</td>
+                            <td colspan="4">1015*7.2</td>
+                            <td colspan="1">KG</td>
+                            <td colspan="2">431.23</td>
+                            <td colspan="2">11.20</td>
+                            <td colspan="2">5420.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"></td>
+                            <td colspan="4"></td>
+                            <td colspan="4"></td>
+                            <td colspan="1"></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"></td>
+                            <td colspan="4"></td>
+                            <td colspan="4"></td>
+                            <td colspan="1"></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"></td>
+                            <td colspan="4"></td>
+                            <td colspan="4"></td>
+                            <td colspan="1"></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="1"></td>
+                            <td colspan="4"></td>
+                            <td colspan="4"></td>
+                            <td colspan="1"></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="2"></td>
+                            <td colspan="4"></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">本页小计</td>
+                            <td colspan="8">玖仟贰佰叁拾贰</td>
+                            <td colspan="2">9232</td>
+                            <td colspan="2"></td>
+                            <td colspan="2">9232.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">汇总合计</td>
+                            <td colspan="8">玖仟贰佰叁拾贰</td>
+                            <td colspan="2">9232</td>
+                            <td colspan="2"></td>
+                            <td colspan="2">9232.00</td>
+                            <td colspan="4"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="btnGrounds" style="text-align:center;">
+        <a id="btnUrge" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:100px;">提交</a>
+    </div>
+
+    <script>
+        $(function () {
+            $('#btnAdd').on('click', function (evt) {
+                var item  = $('#tt').datagrid('getSelected');
+                
+                if(!item) {
+                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个审核项！</div>', 'info');
+                    return;
+                }
+
+                $('#dtt').panel('open');
+            });
+
+            $('#btnSearch').on('click', function() {
+                $('#tt').datagrid('loadData', [
+                                                {
+                                                    "auditType": "采购入库",
+                                                    "startTime": "2017-08-25",
+                                                    "sponsor": "张三",
+                                                    "desc": "请尽快审批"
+                                                },
+                                                {
+                                                    "auditType": "采购入库",
+                                                    "startTime": "2017-08-25",
+                                                    "sponsor": "张三",
+                                                    "desc": "请尽快审批"
+                                                }
+                                            ]);
+            });
+
+            $('#btnUrge').on('click', () => {
+                var item = $('#tt').datagrid('getSelected');
+                if(!item) {
+                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个审核项！</div>', 'info');
+                    return;
+                }
+
+                $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">操作成功，审核项已删除！</div>', 'info');
+            });
+        });
+
+        function formatter(value,row,index) {
+            return '<a href="javascript:void(0);">详情</a>';
+        }
+    </script>
+</body>
+
+</html>

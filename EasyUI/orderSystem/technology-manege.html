@@ -106,6 +106,39 @@
             border-right: 1px solid #ccc;
             border-bottom: 1px solid #ccc;
         }
+
+        .list-purchase li {
+            height:40px;
+            line-height:40px;
+            border:1px solid #ccc;
+            border-radius:4px;
+            padding-left:10px;
+            padding-right:10px;
+            margin-bottom: 10px;
+        }
+
+        .list-purchase li:hover {
+            background-color: rgb(230, 240, 255);
+        }
+
+        .active {
+            background-color: rgb(230, 240, 255);
+        }
+
+        .tech-table {
+            width: 100%;
+            table-layout: fixed;
+            border-top: 1px solid #ccc;
+            border-left: 1px solid #ccc;
+        }
+
+        .tech-table td {
+            padding: 2px;
+            height: 26px;
+            text-align: center;
+            border-right: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+        }
     </style>
 </head>
 
@@ -114,19 +147,11 @@
         <div data-options="region:'north'">
             <ul class="search-area">
                 <li>
-                    <label>订单日期:</label>
-                    <input class="easyui-datebox" editable="false" value="2017-08-26" style="width:160px">
-                </li>
-                <li>
-                    <label>单位名称:</label>
-                    <input class="easyui-textbox" style="width:160px">
-                </li>
-                <li>
-                    <label>订单号:</label>
-                    <input class="easyui-textbox" style="width:160px">
-                </li>
-                <li>
                     <label>产品名称:</label>
+                    <input class="easyui-textbox" style="width:160px">
+                </li>
+                <li>
+                    <label>工艺单编号:</label>
                     <input class="easyui-textbox" style="width:160px">
                 </li>
                 <li>
@@ -139,6 +164,14 @@
                     </select>
                 </li>
                 <li>
+                    <label>起始时间:</label>
+                    <input class="easyui-datebox" editable="false" value="2017-08-27" style="width:160px">
+                </li>
+                <li>
+                    <label>结束时间:</label>
+                    <input class="easyui-datebox" editable="false" value="2017-08-27" style="width:160px">
+                </li>
+                <li>
                     <a id="btnSearch" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search" style="width:120px">查询</a>
                 </li>
             </ul>
@@ -148,8 +181,8 @@
                 <thead>
                     <tr>
                         <th data-options="field:'orderID',width:120,align:'center'">订单编号</th>
-                        <th data-options="field:'orderName',width:120,align:'center'">订单名称</th>
-                        <th data-options="field:'orgName',width:120,align:'center'">单位名称</th>
+                        <th data-options="field:'orderName',width:180,align:'center'">订单名称</th>
+                        <th data-options="field:'orgName',width:180,align:'center'">单位名称</th>
                         <th data-options="field:'orderTime',width:120,align:'center'">下单日期</th>
                         <th data-options="field:'deliveryTime',width:120,align:'center'">交货日期</th>
                         <th data-options="field:'orders',width:120,align:'center'">下单人员</th>
@@ -165,9 +198,32 @@
                     <a id="btnAdd" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增工艺单</a>
                     <a id="btnEdit" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-edit" plain="true">编辑工艺单</a>
                     <a id="btnDelivery" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" plain="true">暂停工艺单</a>
-                    <a id="btnRepeat" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true">信息录入</a>
+                    <!-- <a id="btnRepeat" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" plain="true">信息录入</a> -->
                 </div>
             </div>
+        </div>
+
+        <div data-options="region:'east',split:false" title="新增订单产品" style="width: 400px;">
+            <ul id="productList" class="list-purchase" style="padding:10px;">
+                <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                    <label>产品名称</label> - <label>产品代码</label> * <label>数量</label>
+                    <div style="float:right;line-height:35px;height:35px;">
+                        <label>2017-08-31</label>
+                    </div>
+                </li>
+                <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                    <label>红灯笼水煮肉片</label> - <label>SC2017080112</label> * <label>1000</label>
+                    <div style="float:right;line-height:35px;height:35px;">
+                        <label>2017-08-31</label>
+                    </div>
+                </li>
+                <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                    <label>红灯笼水煮肉片</label> - <label>SC2017080112</label> * <label>1000</label>
+                    <div style="float:right;line-height:35px;height:35px;">
+                        <label>2017-08-31</label>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -306,12 +362,31 @@
 
     <script>
         $(function () {
+            $('.list-purchase').on('click', 'li', function() {
+                $(this).addClass('active').siblings().removeClass('active');
+            });
+            
             $('#btnAdd').on('click', function (evt) {
+                var item = $('#tt').datagrid('getSelected');
+                var item2 = $('#productList > .active');
+
+                if(item2.length == 0) {
+                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个产品！</div>', 'info');
+                    return;
+                }
+
                 $('#dd').panel('open');
                 $('#dd').panel('setTitle', "新增工艺单");
             });
 
             $('#btnEdit').on('click', function (evt) {
+                var item  = $('#tt').datagrid('getSelected');
+                
+                if(!item) {
+                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个工艺单！</div>', 'info');
+                    return;
+                }
+
                 $('#dd').panel('open');
                 $('#dd').panel('setTitle', "编辑工艺单");
             });
@@ -322,15 +397,22 @@
             });
 
             $('#btnDelivery').on('click', () => {
-                $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">操作成功，工艺单已暂定！</div>', 'info');
+                var item  = $('#tt').datagrid('getSelected');
+                
+                if(!item) {
+                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个工艺单！</div>', 'info');
+                    return;
+                }
+
+                $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">操作成功，工艺单已暂停！</div>', 'info');
             });
 
             $('#btnSearch').on('click', function() {
                 $('#tt').datagrid('loadData', [
                                                 {
-                                                    "orderID": 123456,
-                                                    "orderName": "郫县辣条",
-                                                    "orgName": "成都市辣条厂",
+                                                    "orderID": "SC2017080112",
+                                                    "orderName": "100g红灯笼水煮肉片",
+                                                    "orgName": "成都红灯笼食品有限公司",
                                                     "orderTime": "2017-08-23",
                                                     "deliveryTime": "2017-08-31",
                                                     "orders": "李三",
@@ -340,15 +422,15 @@
                                                     "desc": "请在8月底完成"
                                                 },
                                                 {
-                                                    "orderID": 123456,
-                                                    "orderName": "郫县辣条",
-                                                    "orgName": "成都市辣条厂",
+                                                    "orderID": "SC2017080112",
+                                                    "orderName": "100g红灯笼水煮肉片",
+                                                    "orgName": "成都红灯笼食品有限公司",
                                                     "orderTime": "2017-08-23",
                                                     "deliveryTime": "2017-08-31",
                                                     "orders": "李三",
                                                     "number": 1000,
                                                     "price": 100000,
-                                                    "status": "分切中",
+                                                    "status": "印刷中",
                                                     "desc": "请在8月底完成"
                                                 }
                                             ]);
