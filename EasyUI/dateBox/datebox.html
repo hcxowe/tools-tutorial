@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link href="../jquery-easyui-1.5.2/themes/default/easyui.css" rel="stylesheet">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <link rel="stylesheet" href="../jquery-easyui-1.5.2/themes/color.css">
+    <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <input id="ym">
+    
+    <script>
+        $(function() {
+
+            $('#ym').datebox({
+                //显示日趋选择对象后再触发弹出月份层的事件，初始化时没有生成月份层
+                onShowPanel: function () {
+                    span.trigger("click"); //触发click事件弹出月份层
+                    if (!tds) setTimeout(function () {//延时触发获取月份对象，因为上面的事件触发和对象生成有时间间隔
+                        tds = p.find('div.calendar-menu-month-inner td');
+                        tds.click(function (e) {
+                            e.stopPropagation();    
+                            var year  = /\d{4}/.exec(span.html())[0],
+                                month = parseInt($(this).attr('abbr'), 10);
+
+                            $('#ym').datebox('hidePanel').datebox('setValue', year + '-' + month); //设置日期的值
+                        });
+                    }, 0)
+                },
+
+                //配置parser，返回选择的日期
+                parser: function (s) {
+                    if (!s) {
+                        return new Date();
+                    }
+
+                    var arr = s.split('-');
+                    return new Date(parseInt(arr[0], 10), parseInt(arr[1], 10) - 1, 1);
+                }, 
+
+                //配置formatter，只返回年月
+                formatter: function (d) { 
+                    var month = d.getMonth() + 1;
+                    month = month < 10 ? '0' + month : month;
+                    return d.getFullYear() + '-' + month; 
+                }
+            });
+
+            var p = $("#ym").combo("panel"), //日期选择对象
+            tds = false, //日期选择对象中月份
+            span = p.find(".calendar-title").find("span"); //显示月份层的触发控件
+        });
+    </script>
+</body>
+</html>
