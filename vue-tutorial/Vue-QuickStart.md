@@ -27,7 +27,7 @@ $ npm run dev
 
 配置淘宝的npm镜像
 ```
-$ npm config set registry https://registry.npm.taobao.org
+$ npm config npm config set registry https://registry.npm.taobao.org
 ```
 验证配置
 ```
