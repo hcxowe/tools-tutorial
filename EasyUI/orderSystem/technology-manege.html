@@ -158,9 +158,11 @@
                     <label>工艺单状态:</label>
                     <select class="easyui-combobox" data-options="panelHeight:78" style="width:160px;">
                         <option>全部</option>
-                        <option>未制作</option>
-                        <option>生产中</option>
-                        <option>完成</option>
+                        <option>未开始</option>
+                        <option>印刷中</option>
+                        <option>复合中</option>
+                        <option>分切中</option>
+                        <option>已完成</option>
                     </select>
                 </li>
                 <li>
@@ -203,7 +205,7 @@
             </div>
         </div>
 
-        <div data-options="region:'east',split:false" title="新增订单产品" style="width: 400px;">
+        <!-- <div data-options="region:'east',split:false" title="新增订单产品" style="width: 400px;">
             <ul id="productList" class="list-purchase" style="padding:10px;">
                 <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
                     <label>产品名称</label> - <label>产品代码</label> * <label>数量</label>
@@ -224,7 +226,7 @@
                     </div>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
 
     <div id="dd" class="easyui-dialog" title="新增工艺单" style="width:1000px;height:600px;" data-options="resizable:false,modal:true,closed:true,buttons:'#btnGrounds'">   
@@ -355,6 +357,167 @@
         <a id="btnUrge" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok" style="width:100px;">提交</a>
     </div>
 
+    <div id="ddeidt" class="easyui-dialog" title="复制评审单" style="width:1220px;height:600px;" data-options="resizable:false,modal:true,closed:true,buttons:'#btnGrounds'">
+        <div class="easyui-layout" style="width:100%; height:100%;">
+            <div data-options="region:'center'" style="padding:10px;font-size:14px;overflow:auto;">
+                <div style="float:left;margin-right:5px; width: 900px;">
+                    <h1 style="text-align:center;margin-bottom:10px;">成都和达印务包装公司生产工艺通知单</h1>
+                    <div style="overflow:hidden;">
+                        <div style="float:left;">
+                            <label>下单日期: 2017-08-01</label>
+                        </div>
+                        <div style="float:right;">
+                            <label>交货日期: 2017-08-31</label>
+                        </div>
+                    </div>
+                    <table class="tech-table" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">订货单位</td>
+                                <td colspan="10">成都红灯笼食品有限公司</td>
+                                <td colspan="2">订货单号</td>
+                                <td colspan="2">SC2017080112</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">产品名称</td>
+                                <td colspan="14">100g红灯笼水煮肉片</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">订货数量</td>
+                                <td colspan="10">88,999.00</td>
+                                <td colspan="2">营销员</td>
+                                <td colspan="2">张三</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">数量控制</td>
+                                <td colspan="2">最高</td>
+                                <td colspan="2">10000</td>
+                                <td colspan="2">最低</td>
+                                <td colspan="2">199</td>
+                                <td colspan="2"></td>
+                                <td colspan="2">版号</td>
+                                <td colspan="2">1.2.3</td>
+                            </tr>
+                            <tr>
+                                <td colspan="16" style="padding:4px; font-weight:bold;">材料结构</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">层数</td>
+                                <td colspan="4">材料名称</td>
+                                <td colspan="2">材料宽度(mm)</td>
+                                <td colspan="2">材料厚度(mm)</td>
+                                <td colspan="2">材料密度</td>
+                                <td colspan="2">米数</td>
+                                <td colspan="2">重量(kg)</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">第一层</td>
+                                <td colspan="4">BOPP 910*1.5</td>
+                                <td colspan="2">910</td>
+                                <td colspan="2">1.5</td>
+                                <td colspan="2">0.92</td>
+                                <td colspan="2">6,000.00</td>
+                                <td colspan="2">89.32</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">第二层</td>
+                                <td colspan="4">BOPP 910*1.5</td>
+                                <td colspan="2">910</td>
+                                <td colspan="2">1.5</td>
+                                <td colspan="2">0.92</td>
+                                <td colspan="2">6,000.00</td>
+                                <td colspan="2">89.32</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">第三层</td>
+                                <td colspan="4">BOPP 910*1.5</td>
+                                <td colspan="2">910</td>
+                                <td colspan="2">1.5</td>
+                                <td colspan="2">0.92</td>
+                                <td colspan="2">6,000.00</td>
+                                <td colspan="2">89.32</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" rowspan="7">印刷要求</td>
+                                <td colspan="2">色数</td>
+                                <td colspan="4">7色</td>
+                                <td colspan="4">上墨用量</td>
+                                <td colspan="4">3.5g/m*m</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">图案尺寸</td>
+                                <td colspan="4">225*144mm</td>
+                                <td colspan="4"></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">印刷颜色</td>
+                                <td colspan="4">大红</td>
+                                <td colspan="4"></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">套色要求</td>
+                                <td colspan="4"><=0.1mm</td>
+                                <td colspan="4"></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">印刷方式</td>
+                                <td colspan="4">里印</td>
+                                <td colspan="4"></td>
+                                <td colspan="4"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">色序</td>
+                                <td colspan="12">红、橙、黄、绿、蓝</td>
+                            </tr>
+                            <tr>
+                                <td colspan="14">其他要求</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="float:right;width:270px;height:100%;">
+                    <div id="aa" class="easyui-accordion" style="width:100%;height:100%;">   
+                        <div id="productOrder" title="产品相关工艺单" data-options="selected:true">   
+                            <ul class="list-purchase" style="padding:10px;">
+                                <li style="">
+                                    <label>产品工艺单</label> - <label>日期</label>
+                                    <!-- <div style="float:right;line-height:35px;height:35px;">
+                                        <label>日期</label>
+                                    </div> -->
+                                </li>
+                                <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                                    <label>红灯笼水煮肉片</label> - <label>2017-08-01</label>
+                                    <!-- <div style="float:right;line-height:35px;height:35px;">
+                                        <a id="btnDelivery" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok">2017-08-01</a>
+                                    </div> -->
+                                </li>
+                            </ul>
+                        </div>   
+                        <div title="品牌相关工艺单" style="overflow:auto;">   
+                            <ul class="list-purchase" style="padding:10px;">
+                                <li style="">
+                                    <label>产品工艺单</label> - <label>日期</label>
+                                    <!-- <div style="float:right;line-height:35px;height:35px;">
+                                        <label>日期</label>
+                                    </div> -->
+                                </li>
+                                <li style="height:40px;line-height:40px;border:1px solid #ccc;border-radius:4px;padding-left:10px;padding-right:10px;">
+                                    <label>红灯笼五香豆腐干</label> - <label>20170701</label>
+                                    <!-- <div style="float:right;line-height:35px;height:35px;">
+                                        <a id="btnDelivery" href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-ok">2017-08-01</a>
+                                    </div> -->
+                                </li>
+                            </ul>
+                        </div>   
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div> 
+
     <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
     <script src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
     <script src="./datagrid-detailview.js"></script>
@@ -367,16 +530,18 @@
             });
             
             $('#btnAdd').on('click', function (evt) {
-                var item = $('#tt').datagrid('getSelected');
-                var item2 = $('#productList > .active');
+                //var item = $('#tt').datagrid('getSelected');
+                // var item2 = $('#productList > .active');
 
-                if(item2.length == 0) {
-                    $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个产品！</div>', 'info');
-                    return;
-                }
+                // if(item2.length == 0) {
+                //     $.messager.alert('提示', '<div style="position:absolute;left:50px;right:40px;text-align:center;font-size:14px;">请先选择一个产品！</div>', 'info');
+                //     return;
+                // }
 
-                $('#dd').panel('open');
-                $('#dd').panel('setTitle', "新增工艺单");
+                //$('#dd').panel('open');
+                
+                $('#ddeidt').panel('open');
+                //$('#dd').panel('setTitle', "新增工艺单");
             });
 
             $('#btnEdit').on('click', function (evt) {
@@ -387,8 +552,11 @@
                     return;
                 }
 
-                $('#dd').panel('open');
-                $('#dd').panel('setTitle', "编辑工艺单");
+                $('#ddeidt').panel('open');
+                $('#ddeidt').panel('setTitle', "编辑工艺单");
+
+                //$('#dd').panel('open');
+                //$('#dd').panel('setTitle', "编辑工艺单");
             });
 
             $('#btnRepeat').on('click', () => {
@@ -418,7 +586,7 @@
                                                     "orders": "李三",
                                                     "number": 1000,
                                                     "price": 100000,
-                                                    "status": "印刷中",
+                                                    "status": "未开始",
                                                     "desc": "请在8月底完成"
                                                 },
                                                 {
@@ -430,7 +598,7 @@
                                                     "orders": "李三",
                                                     "number": 1000,
                                                     "price": 100000,
-                                                    "status": "印刷中",
+                                                    "status": "已完成",
                                                     "desc": "请在8月底完成"
                                                 }
                                             ]);
