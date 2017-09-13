@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <ul>
+        <li><a href="#/a">AAA</a></li>
+        <li><a href="#/b">BBB</a></li>
+        <li><a href="#/c">CCC</a></li>
+        <li><a href="#/d">DDD</a></li>
+        <li><a href="#/e">EEE</a></li>
+    </ul>
+
+    <div id="container" class="easyui-panel" data-options="noheader:true" style="width: 100%; height: 500px;"></div>
+
+    <script src="./router.js"></script>
+
+    <script>
+        window.addEventListener('hashchange', function(evt) {
+            updatePanel();
+        });
+
+        window.addEventListener('popstate', function(evt) {
+            console.dir(evt);
+        });
+
+        function updatePanel() {
+            switch(window.location.hash) {
+                case '#/a': 
+                    $('#container').panel('refresh','./panel1.html');
+                    break;
+
+                case '#/b': 
+                    $('#container').panel('refresh','./panel2.html');
+                    break;
+
+                default: 
+                    $('#container').panel('refresh','./notfound.html');
+                    break;
+            }
+        }
+
+        $(function() {
+            updatePanel();
+        });
+    </script>
+</body>
+</html>
