@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
     <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
     <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    <script src="./vipspa.js"></script>
 </head>
 <body>
     <ul>
@@ -21,36 +22,55 @@
 
     <div id="container" class="easyui-panel" data-options="noheader:true" style="width: 100%; height: 500px;"></div>
 
-    <script src="./router.js"></script>
+    <!-- <script src="./router.js"></script> -->
 
     <script>
-        window.addEventListener('hashchange', function(evt) {
-            updatePanel();
+
+        $(function () {
+            vipspa.start({
+                view: '#container',
+                router: {
+                    '/a': {
+                        templateUrl: './panel1.html',
+                        controller: 'a.js'
+                    },
+                    '/b': {
+                        templateUrl: './panel2.html',
+                        controller: 'b.js'
+                    }
+                }
+            });
         });
 
-        window.addEventListener('popstate', function(evt) {
-            console.dir(evt);
-        });
+        // window.addEventListener('hashchange', function(evt) {
+        //     updatePanel();
+        // });
 
-        function updatePanel() {
-            switch(window.location.hash) {
-                case '#/a': 
-                    $('#container').panel('refresh','./panel1.html');
-                    break;
+        // window.addEventListener('popstate', function(evt) {
+        //     console.dir(evt);
+        // });
 
-                case '#/b': 
-                    $('#container').panel('refresh','./panel2.html');
-                    break;
+        // function updatePanel() {
+        //     switch(window.location.hash) {
+        //         case '#/a': 
+        //             $('#container').panel('refresh','./panel1.html');
+        //             break;
 
-                default: 
-                    $('#container').panel('refresh','./notfound.html');
-                    break;
-            }
-        }
+        //         case '#/b': 
+        //             $('#container').panel('refresh','./panel2.html');
+        //             break;
 
-        $(function() {
-            updatePanel();
-        });
+        //         default: 
+        //             $('#container').panel('refresh','./notfound.html');
+        //             break;
+        //     }
+
+        //     loadScript('./script.js');
+        // }
+
+        // $(function() {
+        //     updatePanel();
+        // });
     </script>
 </body>
 </html>

@@ -79,7 +79,6 @@
     function Router(options) {
         this.options = extend({}, defaultOpt, options);
         this.urlArg = [];
-        this.records = [];
     }
 
     Router.prototype = {

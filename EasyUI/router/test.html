@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        
+    </div>
+
+
+
+
+    <button id="btnCreate">new login</button>
+
+    <script>
+
+        document.getElementById('btnCreate').addEventListener('click', addLogin);
+
+        function addLogin() {
+            document.getElementById('container').innerHTML = '<button id="Login">login</button>';
+
+            // document.addEventListener('click', function() {
+            //     alert('document click');
+            // });
+
+            document.getElementById('Login').addEventListener('click', function() {
+                alert('login');
+            });
+        }
+    </script>
+</body>
+</html>
