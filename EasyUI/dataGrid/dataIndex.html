@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<table id="dg" class="easyui-datagrid" title="DataGrid" style="width:700px;height:250px"
+			data-options="rownumbers:true,singleSelect:true">
+		<thead>
+			<tr>
+				<th data-options="field:'0',width:90,align:'right'">List Price</th>
+				<th data-options="field:'1',width:90,align:'right'">Unit Cost</th>
+				<th data-options="field:'2',width:250">Attribute</th>
+				<th data-options="field:'3',width:60,align:'center'">Status</th>
+			</tr>
+		</thead>
+    </table>
+    
+    <script>
+        $(function() {
+            $('#dg').datagrid('loadData', ['hcxowe'.split('')]);
+        });
+    </script>
+</body>
+</html>
