@@ -16,8 +16,14 @@
 
         <thead data-options="frozen:true">
             <tr>
-                <th data-options="field:'0',width:100">Item ID</th>
-                <th data-options="field:'1',width:120">Product</th>
+                <th colspan="1" rowspan="2" data-options="field:'0',width:100">Item ID</th>
+                <th colspan="1" rowspan="2" data-options="field:'0',width:100">Item ID</th>
+                <th colspan="2">Status</th>
+                <th colspan="1" rowspan="2" data-options="field:'0',width:100">Item ID</th>
+            </tr>
+            <tr>
+                <th data-options="field:'2',width:90,align:'right'">List Price</th>
+                <th data-options="field:'3',width:90,align:'right'">Unit Cost</th>
             </tr>
         </thead>
 
@@ -38,7 +44,7 @@
     
     <script>
         $(function() {
-            $('#dg').datagrid('loadData', ['hcxowe'.split('')]);
+            //$('#dg').datagrid('loadData', ['hcxowe'.split('')]);
         });
     </script>
 </body>
