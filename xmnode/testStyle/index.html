@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    测试样式
+
+    <button id="btnID">切换style</button>
+    <button id="btnID1">切换外部样式文件</button>
+
+    <button id="btnID11">重新加载wrap</button>
+    <button id="btnID111">重新加载脚本</button>
+
+    <div class="wrap">
+        <button id="btnID22">按钮</button>
+    </div>
+
+    <script src="./jquery.min.js"></script>
+    <script>
+        $(function() {
+            var style = null;
+            var style1 = null;
+            $('#btnID').on('click', function() {
+                if (style) {
+                    style.parentNode.removeChild(style);
+                    style = null;
+                }
+                else {
+                    style = loadInnerStyle('html { color: red; font-size: 20px; }');
+                }
+            });
+
+            $('#btnID1').on('click', function() {
+                if (style1 == null) {
+                    style1 = loadOuterStyle('./style.css');
+                }
+                else {
+                    style1.parentNode.removeChild(style1);
+                    style1 = null;
+                }
+            });
+
+            $('#btnID11').on('click', function() {
+                $('.wrap').html('<button id="btnID22">按钮</button>');
+            });
+
+            $('#btnID111').on('click', function() {
+                loadScript('./main.js');
+            });
+        });
+
+        function loadScript(url) {
+            var script = document.createElement('script');
+            script.onload = function() {
+                document.getElementsByTagName('head')[0].removeChild(script);    
+            };
+
+            script.src = url;
+            script.type = 'text/javascript';
+            
+            document.getElementsByTagName('head')[0].appendChild(script);
+        }
+
+        function loadOuterStyle(url) {
+            var head = document.getElementsByTagName('head')[0];
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = url;
+
+            head.appendChild(link);
+            return link;
+        }
+
+        function loadInnerStyle(cssStr) {
+            var style = document.createElement('style');
+            style.id = 'styleID';
+
+            if ( 'styleSheet' in style ) {
+                style.setAttribute('type', 'text/css');
+                style.styleSheet.cssText = cssStr;
+            } 
+            else {
+                style.innerHTML = cssStr;
+            }
+
+            document.getElementsByTagName('head')[0].appendChild(style);
+            return style;
+        }
+    </script>
+</body>
+</html>
