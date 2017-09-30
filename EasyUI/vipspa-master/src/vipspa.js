@@ -3,24 +3,33 @@
         
     }
     Vipspa.prototype.start = function(config){
+        // 1. self没啥用
+        // 2. config应该使用对象扩展方法设置默认值
+        // 3. errorTemplateId可以不用设置，当无法匹配路由的时候默认展示出错页
         var self = this;
         self.routerMap = config.router;
         self.mainView = config.view;
         self.errorTemplateId = config.errorTemplateId;
+        
         startRouter();
+
         window.onhashchange = function(){
             startRouter();
         };
     };
+
     var messageStack = [];
     // {
     //     'id': 'home_bindcard',
     //     'content': {
     //     }
     // }
+
     Vipspa.prototype.getMessage = function(id){
         var msg = {};
-        $.each(messageStack,function(i,e){
+
+        // each里面id匹配应该直接就返回， for循环就好
+        $.each(messageStack, function(i,e){
             if(e.id===id){
                 msg = e;
             }
@@ -29,25 +38,30 @@
     };
 
     Vipspa.prototype.setMessage = function(obj){
+        // 默认obj为标准的json格式对象，进行深拷贝
         var _obj = JSON.parse(JSON.stringify(obj));
         $.each(messageStack,function(i,e){
             if(e.id===_obj.id){
                 e = _obj;
-                return false;
+                return false;  // 这里只是退出each循环，所以这里会存在重复对象
             }
         });
+
         messageStack.push(_obj);
     };
     Vipspa.prototype.delMessage = function(id){
         if(typeof id==='undefined'){
             return false;
         }
+
+        // 数组方法 indexOf与splice可以替代
         var index = 0;
         $.each(messageStack,function(i,e){
             if(e.id===id){
                 index = i;
             }
         });
+
         $.each(messageStack,function(i,e){
             if(i>index){
                 messageStack[i-1] = e;
@@ -59,8 +73,9 @@
         messageStack = [];
     };
     
-    Vipspa.prototype.stringify = function(routerUrl,paramObj){
-        var paramStr='' ,hash;
+    // 为何跟JSON的方法重名？  组合url + 参数
+    Vipspa.prototype.stringify = function(routerUrl, paramObj){
+        var paramStr='', hash;
         for(var i in  paramObj){
             paramStr += i + '=' + encodeURIComponent(paramObj[i]) + '&';
         }
@@ -73,8 +88,12 @@
         }
         return hash;
     };
+
+
     Vipspa.prototype.parse = function(routerHash){
         var hash = typeof routerHash ==='undefined'?location.hash:routerHash;
+        //var hash = routerHash || location.hash;  这样子比上面的好
+
         var obj = {
             url:'',
             param: {}
@@ -99,8 +118,6 @@
                 if(key!==''){
                     param[key] = decodeURIComponent(val);
                 }
-                
-
             });
         }
         else{
@@ -114,6 +131,7 @@
     };
     function routerAction (routeObj){
         var routerItem = vipspa.routerMap[routeObj.url];
+        // 没有找到hash
         if(typeof routerItem==='undefined'){
             var defaultsRoute = vipspa.routerMap.defaults;
             routerItem = vipspa.routerMap[defaultsRoute];
