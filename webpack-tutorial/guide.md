@@ -16,13 +16,29 @@
 
 `file-loader`, `url-loader`
 
-### 记载字体
+### 加载字体
 
 `file-loader`
 
-### 记载数据
+### 加载数据
 
 `import Data from './data.json'` 可以正常运行
 
 其他CSV,TSV,XML需要使用 `csv-loader`, `xml-loader`
+
+## 管理输出
+
+### 多个入口
+
+`html-webpack-plugin`
+
+### 清理输出目录
+
+`clean-webpack-plugin`
+
+### manifest转json
+
+`webpack-manifest-plugin`
+
+## 开发
 
