@@ -18,5 +18,9 @@ module.exports = {
         new HtmlWebpackPlugin({
             title: 'Output html-webpack-plugin'
         })
-    ]
-}
+    ],
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist'
+    }
+}   
