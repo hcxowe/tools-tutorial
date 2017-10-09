@@ -21,23 +21,23 @@
         {
             path: '/home',
             container: '#wrap',
-            view: '/home/home.html',
-            script: '/home/index.js',
-            style: '/home/style.css'
+            view: './home/home.html',
+            script: './home/index.js',
+            style: './home/style.css'
         },
         {
             path: '/about',
             container: '#wrap',
-            view: '/component/home/about.html',
-            script: '/component/home/index.js',
-            style: '/component/home/style.css'
+            view: './about/about.html',
+            script: './about/index.js',
+            style: './about/style.css'
         },
         {
             path: '/contact',
             container: '#wrap',
-            view: '/component/home/contact.html',
-            script: '/component/home/index.js',
-            style: '/component/home/style.css'
+            view: './contact/contact.html',
+            script: './contact/index.js',
+            style: './contact/style.css'
         }
     ]
 
@@ -58,14 +58,19 @@
             this.excuteRoute(getLocationHref());
 
             var self = this;
-            $('document').on('hashchange', function(evt) {
-                self.excuteRoute(evt.newURL);
-            });
+            window.onhashchange = function(evt) {
+                //self.excuteRoute(evt.newURL);
+                self.excuteRoute(location.href);
+            };
         },
         excuteRoute: function(url) {
-            
+
             var self = this;
             var urlObject = parseUrl(url);
+
+            if (urlObject.path == "") {
+                return;
+            }
             
             this.curRoute.styleID && this.curRoute.styleID.parentNode.removeChild(this.curRoute.styleID);
             this.curRoute.path = urlObject.path;
@@ -73,8 +78,8 @@
     
             var item = null;
             for (var i=0; i<this.routes.length; i++) {
-                if ( route.routes[i].path == urlObject.path ) {
-                    item = routes[i];
+                if ( this.routes[i].path == urlObject.path ) {
+                    item = this.routes[i];
                     break;
                 }
             }
@@ -128,7 +133,7 @@
 
         pos = url.indexOf('#');
         if ( ~pos ) {
-            urlObject.path = url.slice(pos+1, index);
+            urlObject.path = url.slice(pos+1, ~index?index:undefined);
         }
 
         urlObject.url = url.slice(0, pos-1);
