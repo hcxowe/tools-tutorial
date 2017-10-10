@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>企划系统</title>
+    <link rel="stylesheet" href="./uilibs/normalize/normalize.css">
+    <link rel="stylesheet" href="./uilibs/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" href="./uilibs/easyui/themes/icon.css">
+    <link rel="stylesheet" href="./index.css">
+	<script type="text/javascript" src="./uilibs/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="./uilibs/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+    <div class="easyui-layout" style="width:100%;height:100%;">
+        <div data-options="region:'north',border:false" style="overflow: hidden;padding-left: 15px; padding-right: 15px;height:80px;line-height:78px;background-color: #F07525; color: white; border-bottom:2px solid #E14D0D">   
+            <label style="font-size: 48px;font-weight: bold;font-style: italic;">CST</label>
+            <label>&copy;</label>
+            <span style="border: 1px solid #FFF;display: inline-block;height: 33px;margin-left: 5px;margin-right:5px;"></span>
+            <label style="font-size: 34px;font-weight: bold;vertical-align: top;">企划系统</label>
+        </div>
+        <div data-options="region:'west',border:false" style="width:250px;">
+            <div class="subNavBox">
+                <div class="subNav currentDd currentDt">基础数据</div>
+                <ul class="navContent " style="display:block">
+                    <li><a href="#111">工作日历设置</a></li>
+                    <li><a href="#222">设备型号管理</a></li>
+                    <li><a href="#333">设备信息管理</a></li>
+                    <li><a href="#444">模具清单管理</a></li>
+                </ul>
+                
+                <div class="subNav">系统配置</div>
+                <ul class="navContent">
+                    <li><a href="#">系统参数配置</a></li>
+                    <li><a href="#">制造单位</a></li>
+                </ul>
+                
+                <div class="subNav">主计划计算</div>
+                <ul class="navContent">
+                    <li><a href="#">主计划需求量维护</a></li>
+                    <li><a href="#">主计划订单</a></li>
+                    <li><a href="#">排产主计划</a></li>
+                    <li><a href="#">主计划审批</a></li>
+                    <li><a href="#">主计划数据</a></li>
+                </ul>
+                    
+                <div class="subNav">订单签交期</div>
+                <ul class="navContent">
+                    <li><a href="#">待签交期订单</a></li>
+                    <li><a href="#">待审批交期订单</a></li>
+                </ul>
+
+                <div class="subNav">统计报表</div>
+                <ul class="navContent">
+                    <li><a href="#">设备产能查询</a></li>
+                    <li><a href="#">产能统计报表</a></li>
+                    <li><a href="#">安排模数统计报表</a></li>
+                    <li><a href="#">每日预定生产量</a></li>
+                    <li><a href="#">模号生产量统计</a></li>
+                </ul>
+            </div>
+        </div>   
+        <div data-options="region:'center',border:false" style="padding:5px;background:#eee;">
+            <iframe id="container" width="100%" height="100%" frameborder="0"></iframe>
+        </div>   
+    </div> 
+
+    <script>
+        $(function(){
+            $(".subNav").click(function(){
+                $(this).toggleClass("currentDd").siblings(".subNav").removeClass("currentDd");
+                $(this).toggleClass("currentDt").siblings(".subNav").removeClass("currentDt");
+                $(this).next(".navContent").slideToggle(300).siblings(".navContent").slideUp(500);
+            });
+
+            $('.navContent').on('click', 'a', function(evt) {
+                $('.navContent a').removeClass('activeNav');
+                $(this).addClass('activeNav');
+            });
+
+            window.onload = window.onhashchange = function(evt) {
+                var hash = location.hash;
+
+                if (hash == '') {
+                    $('#container').attr('src', "");
+                    return;
+                }
+
+                //var url = './' + hash.slice(1) + '/index.html';
+                var url = './base/workDate/index.html';
+                $('#container').attr('src', url);
+                //$('a[href="' + hash + '"]').addClass('activeNav');
+            };
+        })
+    </script>
+</body>
+</html>
