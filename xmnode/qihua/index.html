@@ -23,11 +23,11 @@
         <div data-options="region:'west',border:false" style="width:250px;">
             <div class="subNavBox">
                 <div class="subNav currentDd currentDt">基础数据</div>
-                <ul class="navContent " style="display:block">
-                    <li><a href="#111">工作日历设置</a></li>
-                    <li><a href="#222">设备型号管理</a></li>
-                    <li><a href="#333">设备信息管理</a></li>
-                    <li><a href="#444">模具清单管理</a></li>
+                <ul class="navContent" style="display: block;">
+                    <li><a href="#base/workDate">工作日历设置</a></li>
+                    <li><a href="#base/devType">设备型号管理</a></li>
+                    <li><a href="#base/devInfo">设备信息管理</a></li>
+                    <li><a href="#base/modList">模具清单管理</a></li>
                 </ul>
                 
                 <div class="subNav">系统配置</div>
@@ -62,7 +62,9 @@
             </div>
         </div>   
         <div data-options="region:'center',border:false" style="padding:5px;background:#eee;">
-            <iframe id="container" width="100%" height="100%" frameborder="0"></iframe>
+            <div id="container" style="width:100%;height: 100%;">
+                <iframe id="" width="100%" height="100%" frameborder="0"></iframe>
+            </div>
         </div>   
     </div> 
 
@@ -83,14 +85,25 @@
                 var hash = location.hash;
 
                 if (hash == '') {
-                    $('#container').attr('src', "");
+                    $('#container').children().hide();
                     return;
                 }
 
-                //var url = './' + hash.slice(1) + '/index.html';
-                var url = './base/workDate/index.html';
-                $('#container').attr('src', url);
-                //$('a[href="' + hash + '"]').addClass('activeNav');
+                var url = './' + hash.slice(1) + '/index.html';
+                
+                var idName = hash.slice(1).replace('/', '_');
+                var iframe = $('#'+ idName);
+                if (iframe.length == 0) {
+                    iframe = $('<iframe id="' + idName + '" width="100%" height="100%" frameborder="0"></iframe>')
+                    iframe.attr('src', url);
+                    $('#container').append(iframe);
+                }
+
+                iframe.show().siblings().hide();
+
+                //$('#container').attr('src', url);
+                $('.navContent a').removeClass('activeNav');
+                $('a[href="' + hash + '"]').addClass('activeNav');
             };
         })
     </script>
