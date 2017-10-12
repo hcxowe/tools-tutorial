@@ -101,7 +101,13 @@ module.exports = {
         sourcePrefix: "\t", // 包内前置式模块资源具有更好可读性
     },
 
+    // 这些选项决定了如何处理项目中的不同类型的模块
     module: {
+        // 不解析这里的模块
+        noParse: [
+            /special-library\.js$/
+        ],
+
         rules: [
             // 模块规则， 配置loader、解析器选项
             {
@@ -160,10 +166,7 @@ module.exports = {
 
         /* 高级配置 */
 
-        // 不解析这里的模块
-        noParse: [
-            /special-library\.js$/
-        ],
+        
 
         unknownContextRequest: ".",
         unknownContextRecursive: true,
@@ -178,9 +181,9 @@ module.exports = {
         wrappedContextCritical: false,
     },
 
-    // 解析模块请求的选项
+    // 这些选项能设置模块如何被解析
     resolve: {
-        // 查找模块的目录
+        // 解析模块时应该搜索的目录
         modules: [
             'node_modules', 
             path.resolve(__dirname, 'app')
@@ -189,7 +192,7 @@ module.exports = {
         // 使用的扩展名
         extensions: ['.js', '.json', '.jsx', '.css'],
 
-        // 模块别名
+        // 模块别名--创建 import 或 require 的别名，来确保模块引入变得更简单
         alias: {
             "module": "new-module", // module -> new-module
             "only-module$": 'new-module', // only-module结尾的 -> new-module
@@ -200,15 +203,15 @@ module.exports = {
         },
 
         /* 高级选项 */
-        symlinks: true,
+
         // 遵循符号链接(symlinks)到新位置
+        symlinks: true,
     
-        descriptionFiles: ["package.json"],
         // 从 package 描述中读取的文件
+        descriptionFiles: ["package.json"],
     
+        // 当从 npm 包中导入模块时（例如，import * as D3 from "d3"），此选项将决定在 package.json 中使用哪个字段导入模块
         mainFields: ["main"],
-        // 从描述文件中读取的属性
-        // 当请求文件夹时
     
         aliasFields: ["browser"],
         // 从描述文件中读取的属性
@@ -218,7 +221,11 @@ module.exports = {
         // 如果为 true，请求必不包括扩展名
         // 如果为 false，请求可以包括扩展名
     
+        // 在解析模块（例如，loader）时尝试使用的扩展。默认是一个空数组
         moduleExtensions: ["-module"],
+        // 如果你想要不带 -loader 后缀使用 loader
+        moduleExtensions: ["-loader"],
+
         enforceModuleExtension: false,
         // 类似 extensions/enforceExtension，但是用模块名替换文件
     
@@ -237,17 +244,24 @@ module.exports = {
         // 应用于解析器的附加插件
     },
 
+    // 这些选项可以控制 webpack 如何通知「资源(asset)和入口起点超过指定文件限制」。 
     performance: {
         hint: 'warning', // 抛出警告
         hint: 'error', // 性能中抛出错误
         hint: false, // 关闭性能提示
-        maxAssetSize: 2000,
-        maxEntrypointSize: 40000,
+        // 资源(asset)是从 webpack 生成的任何文件。
+        // 此选项根据单个资源体积，控制 webpack 何时生成性能提示
+        maxAssetSize: 250000,
+        // 入口起点表示针对指定的入口，对于所有资源，要充分利用初始加载时(initial load time)期间。
+        // 此选项根据入口起点的最大体积，控制 webpack 何时生成性能提示
+        maxEntrypointSize: 400000,
+        // 此属性允许 webpack 控制用于计算性能提示的文件
         assetFilter: function(assetFilename) {
             return assetFilename.endsWith('.css') || assetFilename.endsWith('.js');
         }
     },
 
+    // 该选项控制是否生成源映射以及如何生成源映射。
     // 通过在浏览器调试工具(browser devtools)中添加元信息(meta info)增强调试
     devtool: 'source-map',                  // 牺牲了构建速度的 `source-map' 是最详细的。
     devtool: 'inline-source-map',           // 嵌入到源文件中
@@ -256,8 +270,6 @@ module.exports = {
     devtool: 'cheap-source-map',            // 没有模块映射(module mappings)的 SourceMap 低级变体(cheap-variant)
     devtool: 'cheap-module-source-map',     // 有模块映射(module mappings)的 SourceMap 低级变体
     devtool: 'eval',                        // 没有模块映射，而是命名模块。以牺牲细节达到最快。
-
-   
 
     // 包(bundle)应该运行的环境
     target: "web", // 枚举
@@ -269,6 +281,9 @@ module.exports = {
     target: "electron-renderer", // electron，渲染进程(renderer process)
     target: (compiler) => { /* ... */ }, // 自定义
 
+    // externals 配置选项提供了「从输出的 bundle 中排除依赖」的方法。
+    // 相反，所创建的 bundle 依赖于那些存在于用户环境(consumer's environment)中的依赖。
+    // 此功能通常对 library 开发人员来说是最有用的，然而也会有各种各样的应用程序用到它
     // 不要遵循/打包这些模块，而是在运行时从环境中请求他们
     externals: ["react", /^@angular\//],
     externals: "react", // string（精确匹配）
@@ -296,17 +311,163 @@ module.exports = {
     },
 
     devServer: {
-        // 代理
-        proxy: { 
-            '/api': 'http://localhost:3000'
+        
+        // 告诉服务器从哪里提供内容。只有在你想要提供静态文件时才需要。devServer.publicPath 将用于确定应该从哪里提供 bundle，并且此选项优先。
+        // 默认情况下，将使用当前工作目录作为提供内容的目录
+        contentBase: path.join(__dirname, 'public'),
+        
+        // 允许访问dev服务器的白名单
+        allowedHosts: [
+            'host.com',
+            'subdomain.host.com',
+            'subdomain2.host.com',
+            'host2.com'
+        ],
+
+        // 这个选项在启动时通过ZeroConf网络广播服务器
+        bonjour: true,
+
+        // 控制开发工具(DevTools)的控制台(console)的消息显示
+        // none, error, warning 或者 info（默认值）
+        clientLogLevel: none,
+
+        // 是否启用gzip 压缩
+        compress: true, 
+        
+        // 当设置为true时，该选项将绕过主机检查。不推荐使用不检查主机的应用程序是否容易受到DNS重新绑定攻击
+        disableHostCheck: true,
+
+        // 在惰性模式中，此选项可减少编译。 默认在惰性模式，每个请求结果都会产生全新的编译。使用 filename，可以只在某个文件被请求时编译
+        // 在不使用惰性加载时没有效果
+        filename: 'bundle.js',
+
+        // 在所有响应中添加首部内容
+        headers: {
+            'X-Custom-Foo': 'bar'
         },
 
-        contentBase: path.join(__dirname, 'public'),
-        compress: true, // 是否压缩
-        historyApiFallback: true, 
-        hot: true, 
-        https: false, 
-        noInfo: true, 
+        // 当使用 HTML5 History API 时，任意的 404 响应都可能需要被替代为 index.html
+        historyApiFallback: true,
+        historyApiFallback: {
+            rewrites: [
+                { from: /^\/$/, to: '/views/landing.html' },
+                { from: /^\/subpage/, to: '/views/subpage.html' },
+                { from: /./, to: '/views/404.html' }
+            ]
+        },
+
+        // 默认是 localhost, 如果你希望服务器外部可访问,指定使用一个 host, 
+        host: '0.0.0.0',
+
+        // 指定要监听请求的端口号
+        port: 8080,
+
+        // 启用 webpack 的模块热替换特性
+        hot: true,
+
+        // 启用热模块替换(见devserver.Hot)，而不需要页面刷新，以防出现构建失败。
+        hotOnly: true,
+
+        // 默认情况下，dev-server 通过 HTTP 提供服务。也可以选择带有 HTTPS 的 HTTP/2 提供服务
+        https: false,
+        https: {
+            key: fs.readFileSync("/path/to/server.key"),
+            cert: fs.readFileSync("/path/to/server.crt"),
+            ca: fs.readFileSync("/path/to/ca.pem"),
+        },
+
+        // CLI信息输出。它是默认启用的
+        info: true,
+
+        // 在 dev-server 的两种不同模式之间切换。
+        // 默认情况下，应用程序启用内联模式(inline mode)。这意味着一段处理实时重载的脚本被插入到你的包(bundle)中，并且构建消息将会出现在浏览器控制台
+        // 也可以使用 iframe 模式，它在通知栏下面使用 <iframe> 标签，包含了关于构建的消息
+        // 当使用模块热替换时，建议使用内联模式(inline mode)。
+        inline: false,
+
+        // 当启用 lazy 时，dev-server 只有在请求时才编译包(bundle)。
+        // 这意味着 webpack 不会监视任何文件改动。我们称之为“惰性模式”
+        lazy: true,
+
+        // 启用 noInfo 后，诸如「启动时和每次保存之后，那些显示的 webpack 包(bundle)信息」的消息将被隐藏。错误和警告仍然会显示
+        noInfo: true,
+
+        // 打开启用时，dev服务器将打开浏览器
+        open: true,
+
+        // 指定在打开浏览器时导航到的页面
+        openPage: '/home',
+
+        // 当出现编译错误或警告时，在浏览器中显示一个全屏覆盖。默认情况下禁用。如果只想显示编译器错误
+        overlay: true,
+        overlay: {
+            warnings: true,
+            errors: true
+        },
+        
+        // 代理
+        // 如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用
+        proxy: { 
+            '/api': 'http://localhost:3000', // 请求到 /api/users 现在会被代理到请求 http://localhost:3000/api/users
+            "/api": {
+                target: "http://localhost:3000",
+                pathRewrite: {"^/api" : ""}
+            }, // 请求到 /api/users 现在会被代理到请求 http://localhost:3000/users
+
+            // 默认情况下，不接受运行在 HTTPS 上，且使用了无效证书的后端服务器。如果你想要接受，修改配置如下
+            "/api": {
+                target: "https://other-server.example.com",
+                secure: false
+            },
+
+            // 有时你不想代理所有的请求。可以基于一个函数的返回值绕过代理。
+            // 在函数中你可以访问请求体、响应体和代理选项。必须返回 false 或路径，来跳过代理请求。
+            // 例如：对于浏览器请求，你想要提供一个 HTML 页面，但是对于 API 请求则保持代理。你可以这样做
+            "/api": {
+                target: "http://localhost:3000",
+                bypass: function (req, res, proxyOptions) {
+                    if (req.headers.accept.indexOf("html") !== -1) {
+                        console.log("Skipping proxy for browser request.");
+                        return "/index.html";
+                    }
+                }
+            }
+        },
+
+        // 代理多个指定的路径到相同的目标
+        proxy: [{
+            context: ["/auth", "/api"],
+            target: "http://localhost:3000",
+        }],
+
+        // 当使用内联模式(inline mode)并代理 dev-server 时，内联的客户端脚本并不总是知道要连接到什么地方。
+        // 它会尝试根据 window.location 来猜测服务器的 URL，但是如果失败，你需要这样。
+        // 例如，dev-server 被代理到 nginx，并且在 myapp.test 上可用
+        public: 'myapp.test:80',
+
+        // 此路径下的打包文件可在浏览器中访问, 默认 publicPath 是 "/"
+        // 确保 publicPath 总是以斜杠(/)开头和结尾。
+        publicPath: '/assets',
+
+        // 启用 quiet 后，除了初始启动信息之外的任何内容都不会被打印到控制台。
+        // 这也意味着来自 webpack 的错误或警告在控制台不可见
+        quiet: true, 
+
+        // 在这里，您可以访问Express app对象，并将自己的定制中间件添加到其中
+        setup (app) {
+            app.get('/some/path', function(req, res) {
+                res.json({ custom: 'response' });
+            });
+        },
+
+        // 监听指定socket, 代替host
+        socket: 'socket',
+
+        // 该选项允许您精确地控制哪些bundle信息被显示
+        stats: 'error-only',
+
+        // 文件更改将触发一个完整的页面重新加载
+        watchContentBase: true
     },
   
     // 插件
