@@ -24,16 +24,18 @@
 
         .wrap {
             width: 100%;
-            height: 100%;
+            height: 95%;
             position: relative;
         }
 
         .left-md {
             position: absolute;
             left: 0; top: 0; bottom: 0; 
-            width: 50%;
+            width: 30%;
             padding: 5px;
             border: 1px solid #ccc;
+            background: white;
+            z-index: 2;
         }
 
         .left-md > textarea {
@@ -45,10 +47,11 @@
         .right-html {
             position: absolute;
             right: 0; top: 0; bottom: 0; 
-            width: 50%;
+            width: 70%;
             padding-left: 30px;
             border: 1px solid #ccc;
             overflow: auto;
+            z-index: 1;
         }
 
     </style>
@@ -65,12 +68,25 @@
         </div>
     </div>
 
+    <div style="height: 5%;text-align: center;padding: 5px;">
+        <button style="width: 100px;height:100%;" onclick="showRight();">预览</button>
+    </div>
     <script>
         var input = document.getElementById('mdInput');
         var container = document.getElementById('htmlShow');
         input.addEventListener('input', function(evt) {
             container.innerHTML = marked(evt.target.value);
         });
+
+        function showRight() {
+            var width = document.getElementsByClassName('left-md')[0].style.width;
+            if (width != "100%") {
+                document.getElementsByClassName('left-md')[0].style.width = '100%';
+            }
+            else {
+                document.getElementsByClassName('left-md')[0].style.width = '30%';
+            }
+        }
     </script>
 </body>
 </html>

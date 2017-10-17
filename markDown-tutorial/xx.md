@@ -1,45 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-
-    <link rel="stylesheet" href="./md.css">
-
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .wrap {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: auto;
-        }
-
-        .right-html {
-            margin: 0 auto;
-            width: 50%;
-            overflow: auto;
-        }
-
-    </style>
-
-    <script src="./marked.min.js"></script>
-    <script id="mdContainer" type="text/template">
-![alt text](./md.png 'markdown')
+![Alt text](./md.png 'markdown')
 ## 什么是Markdown
 
 > Markdown 是一种轻量级标记语言，创始人为约翰·格鲁伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML(或者HTML)文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。 --- 维基百科
@@ -129,22 +88,3 @@ Markdown是一种轻量级的「标记语言」, 通常为程序员群体所用�
 
 ### 序列图
 ![Alt text](./序列图.png)
-    </script>
-</head>
-<body>
-    <div class="wrap">
-        <div class="right-html">
-            <textarea style="display: none;" id="textInput"></textarea>
-            <div class="markdown-body" id="htmlShow"></div>
-        </div>
-    </div>
-
-    <script>
-        var input = document.getElementById('mdContainer');
-        var text = document.getElementById('textInput');
-        text.value = input.innerText.trim();
-        var container = document.getElementById('htmlShow');
-        container.innerHTML = marked(textInput.value);
-    </script>
-</body>
-</html>
