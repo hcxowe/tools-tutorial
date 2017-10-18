@@ -1,6 +1,6 @@
 require.config({
     paths: {
-        'mock': '../../uilibs/mockjs/mock',
+        'mock': '../../../zuilibs/mockjs/mock',
     }
 });
 

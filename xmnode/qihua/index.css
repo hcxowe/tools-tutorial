@@ -31,7 +31,7 @@ img {
     color: #999;
     line-height: 28px;
     padding-left: 10px;
-    background: url(./images/jiantou1.jpg) no-repeat;
+    background: url(./common/images/jiantou1.jpg) no-repeat;
     background-position: 95% 50%;
     text-align: center;
 }
@@ -45,7 +45,7 @@ img {
 }
 
 .currentDt {
-    background-image: url(./images/jiantou.jpg);
+    background-image: url(./common/images/jiantou.jpg);
 }
 
 .activeNav {
