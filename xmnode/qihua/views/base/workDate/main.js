@@ -13,4 +13,8 @@ require(['js/a', 'js/api'], function(a) {
             $('body').append('<p>' + ret.x + ' + ' + ret.y + ' = ' + a.add(ret.x, ret.y) + '</p>');
         }
     });
+
+    $.get('/data', function(data) {
+        $('#table').datagrid('loadData', data);
+    }, 'json')
 });

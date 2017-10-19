@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MockJS</title>
+
+    <style>
+        pre {
+            font-family: monospace, monospace;
+            font-size: 1em;
+            margin-top: 0;
+            margin-bottom: 0;
+            font: 12px sfmono-regular, Consolas, liberation mono, Menlo, Courier, monospace;
+            margin-top: 0;
+            margin-bottom: 16px;
+            word-wrap: normal;
+            font-family: monospace, monospace;
+        }
+
+        pre>code {
+            padding: 0;
+            margin: 0;
+            font-size: 100%;
+            word-break: normal;
+            white-space: pre;
+            background: transparent;
+            border: 0
+        }
+
+        pre {
+            margin-bottom: 0;
+            word-break: normal
+        }
+
+        .highlight pre,
+        pre {
+            padding: 16px;
+            overflow: auto;
+            font-size: 85%;
+            line-height: 1.45;
+            background-color: #f6f8fa;
+            border-radius: 3px
+        }
+
+        pre code {
+            display: inline;
+            max-width: auto;
+            padding: 0;
+            margin: 0;
+            overflow: visible;
+            line-height: inherit;
+            word-wrap: normal;
+            background-color: transparent;
+            border: 0
+        }
+
+        pre code::before,
+        pre code::after {
+            content: normal
+        }
+
+        code {
+            font-family: monospace, monospace;
+            font-size: 1em;
+            font-family: sfmono-regular, Consolas, liberation mono, Menlo, Courier, monospace;
+            font-size: 12px;
+            padding: 0;
+            padding-top: .2em;
+            padding-bottom: .2em;
+            margin: 0;
+            font-size: 85%;
+            background-color: rgba(27, 31, 35, .05);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        code::before,
+        code::after {
+            letter-spacing: -.2em;
+            content: "\00a0"
+        }
+    </style>
+
+    <script src="./jquery.js"></script>
+    <script src="./mock.js"></script>
+</head>
+<body>
+    <h1>数据模板定义规范</h1>
+    <div>
+        <pre>
+            <code id="codeTemp" contenteditable>
+{
+    'name|0-10': 'hcx',
+    'user|5': 'hcx'
+}
+            </code>
+        </pre>
+        <button id="btnGenerate">生成</button>
+        <button id="btnGRequest">GET请求</button>
+        <button id="btnPRequest">POST请求</button>
+        <pre>
+            <code id="codeResult"></code>
+        </pre>
+    </div>
+
+    <script>
+        $(function() {
+            $('#btnGenerate').on('click', function(){
+                var template = $('#codeTemp').html();
+                eval('var temp = ' + template.trim());
+                var dataStr = Mock.mock(temp);
+                var jsonStr = '<br>' + JSON.stringify(Mock.mock(temp), null, 4);
+                $('#codeResult').html(jsonStr);
+            });
+
+            $('#btnGRequest').on('click', function(){
+                $.get('/getData', {name: 'hcxowe', age:'99'}, function(data) {
+                    $('#codeResult').html('<br>' + JSON.stringify(data, null, 4));
+                }, 'json');
+            });
+
+            $('#btnPRequest').on('click', function(){
+                $.post('/postData', {name: 'hcxowe', age:'99'}, function(data) {
+                    $('#codeResult').html('<br>' + JSON.stringify(data, null, 4));
+                }, 'json');
+            });
+
+            Mock.mock(/\/getData/, 'get', function(options) {
+                console.log(options);
+                var template = $('#codeTemp').html();
+                eval('var temp = ' + template.trim());
+                var dataStr = Mock.mock(temp);
+                return dataStr;
+            });
+
+            Mock.mock(/\/postData/, 'post', function(options) {
+                console.log(options);
+                var template = $('#codeTemp').html();
+                eval('var temp = ' + template.trim());
+                var dataStr = Mock.mock(temp);
+                return dataStr;
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,3 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./md.css">
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .wrap {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: auto;
+        }
+
+        .right-html {
+            margin: 0 auto;
+            width: 70%;
+            overflow: auto;
+        }
+
+    </style>
+
+    <script src="./marked.min.js"></script>
+    <script id="mdContainer" type="text/template">
 # 企划系统前端单页面应用
 
 ### 什么是单页面
@@ -472,3 +513,22 @@ Mock.mock({
 `options`
 
 指向本次请求的 Ajax 选项集，含有 url、type 和 body 三个属性
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="right-html">
+            <textarea style="display: none;" id="textInput"></textarea>
+            <div class="markdown-body" id="htmlShow"></div>
+        </div>
+    </div>
+
+    <script>
+        var input = document.getElementById('mdContainer');
+        var text = document.getElementById('textInput');
+        text.value = input.innerText.trim();
+        var container = document.getElementById('htmlShow');
+        container.innerHTML = marked(textInput.value);
+    </script>
+</body>
+</html>
