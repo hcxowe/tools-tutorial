@@ -472,3 +472,54 @@ Mock.mock({
 `options`
 
 指向本次请求的 Ajax 选项集，含有 url、type 和 body 三个属性
+
+
+# 接口文档模式
+
+
+## 用户登录
+
+**简要描述**
+
+- 用户登录接口
+
+**请求URL**
+
+- `/qh/system/login`
+
+**请求方式**
+
+- POST
+
+**请求参数说明**
+
+| 参数名称 | 类型 | 是否必填 | 说明 |
+|:-:|:-:|:-:|:-:|
+| username | String | Y | 用户名称 |
+| password | String | Y | 登录密码 |
+
+**请求示例**
+```js
+{
+    "username": "136324441230",
+    "password": "123456"
+}
+```
+
+**相应参数说明**
+
+| 参数名称 | 类型  | 说明 |
+|:-:|:-:|:-:|
+| error | Number | 错误码 |
+| msg | String | 错误信息 |
+| data | Object | 其他信息 |
+
+**响应示例**
+```js
+{
+    "error": 0, // 错误码
+    "msg": "success", // 错误信息
+    "data": {
+        
+    }
+}
