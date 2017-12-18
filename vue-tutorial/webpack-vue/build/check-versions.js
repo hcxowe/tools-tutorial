@@ -1,7 +1,12 @@
+/**
+ * 监测 npm node 的版本是否满足要求 
+ * 这里可以新增你项目所需的其他模块的版本要求
+ */
 var chalk = require('chalk')
-var semver = require('semver')
+var semver = require('semver') // 语义化版本http://semver.org/lang/zh-CN/
 var packageConfig = require('../package.json')
-var shell = require('shelljs')
+var shell = require('shelljs') // 执行 shell 命令
+
 function exec (cmd) {
   return require('child_process').execSync(cmd).toString().trim()
 }
@@ -14,6 +19,7 @@ var versionRequirements = [
   },
 ]
 
+// npm版本是否满足package.json定义的版本要求
 if (shell.which('npm')) {
   versionRequirements.push({
     name: 'npm',
