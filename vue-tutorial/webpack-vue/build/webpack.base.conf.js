@@ -8,23 +8,28 @@ function resolve (dir) {
 }
 
 module.exports = {
+  // 入口
   entry: {
     app: './src/main.js'
   },
+  // 输出
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
+    // webpack编译输出的发布路径
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
+    // 配置路径别名
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src')
     }
   },
+  // 配置不同类型模块的处理规则
   module: {
     rules: [
       {

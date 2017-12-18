@@ -22,6 +22,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
+    // 未指定文件名的文件的文件名格式
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
@@ -29,6 +30,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
+    // 压缩JS
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -36,6 +38,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       sourceMap: true
     }),
     // extract css into its own file
+    // 抽取css到指定文件
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')
     }),
@@ -64,6 +67,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
     // split vendor js into its own file
+    // 分离第三方js到单独的文件中
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: function (module, count) {
