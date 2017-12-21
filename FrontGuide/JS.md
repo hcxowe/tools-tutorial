@@ -47,3 +47,79 @@ if ( Math.abs(0.3 - (0.1 + 0.2)) < Number.EPSILON ) {
 - 一切函数都是由 Function 这个函数创建的，所以`Function.prototype === 被创建的函数.__proto__`
 - 一切函数的原型对象都是由 Object 这个函数创建的，所以`Object.prototype === 一切函数.prototype.__proto__`
 
+### ES6新增特性有哪些？
+
+- 作用域
+    - 块级作用域
+    - let
+    - const
+- 箭头
+    - square = x => x * x
+    - 函数中this绑定箭头所在词法作用域
+- 参数设置
+    - 默认参数 function(x=1, y=2) {return x + y}
+    - 剩余参数 function(x, ...rest) {return x + rest.reduce((x, y) => {return x + y})}
+    - 展开运算符 [...[1,2,3]] => [1,2,3]
+- 模板字面量
+    - 支持多行
+    - 字符串插值 `${a}`
+- 对象属性加强
+    - 属性定义段语法 var x = 1, y = 2, obj = {x, y}
+    - 属性名支持表达式 var obj2 = {['x' + x]: x}
+    - 新增__prop__属性
+- 解构赋值
+    - 数组解构赋值 var a = 1, b = 2, [a, b] = [b, a]
+    - 对象解构赋值 var {a, b} = {a: 1, b: 2, c: 3}
+    - 参数解构赋值 function({a:1, b:2}) { return a + b;}
+- 模块
+    - 导入 import
+    - 导出 export
+    - 默认导出 default export
+- 类
+    - super
+    - 构造函数
+    - 继承 extends
+- 迭代
+    - 迭代器
+    - for of
+- 生成器 Generator
+- Promise
+- Proxy & Reflex
+- 新增数据类型
+    - Symbol
+    - Set
+    - Map
+    - WeakSet
+    - WeakMap
+    - TypeArray
+- 内置对象API增强
+    - String
+        - includes
+        - repeat
+        - startsWith
+        - endsWith
+    - Number
+        - EPSILON
+        - isInteger
+        - isSafeInteger
+        - isFinite
+        - isNaN
+    - Math
+        - acosh
+        - hypot
+        - imul
+        - sign
+        - trunc
+    - Object
+        - assign
+    - Array
+        - from
+        - of
+        - fill
+        - findIndex
+        - copyWithin
+        - entries
+        - keys
+        - values
+- 尾递归优化
+
