@@ -138,6 +138,26 @@ TypeError则代表作用域判别成功了，但对结果的操作是非法或�
 
 词法作用域就是定义在词法阶段的作用域，由写代码时将变量与块作用域写在哪里决定的
 
-#### 什么是闭包？
+### 什么是闭包？
 
 当函数能够记住并访问所在的词法作用域即使函数是在当前词法作用域之外执行，就产生了闭包
+
+### 严格模式有哪些限制？
+
+- 未声明的全局变量赋值会抛出ReferenceError错误
+- eval，with会抛出SyntaxError错误
+- arguments严格定义为参数，不再与形参绑定
+- 不能使用arguments.callee,arguments.caller，否则抛出Uncaught SyntaxError错误
+- 不能删除内置对象属性，已冻结对象属性，已密封对象属性，全局变量，var定义的变量，否则抛出Uncaught SyntaxError错误
+- 对禁止扩展的对象添加新属性或对对象只读属性赋值，抛出Uncaught TypeError错误
+- 函数不能重名，否则抛出Uncaught SyntaxError错误
+- call/apply的第一个参数直接传入，不自定封装为对象
+
+### JS中可能出现内存泄漏的常见场景？
+
+- 闭包函数
+- 全局变量
+- 对象属性循环引用
+- DOM节点删除未解绑事件
+- Map/Set的属性直接删除
+
