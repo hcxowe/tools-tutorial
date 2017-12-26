@@ -60,3 +60,45 @@
 2. 浏览器判断上次文件返回头中是否包含ETag信息，有则带上If-None-Match字段信息发送请求，服务器判断ETag未修改则返回304，如果修改则返回200
 3. 浏览器判断上次文件返回头中是否包含Last-Modofied信息，有则带上If-Modified-Since字段信息发送请求，服务器判断Last-Modified失效则返回200，有效则返回304
 4. 直接向服务器发送请求
+
+### 浏览器前端优化策略有哪些？
+
+#### 网络加载
+
+- 减少HTTP资源请求次数
+    合并静态资源图片（雪碧图）、js、css代码
+- 减小HTTP请求大小
+    压缩js，css文件，gzip压缩传输内容
+- css，js放在外部文件中，避免使用style，script标签引入
+    为了利用浏览器的静态资源缓存
+- 避免空的href与src
+    href与src为空，浏览器在渲染的时候也会对href与src属性中的空内容进行加载，直到失败，这阻塞了页面其他资源的下载进程
+- 为HTML指定Cache-Control或Expires
+- 合理设置Etag与Last-Modified
+- 减少页面重定向
+- 使用静态资源分域存放来增加下载并行数
+- 使用静态资源CDN来存储文件
+- 使用CDN Combo下载传输内容
+- 使用可缓存的AJAX
+- 拉取服务端数据时使用GET来完成AJAX请求效率更好
+- 减少Cookie的大小并进行Cookie隔离
+    Cookie默认不跨域，对于静态资源，尽量使用不同的域名来存放
+- 推荐使用异步JS资源
+- 消除阻塞渲染的CSS以及JS
+- 避免使用CSS import 引用加载CSS
+    带有@import的css样式需要在CSS文件串行解析到@import时才会加载另外的CSS文件，增加了CSS渲染完成的时间
+
+#### 页面渲染
+
+- 把CSS资源引用放到HTML文件顶部
+    把css放在head便签中，利于浏览器优先下载CSS并尽早完成页面渲染
+- JS资源引用放到HTML文件底部
+    JS的加载和解析执行会阻塞HTML DOM解析和CSS渲染的过程
+- 不要在HTML中直接缩放图片
+    缩放引起页面重排重绘
+- 减少DOM元素的数量和深度
+- 尽力避免使用table，iframe等慢元素
+    - table内容的渲染是将table的DOM渲染树全部生成完并一次性绘制到页面上的，长表格渲染十分耗时
+    - 尽量使用异步方式动态添加iframe，iframe内资源的下载进程会阻塞父页面静态资源的下载与CSS及HTML DOM的解析
+- 避免运行耗时的JS
+- 避免使用CSS表达式和CSS滤镜
