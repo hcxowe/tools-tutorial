@@ -1,24 +1,10 @@
-* {
+.calendar-wrap * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-/* 日历头 */
-.xcal-header {
-    padding: 15px 30px;
-    border-bottom: 1px solid #ccc;
-}
 
-.xcal-toolbar {
-    position: relative;
-    height: 25px;
-}
-
-.xcal-toolleft {
-    position: absolute;
-    top: 0; left: 0; bottom: 0;
-    width: 100px;
-}
+/* 日历中的上&下按钮 */
 .xcal-btn {
     display: inline-block;
     width: 40px;
@@ -32,12 +18,31 @@
     color: #f05420;
 }
 
+/* 日历头部 */
+.xcal-header {
+    padding: 15px 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 工具栏 */
+.xcal-toolbar {
+    position: relative;
+    height: 25px;
+}
+
+/* 工具栏左部 */
+.xcal-toolleft {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 100px;
+}
+
+/* 工具栏右部 */
 .xcal-toolright {
     position: absolute;
     top: 0; right: 0; bottom: 0;
     width: 112px;
 }
-
 .xcal-toolright > span {
     font-size: 13px;
     border: 1px solid #ccc;
@@ -45,39 +50,38 @@
     padding: 4px 8px;
     cursor: pointer;
 }
-
 .xcal-toolright > span:hover {
     background-color: #FDEFD6;
 }
-
 .xcal-toolright i {
     color: #f05420;
     margin-right: 5px;
 }
 
+/* 工具栏中部 */
 .xcal-toolcenter {
     position: absolute;
     top: 0; right: 112px; bottom: 0; left: 100px;
     text-align: center;
 }
-
 .xcal-toolcenter > span {
     text-decoration: none;
     color: #666;
     cursor: pointer;
 }
-
 .xcal-toolcenter > span:hover {
     text-decoration: none;
     color: #000;
 }
 
-/* 年份选择框 */
+/* 年份月份选择框 */
 .xcal-selyear {
     position: absolute;
     top: 30px; right: 100px; bottom: 0; left: 100px;
     z-index: 9;
 }
+
+/* 年份选择内容 */
 .year-wrap {
     margin: 0 auto;
     width: 300px;
@@ -85,6 +89,7 @@
     border: 2px solid rgb(139, 139, 139);
     display: none;
 }
+/* 当前供选择的年份范围与调整按钮 */
 .year-title {
     padding: 10px;
     border-bottom: 1px solid #ccc;    
@@ -113,6 +118,7 @@
     border-color: #868686;
 }
 
+/* 月份选择内容 */
 .month-wrap {
     margin: 0 auto;
     width: 300px;
@@ -135,8 +141,8 @@
     border-color: #868686;
 }
 
-/* 日历 */
-.xcal-body {
+/* 日历展示 */
+.xcal-main {
     padding: 15px 30px;
 }
 
@@ -144,26 +150,27 @@
     width: 100%;
 }
 
+/* 日历表格 */
 .xcal-table {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
 }
-
 .xcal-table td {
     width: 14.28569%;
     height: 80px;
-    border: 1px solid #ccc;
+    border: 1px solid #f0e3d9;
 }
-
 .xcal-week > td {
     text-align: center;
     height: 30px;
     background-color: #FAF5F1;
 }
-
 .xcal-body td {
     position: relative;
+}
+.no-workday {
+    background: #F1EEEC;
 }
 .xcal-body .day {
     position: absolute;
