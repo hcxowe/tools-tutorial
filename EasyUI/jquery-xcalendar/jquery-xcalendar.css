@@ -1,0 +1,174 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+/* 日历头 */
+.xcal-header {
+    padding: 15px 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+.xcal-toolbar {
+    position: relative;
+    height: 25px;
+}
+
+.xcal-toolleft {
+    position: absolute;
+    top: 0; left: 0; bottom: 0;
+    width: 100px;
+}
+.xcal-btn {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 21px;
+    color: #f27a51;
+    cursor: pointer;
+}
+.xcal-btn:hover {
+    color: #f05420;
+}
+
+.xcal-toolright {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: 112px;
+}
+
+.xcal-toolright > span {
+    font-size: 13px;
+    border: 1px solid #ccc;
+    background-color: #FDF1E9;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.xcal-toolright > span:hover {
+    background-color: #FDEFD6;
+}
+
+.xcal-toolright i {
+    color: #f05420;
+    margin-right: 5px;
+}
+
+.xcal-toolcenter {
+    position: absolute;
+    top: 0; right: 112px; bottom: 0; left: 100px;
+    text-align: center;
+}
+
+.xcal-toolcenter > span {
+    text-decoration: none;
+    color: #666;
+    cursor: pointer;
+}
+
+.xcal-toolcenter > span:hover {
+    text-decoration: none;
+    color: #000;
+}
+
+/* 年份选择框 */
+.xcal-selyear {
+    position: absolute;
+    top: 30px; right: 100px; bottom: 0; left: 100px;
+    z-index: 9;
+}
+.year-wrap {
+    margin: 0 auto;
+    width: 300px;
+    background: #fff;
+    border: 2px solid rgb(139, 139, 139);
+    display: none;
+}
+.year-title {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;    
+}
+.xcal-yeararea {
+    display: inline-block;
+    width: 185px;
+    text-align: center;
+}
+.year-selbox {
+    padding: 10px 0;
+}
+.year-selbox > span {
+    display: inline-block;
+    width: 47.5px;
+    height: 23px;
+    line-height: 23px;
+    text-align: center;
+    border: 1px solid #fff;
+    font-size: 13px;
+    margin: 5px;
+    cursor: pointer;
+    color: #666;
+}
+.year-selbox > span:hover {
+    border-color: #868686;
+}
+
+.month-wrap {
+    margin: 0 auto;
+    width: 300px;
+    background: #fff;
+    border: 2px solid rgb(139, 139, 139);
+}
+.month-wrap > span {
+    display: inline-block;
+    width: 47.5px;
+    height: 23px;
+    line-height: 23px;
+    text-align: center;
+    border: 1px solid #fff;
+    font-size: 13px;
+    margin: 5px;
+    cursor: pointer;
+    color: #666;
+}
+.month-wrap > span:hover {
+    border-color: #868686;
+}
+
+/* 日历 */
+.xcal-body {
+    padding: 15px 30px;
+}
+
+.xcal-calendar {
+    width: 100%;
+}
+
+.xcal-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.xcal-table td {
+    width: 14.28569%;
+    height: 80px;
+    border: 1px solid #ccc;
+}
+
+.xcal-week > td {
+    text-align: center;
+    height: 30px;
+    background-color: #FAF5F1;
+}
+
+.xcal-body td {
+    position: relative;
+}
+.xcal-body .day {
+    position: absolute;
+    top: 2px; right: 2px; 
+}
+.xcal-body .work-time {
+    text-align: center;
+}
