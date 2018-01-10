@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="jquery-xcalendar.css">
 
+    <script src="./moment.min.js"></script>
     <script src="./jquery.min.js"></script>
     <script src="./jquery-xcalendar.js"></script>
 
@@ -22,7 +23,7 @@
 </head>
 <body>
     <div id="myCalendar">
-        <div class="calendar-wrap">
+        <!-- <div class="calendar-wrap">
             <div class="xcal-header">
                 <div class="xcal-toolbar">
                     <div class="xcal-toolleft">
@@ -35,9 +36,9 @@
                     </div>
 
                     <div class="xcal-toolcenter">
-                        <span class="year" href="javascript:void(0);">2018</span>
+                        <span class="year">2018</span>
                         - 
-                        <span class="month" href="javascript:void(0);">1</span>
+                        <span class="month">1</span>
                     </div>
 
                     <div class="xcal-selyear">
@@ -272,12 +273,12 @@
                     </table>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <script>
         $(function() {
-            
+            $('#myCalendar').xCalendar('create', {});
         })
     </script>
 </body>

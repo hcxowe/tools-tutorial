@@ -124,6 +124,7 @@
     width: 300px;
     background: #fff;
     border: 2px solid rgb(139, 139, 139);
+    display: none;
 }
 .month-wrap > span {
     display: inline-block;
