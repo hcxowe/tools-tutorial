@@ -117,6 +117,10 @@
 .year-selbox > span:hover {
     border-color: #868686;
 }
+.sel-active {
+    color: #3879D9 !important;
+    border-color: #3879D9 !important;
+}
 
 /* 月份选择内容 */
 .month-wrap {
@@ -179,4 +183,7 @@
 }
 .xcal-body .work-time {
     text-align: center;
+}
+.day-grey {
+    color: #A1A1A1;
 }

@@ -1,32 +1,23 @@
 var data = [
     {
-        year: '2017',
-        month: [
-            {
-                month: 1,
-                day: [
-                    {
-                        day: 1,
-                        time: 22.5,
-                        desc: 'desc'
-                    }
-                ]
-            }
-        ]
+        NO: 1,
+        date: '2018-01-02',
+        iswork: 1,
+        time: 22,
+        desc: 'cccddd'
     },
     {
-        year: '2018',
-        month: [
-            {
-                month: 1,
-                day: [
-                    {
-                        day: 1,
-                        time: 22.5,
-                        desc: 'desc'
-                    }
-                ]
-            }
-        ]
+        NO: 1,
+        date: '2018-01-03',
+        iswork: 1,
+        time: 22,
+        desc: 'cccddd'
+    },
+    {
+        NO: 1,
+        date: '2018-01-04',
+        iswork: 1,
+        time: 22,
+        desc: 'cccddd'
     }
 ];

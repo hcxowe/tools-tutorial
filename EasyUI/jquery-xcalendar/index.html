@@ -276,6 +276,21 @@
         </div> -->
     </div>
 
+    <div>
+        开始日期:<input type="text" id="startInput">
+        结束日期:<input type="text" id="endInput">
+        工作时间:<input type="text" id="timeInput">
+        工作周期:
+        <label><input type="checkbox" value="0">周日</label>
+        <label><input type="checkbox" value="1">周一</label>
+        <label><input type="checkbox" value="2">周二</label>
+        <label><input type="checkbox" value="3">周三</label>
+        <label><input type="checkbox" value="4">周四</label>
+        <label><input type="checkbox" value="5">周五</label>
+        <label><input type="checkbox" value="6">周六</label>
+        <button>添加</button>
+    </div>
+
     <script>
         $(function() {
             $('#myCalendar').xCalendar('create', {});
