@@ -9,9 +9,14 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="jquery-xcalendar.css">
 
+    <!–[if IE]>
+        <script src="./es5-shim.min.js"></script>
+    <![endif]–>
+
     <script src="./moment.min.js"></script>
     <script src="./jquery.min.js"></script>
     <script src="./jquery-xcalendar.js"></script>
+    <script src="./data.js"></script>
 
     <style>
         #myCalendar {
@@ -276,10 +281,10 @@
         </div> -->
     </div>
 
-    <div>
-        开始日期:<input type="text" id="startInput">
-        结束日期:<input type="text" id="endInput">
-        工作时间:<input type="text" id="timeInput">
+    <div id="addArea">
+        开始日期:<input type="text" id="startInput" value="2018-1-10">
+        结束日期:<input type="text" id="endInput" value="2018-1-20">
+        工作时间:<input type="text" id="timeInput" value="22">
         工作周期:
         <label><input type="checkbox" value="0">周日</label>
         <label><input type="checkbox" value="1">周一</label>
@@ -288,12 +293,55 @@
         <label><input type="checkbox" value="4">周四</label>
         <label><input type="checkbox" value="5">周五</label>
         <label><input type="checkbox" value="6">周六</label>
-        <button>添加</button>
+        <button onclick="onAddClick();">添加</button>
+    </div>
+
+    <div>
+        日期: <input type="text" id="date">
+        时间: <input type="text" id="time">
+        备注: <input type="text" id="desc">
+        工作日: <input type="checkbox" id="iswork">
+        <button onclick="onEditClick();">编辑</button>
     </div>
 
     <script>
+
+        function onEditClick() {
+            $('#myCalendar').xCalendar('setDayDate', {
+                date: $('#date').val(),
+                iswork: $('#iswork').prop('checked'),
+                time: $('#time').val(),
+                desc: $('#desc').val(),
+            });
+        }
+
+        function onAddClick() {
+            var weeks = []
+            $('#addArea input[type="checkbox"]').each(function(index, ele) {
+                if (ele.checked) {
+                    weeks.push(+ele.value)
+                }
+            })
+
+            $('#myCalendar').xCalendar('setWorkDate', {
+                startDate: $('#startInput').val(),
+                endDate: $('#endInput').val(),
+                time: $('#timeInput').val(),
+                weeks: weeks
+            });
+        }
+
         $(function() {
-            $('#myCalendar').xCalendar('create', {});
+            $('#myCalendar').xCalendar('create', {
+                data: data,
+                add: function(data) {
+                    alert('add');
+                },
+                edit: function(data) {
+                    console && console.dir(data)
+                    alert(data.date);
+                }
+            });
         })
     </script>
 </body>

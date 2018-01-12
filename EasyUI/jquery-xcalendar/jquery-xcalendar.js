@@ -4,6 +4,8 @@
         defaults    = {
             data: [],
             type: 'eidt', // readonly or edit
+            add: null,
+            edit: null
         },
         template    = '' + 
             '<div class="calendar-wrap">' +
@@ -281,7 +283,7 @@
         this.$el = el
         this.options = $.extend({}, defaults, opts)
         this.date = moment()
-        this.workData = []
+        this.workData = this.options.data || []
 
         this.init()
     }
@@ -299,6 +301,7 @@
             this.$yearBox   = this.$el.find('.year-wrap')
             this.$monthBox  = this.$el.find('.month-wrap')
 
+            this.$dayWrap   = this.$el.find('.xcal-body')
             this.$days      = this.$el.find('.xcal-body td')
 
             this.$upSpan    = this.$el.find('.fa-chevron-left')
@@ -308,6 +311,8 @@
             this.$yearUp    = this.$el.find('.year-up')
             this.$yearDown  = this.$el.find('.year-down')
             this.$yearTitle = this.$el.find('.xcal-yeararea')
+
+            this.$addBtn    = this.$el.find('.xcal-toolright > span')
 
             // 更新年月日
             this.updateYearMonth()
@@ -416,6 +421,35 @@
 
                 evt.stopPropagation()
             })
+
+            this.$dayWrap.on('click', 'td', function(evt) {
+                if (self.options.edit && !$(evt.currentTarget).find('.day').hasClass('day-grey')) {
+                    var date = '' + self.date.year() + '-' + (self.date.month() + 1) + '-' + $(evt.currentTarget).find('.day').text(),
+                        data = {
+                            date: date,
+                            iswork: false,
+                            time: 0,
+                            desc: ''
+                        }
+                    
+                    for (var i=0; i<self.workData.length; i++) {
+                        if (self.workData[i].date == date) {
+                            data = {
+                                date: self.workData[i].date,
+                                iswork: self.workData[i].iswork,
+                                time: self.workData[i].time,
+                                desc: self.workData[i].desc
+                            }
+                        }
+                    }
+
+                    self.options.edit && self.options.edit(data)
+                }
+            })
+
+            this.$addBtn.on('click', function(evt) {
+                self.options.add && self.options.add()
+            })
         },
         updateYearSelBox: function() {
             var self = this
@@ -451,6 +485,8 @@
             this.updatedYearMonthDay();
         },
         updatedYearMonthDay: function() {
+            var self = this
+
             this.$yearSpan.text(this.date.year())
             this.$monthSpan.text(this.date.month()+1)
 
@@ -466,7 +502,21 @@
                 index++;
             }
 
+            var curYM = self.date.format('YYYY-M')
+            var workdays = this.workData.filter(function(ele) {
+                return ele.iswork && !!~ele.date.indexOf(curYM)
+            })
+
+            $('.work-time', this.$days).text('')
+
             for (var i=1; i <= daysCount; i++) {
+                for (var j=0; j<workdays.length; j++) {
+                    if (workdays[j].date == "" + this.date.year() + '-' + (this.date.month()+1) + '-' + i) {
+                        $(this.$days[index]).find('.work-time').text(workdays[j].time + 'h')
+                        break;
+                    }
+                }
+
                 $(this.$days[index]).find('.day').text(i).removeClass('day-grey')
                 index++;
             }
@@ -476,19 +526,17 @@
                 index++;
             }
         },
-        setDayData: function(data) {
-            var item = this.workData.find(function(ele) {
-                return ele.date == data.date
-            })
+        setDayDate: function(data) {
+            for (var i=0; i<this.workData.length; i++) {
+                if (this.workData[i].date == data.date) {
+                    this.workData[i].iswork = data.iswork
+                    this.workData[i].desc   = data.desc
+                    this.workData[i].time   = data.time
+                    return
+                }
+            }
 
-            if (item) {
-                item.isWork = data.isWork
-                item.desc   = data.desc
-                item.time   = data.time
-            }
-            else {
-                this.workData.push(date)
-            }
+            this.workData.push(data)
         },
         getWorkDate: function() {
             return this.workData
@@ -501,17 +549,31 @@
          * data.weeks array  el. [0,1,2,3,4,5,6]
          */
         setWorkDate: function(data) {
-            var sM = moment(data.startDate),
-                eM = moment(data.endDate)
+            var sMAry = data.startDate.split('-'),
+                eMAry = data.endDate.split('-'),
+                sM = moment({
+                    years: sMAry[0],
+                    months: sMAry[1]-1,
+                    date: sMAry[2]
+                }),
+                eM = moment({
+                    years: eMAry[0],
+                    months: eMAry[1]-1,
+                    date: eMAry[2]
+                })
 
             while (sM <= eM) {
-                this.setDayData({
+                this.setDayDate({
                     date: sM.format('YYYY-M-D'),
                     time: data.time,
-                    isWork: !~data.weeks.find(sM.day()),
+                    iswork: !!~data.weeks.indexOf(sM.day()),
                     desc: ''
                 })
+
+                sM.add(1, 'days')
             }
+
+            this.updatedYearMonthDay()
         }
     }
 
@@ -533,11 +595,12 @@
                 calendarAry.push(calendar)
                 break
             
-            case 'setDayData': 
+            case 'setDayDate': 
                 for (var i=0; i<calendarAry.length; i++) {
                     if (calendarAry[i].$el[0] == el) {
-                        calendarAry[i].setDayData(opts)
-                        break
+                        calendarAry[i].setDayDate(opts)
+                        calendarAry[i].updatedYearMonthDay()
+                        return
                     }
                 }
 
@@ -547,8 +610,9 @@
             case 'setWorkDate': 
                 for (var i=0; i<calendarAry.length; i++) {
                     if (calendarAry[i].$el[0] == el) {
-                        calendarAry[i].setWorkData(opts)
-                        break
+                        calendarAry[i].setWorkDate(opts)
+                        calendarAry[i].updatedYearMonthDay()
+                        return
                     }
                 }
 
@@ -558,8 +622,8 @@
             case 'getWorkDate': 
                 for (var i=0; i<calendarAry.length; i++) {
                     if (calendarAry[i].$el[0] == el) {
-                        calendarAry[i].getWorkData()
-                        break
+                        calendarAry[i].getWorkDate()
+                        return
                     }
                 }
 

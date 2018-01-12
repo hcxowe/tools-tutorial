@@ -173,7 +173,12 @@
 }
 .xcal-body td {
     position: relative;
+    cursor: pointer;
 }
+.xcal-body td:hover {
+    border-bottom-color: #f05420;
+}
+
 .no-workday {
     background: #F1EEEC;
 }
