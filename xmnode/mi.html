@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button class="J_proBuyBtn" onclick="onClick()">加入购物车</button>
+
+    <script>
+        function onClick() {
+            alert(1111);
+        }
+
+        var evt = document.createEvent('MouseEvents');
+            evt.initMouseEvent( 'click', true, true, window, 1, 12, 345, 7, 220, false, false, true, false, 0, null );
+
+        document.addEventListener("DOMContentLoaded", function() {
+            setInterval(function() {
+                var pd = document.getElementById('J_bigtapQueue');
+                var style = window.getComputedStyle(pd, null);
+                if(style.display == 'none') {
+                    var el = document.querySelectorAll('.J_proBuyBtn');
+                    el[0] && el[0].dispatchEvent(evt);
+                }
+            }, 10);
+        },false);
+    </script>
+</body>
+</html>
