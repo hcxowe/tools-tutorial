@@ -1,10 +1,10 @@
-### What is the value of foo?`var foo = 10 + '20'`
+### What is the value of foo? `var foo = 10 + '20'`
 
 > 1020
 
-### What will be the output of the code below?`0.1+0.2 == 0.3`
+### What will be the output of the code below? `0.1+0.2 == 0.3`
 
-false
+> false
 
 ### How would you make this work?
 ```js
