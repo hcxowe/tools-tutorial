@@ -6,10 +6,10 @@ import 'element-ui/lib/theme-default/index.css'
 import App from './App'
 import Hello from './components/Hello'
 import router from './router'
-import VueBus from 'vue-bus'
+//import VueBus from 'vue-bus'
 
 Vue.use(Element)
-Vue.use(VueBus)
+//Vue.use(VueBus)
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
