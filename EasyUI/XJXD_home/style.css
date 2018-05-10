@@ -117,6 +117,7 @@ a:hover {
 }
 
 table {
+    table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
 }
@@ -154,8 +155,34 @@ table {
     border-bottom: 1px solid #CCC;
 }
 
-.task-table-body td + td {
-    width: 100px;
+.taskitem-left {
     text-align: center;
     border-left: 1px solid #ccc;
+}
+
+.kehu-container {
+    width:33%;
+    float:left;
+    text-align: center;
+    position:relative;
+}
+.kehu-num {
+    position:absolute;
+    left:0;right: 0;top:120px;
+    color:#fff;
+    font-size:30px;
+}
+.kehu-img {
+    width: 214px;
+    height: 214px;
+}
+
+.notice-list {
+    list-style: none;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+.notice-item {
+    border-bottom: 2px solid #f2f3f5;
+    padding: 8px;
 }

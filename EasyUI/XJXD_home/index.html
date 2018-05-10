@@ -15,7 +15,7 @@
         <script src="./silderbar_menu.js"></script>
     </head>
     <body>
-        <div class="easyui-layout" style="height:100%;min-width: 1500px;">
+        <div class="easyui-layout" style="height:100%;min-width: 1600px;">
             <div data-options="region:'west',border:false" style="width:300px;">
                 <div class="easyui-layout" style="height:100%;"> 
                     <div data-options="region:'north',border:false" style="height:100px;line-height:100px;background-color: #1d93d1;text-align: center;font-size:20px;color:#fff;">
@@ -109,17 +109,20 @@
                                     <div data-options="region:'north',border:false" style="overflow: hidden;background-color: #f2f3f5;">
                                         <div style="float: left;width:49%;margin-right:1%;background-color: #fff;height: 320px;">
                                             <p style="border-bottom: 2px solid #f2f3f5;font-size: 20px;padding: 8px 15px;">我的客户</p>
-                                            <div style="overflow: hidden;margin-top:35px;font-size:16px;">
-                                                <div style="width:33%;float:left;text-align: center;">
-                                                    <img style="border: 1px solid #ccc; width:180px; height: 180px;">
+                                            <div style="overflow: hidden;margin-top:20px;font-size:16px;">
+                                                <div class="kehu-container">
+                                                    <p id="kehuNum" class="kehu-num"></p>
+                                                    <img src="./images/index/index_kehu.png" class="kehu-img">
                                                     <p>客户数(人)</p>
                                                 </div>
-                                                <div style="width:34%;float:left;text-align: center;">
-                                                        <img style="border: 1px solid #ccc; width:180px; height: 180px;">
+                                                <div class="kehu-container">
+                                                    <p id="bsNum" class="kehu-num"></p>
+                                                    <img src="./images/index/index_bishu.png"  >
                                                     <p>贷款笔数(笔)</p>
                                                 </div>
-                                                <div style="width:33%;float:left;text-align: center;">
-                                                        <img style="border: 1px solid #ccc; width:180px; height: 180px;">
+                                                <div class="kehu-container">
+                                                    <p id="amtNum" class="kehu-num"></p>
+                                                    <img src="./images/index/index_jine.png" class="kehu-img">
                                                     <p>贷款金额(万)</p>
                                                 </div>
                                             </div>
@@ -129,37 +132,15 @@
                                                 通知公告
                                                 <a href="#" style="float: right;text-decoration: none;font-size: 16px;line-height: 30px;">更多>></a>
                                             </p>
-                                            <ul style="list-style: none;font-size: 16px;padding: 10px 20px;">
-                                                <li style="border-bottom: 2px solid #f2f3f5;padding: 8px;">
+                                            <ul id="noticeList" class="notice-list">
+                                                <!-- <li class="notice-item">
                                                     <i class="iconfont icon-biaoqian"></i>
                                                     <a href="#" style="text-decoration: none;">关于 xxxxxxxxxxxxxx 的通知</a>
                                                     <span style="float: right;font-size: 14px;">2018-05-07 10:10:10</span>
-                                                </li>
-                                                <li style="border-bottom: 2px solid #f2f3f5;padding: 8px;">
-                                                    <i class="iconfont icon-biaoqian"></i>
-                                                    <a href="#" style="text-decoration: none;">关于 xxxxxxxxxxxxxx 的通知</a>
-                                                    <span style="float: right;font-size: 14px;">2018-05-07 10:10:10</span>
-                                                </li>
-                                                <li style="border-bottom: 2px solid #f2f3f5;padding: 8px;">
-                                                    <i class="iconfont icon-biaoqian"></i>
-                                                    <a href="#" style="text-decoration: none;">关于 xxxxxxxxxxxxxx 的通知</a>
-                                                    <span style="float: right;font-size: 14px;">2018-05-07 10:10:10</span>
-                                                </li>
-                                                <li style="border-bottom: 2px solid #f2f3f5;padding: 8px;">
-                                                    <i class="iconfont icon-biaoqian"></i>
-                                                    <a href="#" style="text-decoration: none;">关于 xxxxxxxxxxxxxx 的通知</a>
-                                                    <span style="float: right;font-size: 14px;">2018-05-07 10:10:10</span>
-                                                </li>
-                                                <li style="border-bottom: 2px solid #f2f3f5;padding: 8px;">
-                                                    <i class="iconfont icon-biaoqian"></i>
-                                                    <a href="#" style="text-decoration: none;">关于 xxxxxxxxxxxxxx 的通知</a>
-                                                    <span style="float: right;font-size: 14px;">2018-05-07 10:10:10</span>
-                                                </li>
-                                                <li style="border-bottom: 2px solid #f2f3f5;padding: 8px;">
-                                                    <i class="iconfont icon-biaoqian"></i>
-                                                    <a href="#" style="text-decoration: none;">关于 xxxxxxxxxxxxxx 的通知</a>
-                                                    <span style="float: right;font-size: 14px;">2018-05-07 10:10:10</span>
-                                                </li>
+                                                </li> -->
+                                                <!-- <li class="notice-item">
+                                                    <p style="text-align: center;">暂无公告</p>
+                                                </li> -->
                                             </ul>
                                         </div>
                                     </div>
@@ -167,8 +148,8 @@
                                         <div class="easyui-layout" style="height:100%;">
                                             <div data-options="region:'north',border:false" style="overflow: hidden;background-color: #f2f3f5;">
                                                 <div style="margin-top: 20px;padding: 8px;background-color: #fff;">
-                                                    <span class="btn select">待办任务</span>
-                                                    <span class="btn">已办任务</span>
+                                                    <span id="dbTaskBtn" class="btn select">待办任务</span>
+                                                    <span id="jbTaskBtn" class="btn">已办任务</span>
                                                 </div>
                                             </div>
                                             <div data-options="region:'center',border:false" style="background-color: #fff;">
@@ -183,47 +164,14 @@
                                                     </table>
                                                     <div class="task-body">
                                                         <table class="task-table-body">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
-                                                                    <td><a href="#">处理</a></td>
-                                                                </tr>
+                                                            <tbody id="taskItems">
+                                                                <!-- <tr>
+                                                                    <td colspan="24" style="text-align: center;">暂无数据</td>
+                                                                </tr> -->
+                                                                <!-- <tr>
+                                                                    <td colspan="20">由 [那拉提信用社] 于 [2018-03-22 10:10:10] 发来的 [王雪] 的 [400000万元] 用款申请, 请查收...</td>
+                                                                    <td colspan="4" class="taskitem-left"><a href="#">处理</a></td>
+                                                                </tr> -->
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -239,11 +187,9 @@
             </div>
 
             <div class="opera-menu">
-                退出系统
+                <span id="loginBtn" class="easyui-button">登录</span>
             </div>
         </div>
-
-        
 
         <script>
             $(function() {
@@ -263,13 +209,107 @@
                     $('.opera-menu').hide()
                 })
 
-                $('.btn').click(function() {
+                $('#dbTaskBtn').click(function() {
                     $(this).addClass('select').siblings().removeClass('select')
+                    $('#taskItems').empty()
+                    getTaskList()
                 })
+
+                $('#jbTaskBtn').click(function() {
+                    $(this).addClass('select').siblings().removeClass('select')
+                    $('#taskItems').empty()
+                    getHistoryTaskList()
+                })
+
+                $('#loginBtn').click(function(evt) {
+                    //evt.stopPropagation()
+                    $.post('/rcc/bsp/j_bsp_security_check/up?usecheckcode=false', {
+                        j_username: 'Test1202',
+                        j_password: '123456'
+                    }, function() {
+                        
+                    })
+                })
+
+                $('#dbTaskBtn').trigger('click')
+
+                // 客户统计
+                $.get('/rcc/rccModule/homePageGrid/customerStatistics.so', function(ret) {
+                    ret = JSON.parse(ret)
+                    $('#kehuNum').text(ret[0].CUSTOMERNUM || 0)
+                    $('#bsNum').text(ret[0].LOANSNUM || 0)
+                    $('#amtNum').text(ret[0].LOANSAMT || 0)
+                })
+
+                // 公告
+                $.get('/rcc/rccModule/homePageGrid/getShowNoticeList.so?curPage=1', function(ret) {
+                    ret = JSON.parse(ret)
+                    createNotice(ret)
+                })
+                
             })
+
+            function getTaskList() {
+                // 代办任务
+                $.get('/rcc/rccModule/homePageGrid/getTaskInstanceList.so?curPage=1', function(ret) {
+                    ret = JSON.parse(ret)
+                    createTask(ret)
+                })
+            }
+
+            function getHistoryTaskList() {
+                // 经办任务
+                $.get('/rcc/rccModule/homePageGrid/getHistoryTaskInstanceList.so?curPage=1', function(ret) {
+                    ret = JSON.parse(ret)
+                    createTask(ret)
+                })
+            }
 
             function formatOper(val, row, index) {
                 return '<a href="#" onclick="alert('+index+')">处理</a>';  
+            }
+
+            var noticeTemplate = '<li class="notice-item">' +
+                                    '<i class="iconfont icon-biaoqian"></i>' +
+                                    '<a href="#" style="text-decoration: none;">{#title#}</a>' +
+                                    '<span style="float: right;font-size: 14px;">{#time#}</span>' +
+                                '</li>'
+
+            function createNotice(data) {
+                if(!data || !data.length) {
+                    $('#noticeList').append('<li class="notice-item"><p style="text-align: center;">暂无公告</p></li>')
+                    return
+                }
+
+                var html = ''
+                for (var i=0; i<data.length; i++) {
+                    html += noticeTemplate.replace(/\{#(\w+)#\}/g, function(match, key) {
+                        return typeof data[i][key] === 'undefined' ? '' : data[i][key];
+                    });
+                }
+
+                $('#noticeList').append(html)
+            }
+
+            var taskTemplate = '<tr>' +
+                                    '<td colspan="20">{#TITLE#}</td>' +
+                                    '<td colspan="4" class="taskitem-left"><a href="#">处理</a></td>' +
+                                '</tr>'
+            
+            function createTask(data) {
+                if(!data || !data.length) {
+                    $('#noticeList').append('<tr><td colspan="24" style="text-align:center;">暂无数据</td></tr>')
+                    return
+                }
+
+                var html = ''
+                for (var i=0; i<data.length; i++) {
+                    html += taskTemplate.replace(/\{#(\w+)#\}/g, function(match, key) {
+                        return typeof data[i][key] === 'undefined' ? '' : data[i][key];
+                    });
+                }
+
+                $('#taskItems').append(html)
             }
         </script>
     </body>
