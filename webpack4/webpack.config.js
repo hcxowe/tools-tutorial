@@ -1,13 +1,33 @@
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        //print: './src/print.js'
+        app: './src/index.js'
+    },
     output: {
-        filename: 'bundle.js',
+        //filename: 'bundle.js',
+        filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist')
+    },
+    //mode: 'production',
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist',
+        hot: true
     },
     module: {
         rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    'css-loader'
+                ]
+            }
             /* {
                 test: /\.js$/,
                 exclude: /node_modules/,
@@ -18,14 +38,8 @@ module.exports = {
                 exclude: /node_modules/,
                 enforce: 'post',
                 loader: 'es3ify-loader'
-            }, */
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
-            },
+            }, 
+            ,
             {
                 test: /\.(png|svg|jpg|gif)/,
                 use: [
@@ -37,10 +51,15 @@ module.exports = {
                 use: [
                     'file-loader'
                 ]
-            }
+            }*/
         ]
     },
     plugins: [
-        
+        new CleanWebpackPlugin(['dist']),
+        new HtmlWebpackPlugin({
+            title: 'output management'
+        }),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ]
 }
