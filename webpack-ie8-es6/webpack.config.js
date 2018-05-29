@@ -10,11 +10,11 @@ module.exports = {
         filename: '[name].bundle.js',
     },
     module: {
-        rules: [
+        loaders: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: [
+                loaders: [
                     'babel-loader'
                 ]
             },

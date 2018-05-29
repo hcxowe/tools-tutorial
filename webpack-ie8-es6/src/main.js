@@ -1,5 +1,6 @@
-require('babel-polyfill')
 require('es5-shim')
+require('es5-shim/es5-sham');
+require('babel-polyfill')
 require('console-polyfill')
 const sum = require('./b.js').sum
 
