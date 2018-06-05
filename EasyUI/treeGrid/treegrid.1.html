@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    </head>
+    <body>
+        
+        <h2>Reports using TreeGrid</h2>
+        <p>Using TreeGrid to show complex reports.</p>
+        <div style="margin:20px 0;"></div>
+        <table id="treegrid" title="Reports using TreeGrid" class="easyui-treegrid" style="width:700px;height:250px"
+                data-options="rownumbers: true,showFooter: true,idField: 'id',treeField: 'completedate'">
+            <thead frozen="true">
+                <tr>
+                    <th field="completedate" width="200">Region</th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th colspan="4">2009</th>
+                    <th colspan="4">2010</th>
+                </tr>
+                <tr>
+                    <th field="entrycontent" width="60" align="right">1st qrt.</th>
+                    <th field="f2" width="60" align="right">2st qrt.</th>
+                    <th field="f3" width="60" align="right">3st qrt.</th>
+                    <th field="f4" width="60" align="right">4st qrt.</th>
+                    <th field="f5" width="60" align="right">1st qrt.</th>
+                    <th field="f6" width="60" align="right">2st qrt.</th>
+                    <th field="f7" width="60" align="right">3st qrt.</th>
+                    <th field="f8" width="60" align="right">4st qrt.</th>
+                </tr>
+            </thead>
+        </table>
+       
+        <script>    
+            var jsonData2 = JSON.parse('{"rows":[{"completedate":"2018-05-29 17:47:28","createby":"1","createbyname":"ksea","createdate":"2018-05-29 17:47:28","custompropertyvalue":"","deleted":0,"entrycontent":"1.超级标题","entrydense":"","entrydesc":"","entrylevel":"1","entrylevelordernum":"1","entrytitle":"","entrytype":"1","id":"81d8bd88ab60442293f6a94d1f4aae68","islock":"0","modularid":"1","ordernum":null,"parentid":"1","prioritylevel":"","state":"","updatedate":"2018-05-29 17:47:28","versionnum":""},{"completedate":"2018-05-29 17:47:28","createby":"","createbyname":"","createdate":"2018-05-29 17:47:28","custompropertyvalue":"","deleted":0,"entrycontent":"2.超级标题","entrydense":"","entrydesc":"","entrylevel":"1","entrylevelordernum":"2","entrytitle":"","entrytype":"1","id":"82ecef42469b403794b2187379dedba3","islock":"0","modularid":"1","ordernum":null,"parentid":"1","prioritylevel":"","state":"","updatedate":"2018-05-29 17:47:28","versionnum":""},{"completedate":"2018-05-29 17:50:13","createby":"","createbyname":"","createdate":"2018-05-29 17:50:13","custompropertyvalue":"","deleted":0,"entrycontent":"1.1正文","entrydense":"","entrydesc":"","entrylevel":"2","entrylevelordernum":"1","entrytitle":"","entrytype":"2","id":"865614b4c8674cc798c69505513b32b8","islock":"0","modularid":"1","ordernum":null,"parentid":"81d8bd88ab60442293f6a94d1f4aae68","prioritylevel":"","state":"","updatedate":"2018-05-29 17:50:13","versionnum":"","_parentId":"81d8bd88ab60442293f6a94d1f4aae68"},{"completedate":"2018-05-29 17:50:13","createby":"","createbyname":"","createdate":"2018-05-29 17:50:13","custompropertyvalue":"","deleted":0,"entrycontent":"2.0正文","entrydense":"","entrydesc":"","entrylevel":"2","entrylevelordernum":"1","entrytitle":"","entrytype":"2","id":"cede2831dc7340bb81f187e2efb28ae2","islock":"0","modularid":"1","ordernum":null,"parentid":"82ecef42469b403794b2187379dedba3","prioritylevel":"","state":"","updatedate":"2018-05-29 17:50:13","versionnum":"","_parentId":"82ecef42469b403794b2187379dedba3"},{"completedate":"2018-05-29 17:50:13","createby":"","createbyname":"","createdate":"2018-05-29 17:50:13","custompropertyvalue":"","deleted":0,"entrycontent":"2.1正文","entrydense":"","entrydesc":"","entrylevel":"2","entrylevelordernum":"2","entrytitle":"","entrytype":"2","id":"56fd5b84bf0a44c7a4e6b367e5453c61","islock":"0","modularid":"1","ordernum":null,"parentid":"82ecef42469b403794b2187379dedba3","prioritylevel":"","state":"","updatedate":"2018-05-29 17:50:13","versionnum":"","_parentId":"82ecef42469b403794b2187379dedba3"},{"completedate":"2018-05-29 17:50:13","createby":"","createbyname":"ksea","createdate":"2018-05-29 17:50:13","custompropertyvalue":"","deleted":0,"entrycontent":"1.0正文","entrydense":"","entrydesc":"","entrylevel":"","entrylevelordernum":"","entrytitle":"","entrytype":"2","id":"91b2754923dd4ca4970332af1bebc305","islock":"0","modularid":"1","ordernum":null,"parentid":"81d8bd88ab60442293f6a94d1f4aae68","prioritylevel":"","state":"","updatedate":"2018-05-29 17:50:13","versionnum":"","_parentId":"81d8bd88ab60442293f6a94d1f4aae68"}],"total":6}')
+
+            /* var jsonData3 = {
+                rows: [
+                    {
+                        "completedate":"2018-05-29 17:47:28",
+                        "createby":"1","createbyname":"ksea","createdate":"2018-05-29 17:47:28","custompropertyvalue":"","deleted":0,"entrycontent":"1.超级标题","entrydense":"","entrydesc":"","entrylevel":"1","entrylevelordernum":"1","entrytitle":"","entrytype":"1","id":"81d8bd88ab60442293f6a94d1f4aae68","islock":"0","modularid":"1","ordernum":null,"parentid":"1","prioritylevel":"","state":"","updatedate":"2018-05-29 17:47:28","versionnum":"","_parentId":"1"
+                    }
+                ]
+            } */
+
+            var jsonData = JSON.parse('{"total":9,"rows":[\
+                                {"id":1,"region":"Wyoming"},\
+                                {"id":11,"region":"Albin","f1":2000,"f2":1800,"f3":1903,"f4":2183,"f5":2133,"f6":1923,"f7":2018,"f8":1838,"_parentId":1},\
+                                {"id":12,"region":"Canon","f1":2000,"f2":1800,"f3":1903,"f4":2183,"f5":2133,"f6":1923,"f7":2018,"f8":1838,"_parentId":1},\
+                                {"id":13,"region":"Egbert","f1":2000,"f2":1800,"f3":1903,"f4":2183,"f5":2133,"f6":1923,"f7":2018,"f8":1838,"_parentId":1},\
+                                {"id":2,"region":"Washington"},\
+                                {"id":21,"region":"Bellingham","f1":2000,"f2":1800,"f3":1903,"f4":2183,"f5":2133,"f6":1923,"f7":2018,"f8":1838,"_parentId":2},\
+                                {"id":22,"region":"Chehalis","f1":2000,"f2":1800,"f3":1903,"f4":2183,"f5":2133,"f6":1923,"f7":2018,"f8":1838,"_parentId":2},\
+                                {"id":23,"region":"Ellensburg","f1":2000,"f2":1800,"f3":1903,"f4":2183,"f5":2133,"f6":1923,"f7":2018,"f8":1838,"_parentId":2},\
+                                {"id":24,"region":"Monroe","f1":2000,"f2":1800,"f3":1903,"f4":2183,"f5":2133,"f6":1923,"f7":2018,"f8":1838,"_parentId":2}\
+                            ]}')
+
+            $(function() {
+                //$('#treegrid').treegrid('loadData', jsonData2)
+                $('#treegrid').treegrid('append', {
+                    parent: '',
+                    data: [{
+                        id: '123456',
+                        entrycontent: 'xsfsdfasdf'
+                    }]
+                })
+            })
+        </script>
+    </body>
+</html>
