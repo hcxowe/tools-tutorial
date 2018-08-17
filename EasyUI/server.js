@@ -3,7 +3,7 @@ const proxy = require('http-proxy-middleware');
 var app = express();
 
 app.use("/", express.static(__dirname + ""));
-
+/* 
 const apiProxy = proxy('/', { 
     target: 'http://192.168.0.85:9000',
     changeOrigin: true,
@@ -12,8 +12,8 @@ const apiProxy = proxy('/', {
     }
 });
 
-app.use('/', apiProxy)
+app.use('/', apiProxy) */
 
-app.listen(3000, () => {
-    console.log('Listening on: http://localhost:3000');
+app.listen(3456, () => {
+    console.log('Listening on: http://localhost:3456');
 });
