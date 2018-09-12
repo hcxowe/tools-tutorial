@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Basic DataGrid - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+	<script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<h2>Basic DataGrid</h2>
+	<p>The DataGrid is created from markup, no JavaScript code needed.</p>
+    <div style="margin:20px 0;"></div>
+    
+	<table id="dg" class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:200px"
+			data-options="singleSelect:true,collapsible:true,url:'data.json',method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'firstname',width:80">Item ID</th>
+				<th data-options="field:'lastname',width:100">Product</th>
+				<th data-options="field:'age',width:80,align:'right'">List Price</th>
+				<th data-options="field:'phone',width:80,align:'right'">Unit Cost</th>
+				<th data-options="field:'email',width:250">Attribute</th>
+			</tr>
+		</thead>
+	</table>
+
+	<button id="btn">添加行</button>
+	<script>
+		$(function() {
+			$('#btn').click(function() {
+				$('#dg').datagrid('insertRow', {
+					index: 1,
+					row: {
+						"firstname": "hcx",
+						"lastname": "owe",
+						"age": 28,
+						"phone": "13245678912",
+						"email": "hcxowe@126.com"
+					}
+				})
+			})
+		})
+	</script>
+</body>
+</html>
