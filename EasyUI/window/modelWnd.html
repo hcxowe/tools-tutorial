@@ -62,9 +62,13 @@
 	</div> -->
 
     <!-- 对话框 -->
-    <div id="dd" class="easyui-dialog" data-options="modal:true,noheader:true,border:'thin'" >
-		<div style="padding: 50px 100px;text-align: center;"><img src="../jquery-easyui-1.5.2/themes/default/images/loading.gif"> <br/>加载中...</div>
-    </div>
+    <div id="dd" class="easyui-dialog" data-options="modal:true,width:500,height:500" >
+			<button onclick="$('#dd1').dialog('open')">sdfsdfsdf</button>
+		</div>
+		
+		<div id="dd1" class="easyui-dialog" data-options="modal:true,closed:true" >
+				fsdfsdfsdf
+			</div>
  
     <!-- <div id="dlg-toolbar">
 		<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="javascript:alert('Add')">Add</a>

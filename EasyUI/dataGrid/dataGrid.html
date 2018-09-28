@@ -21,7 +21,7 @@
                             onEndEdit: onEndEdit">
             <thead>
                 <tr>
-                    <th field="firstname" width="50">First Name</th>
+                    <th field="firstname" width="120" data-options="align:'center',formatter:formatter1">First Name</th>
                     <th data-options="field:'lastname',width:100,editor:{
                                         type: 'combobox',
                                         options: {
@@ -160,6 +160,10 @@
 
             function onSpanClick() {
                 alert('span was clicked');
+            }
+
+            function formatter1(value,row,index) {
+                return '<div style="text-align:left;">'+ value + '</div>'
             }
         </script>
     </body>
