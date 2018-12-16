@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+        <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    </head>
+    <body>
+        <div class="easyui-panel" style="padding:5px">
+            <ul class="easyui-tree" id="tree" data-options="animate:true,lines:true"></ul>
+        </div>
+        <button id="btnInsert">insert</button>
+        <button id="btnSeled">getSelected</button>
+    </body>
+
+    <script>
+        var data = [{
+            "id":1,
+            "text":"My Documents",
+            "children":[{
+                "id":11,
+                "text":"Photos",
+                "state":"closed",
+                "attributes": {x: 1, y: 2},
+                "children":[{
+                    "id":111,
+                    "text":"Friend"
+                },{
+                    "id":112,
+                    "text":"Wife"
+                },{
+                    "id":113,
+                    "text":"Company"
+                }]
+            },{
+                "id":12,
+                "text":"Program Files",
+                "children":[{
+                    "id":121,
+                    "text":"Intel"
+                },{
+                    "id":122,
+                    "text":"Java",
+                    "attributes":{
+                        "p1":"Custom Attribute1",
+                        "p2":"Custom Attribute2"
+                    }
+                },{
+                    "id":123,
+                    "text":"Microsoft Office"
+                },{
+                    "id":124,
+                    "text":"Games",
+                    "checked":true
+                }]
+            },{
+                "id":13,
+                "text":"index.html"
+            },{
+                "id":14,
+                "text":"about.html"
+            },{
+                "id":15,
+                "text":"welcome.html"
+            }]
+        }]
+
+        $(function() {
+            $('#tree').tree('loadData', data)
+
+            $('#btnInsert').click(function() {
+                var selNode = $('#tree').tree('getSelected')
+
+                $('#tree').tree('insert', {
+                    after: selNode.target,
+                    data: {
+                        id: selNode.id + '1',
+                        text: 'new insert node'
+                    }
+                })
+
+                var insertNode = $('#tree').tree('find', selNode.id + '1')
+
+                console.log(insertNode)
+            })
+
+            $('#btnSeled').click(function(evt) {
+                var selNode = $('#tree').tree('getSelected')
+                console.log(selNode)
+            })
+        })
+    </script>
+</html>

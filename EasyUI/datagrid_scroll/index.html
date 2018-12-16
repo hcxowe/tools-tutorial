@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script src="./datagrid_scroll.js"></script>
+</head>
+
+<style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
+    table {
+        table-layout: fixed;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td {
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .dg-wrapper {
+        width: 800px;
+        height: 600px;
+        margin: 100px auto;
+    }
+
+    .datagrid {
+        position: relative;
+        height: 100%;
+        border: 1px solid #ccc;
+    }
+
+    .datagrid-header {
+        overflow: hidden;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .datagrid-body {
+        position: absolute;
+        top: 41px; left: 0; right: 0; bottom: 0;
+        overflow: hidden;
+    }
+
+    .datagrid-body tr {
+        height: 40px;
+    }
+</style>
+
+<body>
+    <div class="dg-wrapper">
+        <div id="dg" style="width: 100%;height:100%;"></div>
+        <!-- <div class="datagrid">
+            <div class="datagrid-header">
+                <table cellspacing="0" cellpadding="0">
+                    <tbody>
+                        <tr style="height: 0;">
+                            <td style="width:50px;height: 0;border:none;"></td>
+                            <td style="width:100px;height: 0;border:none;"></td>
+                            <td style="width:100px;height: 0;border:none;"></td>
+                            <td style="width:100px;height: 0;border:none;"></td>
+                            <td style="width:100px;height: 0;border:none;"></td>
+                            <td style="width:100px;height: 0;border:none;"></td>
+                            <td style="width:100px;height: 0;border:none;"></td>
+                            <td style="width:100px;height: 0;border:none;"></td>
+                            <td style="width:15px;height: 0;border:none;"></td>
+                        </tr>
+                        <tr style="height: 40px;">
+                            <td>序号</td>
+                            <td>列名</td>
+                            <td>列名</td>
+                            <td>列名</td>
+                            <td>列名</td>
+                            <td>列名</td>
+                            <td>列名</td>
+                            <td>列名</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="datagrid-body">
+                <div class="datagrid-view" style="overflow: auto;height: 100%;">
+                    <div>
+                        <table cellspacing="0" cellpadding="0">
+                            <tbody class="datagrid-row-body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <script>
+        $(function() {
+            var list = []
+            var total = 10000
+            for (var i=0; i<total; i++) {
+                list.push({
+                    id: i,
+                    title: '单元格标题',
+                    desc: '单元格内容',
+                    type: i % 3 + 1
+                })
+            }
+
+            $('#dg').sstDatagrid({data: list})
+        })
+    </script>
+
+    <!-- <script>
+        var zwTr = '<tr style="height: 0;"> \
+                        <td style="width:50px;height: 0;border:none;"></td>\
+                        <td style="width:100px;height: 0;border:none;"></td>\
+                        <td style="width:100px;height: 0;border:none;"></td>\
+                        <td style="width:100px;height: 0;border:none;"></td>\
+                        <td style="width:100px;height: 0;border:none;"></td>\
+                        <td style="width:100px;height: 0;border:none;"></td>\
+                        <td style="width:100px;height: 0;border:none;"></td>\
+                        <td style="width:100px;height: 0;border:none;"></td>\
+                    </tr>'
+
+        var trTemplate = '<tr> \
+                            <td>{{id}}</td>\
+                            <td>{{filed1}}</td>\
+                            <td>{{filed2}}</td>\
+                            <td>{{filed3}}</td>\
+                            <td>{{filed4}}</td>\
+                            <td>{{filed5}}</td>\
+                            <td>{{filed6}}</td>\
+                            <td>{{filed7}}</td>\
+                        </tr>'
+
+        var startZW = '<tr class="row-start-zaiwei"></tr>'
+        var endZW = '<tr class="row-end-zaiwei"></tr>'
+        var rowHeight = 40
+        var pageSize = 30
+        var page = [0, 1]
+        var list = []
+        var total = 10000
+        for (var i=0; i<total; i++) {
+            list.push({
+                id: i,
+                filed1: '单元格内容',
+                filed2: '单元格内容',
+                filed3: '单元格内容',
+                filed4: '单元格内容',
+                filed5: '单元格内容',
+                filed6: '单元格内容',
+                filed7: '单元格内容'
+            })
+        }
+
+        var totalHeight = total * rowHeight
+        var pageHeight = rowHeight * pageSize
+        var startRowHeight = 0
+        var endRowHeight = totalHeight - pageHeight * 2
+
+        $(function() {
+            // 初始化展示前两页
+            $('.datagrid-row-body').html(zwTr + startZW + list.slice(0, pageSize * 2).map(function(item){
+                return trTemplate.replace(/{{(\w+)}}/g, function(string, filed) {
+                    return item[filed.replace(/{|}/g, '')]
+                })
+            }).join('') + endZW)
+
+            $('.row-start-zaiwei').height(startRowHeight)
+            $('.row-end-zaiwei').height(endRowHeight)
+
+            var timer = null
+            var preScrollTop = 0
+            var preScrollLeft = 0
+            $('.datagrid-view').scroll(function(evt) {
+                if (preScrollLeft != evt.target.scrollLeft) {
+                    preScrollLeft = evt.target.scrollLeft
+                    $('.datagrid-header')[0].scrollLeft = evt.target.scrollLeft
+                }
+
+                if (preScrollTop != evt.target.scrollTop) {
+                    preScrollTop = evt.target.scrollTop
+
+                    clearTimeout(timer);
+
+                    timer = setTimeout(function() {
+                        scrollShow(evt.target.scrollTop)
+                    }, 500)
+                }
+            })
+
+            function scrollShow(scrollTop) {
+                var endPosition = $('.row-end-zaiwei').position()
+                var startPosition = $('.row-start-zaiwei').position()
+                var startHeight = $('.row-start-zaiwei').height()
+
+                if (endPosition.top <= pageHeight || startPosition.top + startHeight + pageHeight >= 0) {
+                    var index = Math.floor(scrollTop / rowHeight)
+                    var showPage = Math.floor((index + 1) / pageSize)
+
+                    if (showPage == 0) {
+                        page = [0, 1]
+                    }
+                    else {
+                        page = [showPage-1, showPage, showPage+1]
+                    }
+
+                    var endIndex = page[0]*pageSize + pageSize * page.length > total ? total : page[0]*pageSize + pageSize * page.length
+
+                    $('.datagrid-row-body').html(zwTr + startZW + list.slice(page[0]*pageSize, endIndex).map(function(item){
+                        return trTemplate.replace(/{{(\w+)}}/g, function(string, filed) {
+                            return item[filed.replace(/{|}/g, '')]
+                        })
+                    }).join('') + endZW)
+
+                    $('.row-start-zaiwei').height(page[0] * pageHeight)
+                    $('.row-end-zaiwei').height(totalHeight - endIndex * rowHeight)
+                }
+            }
+        })
+    </script> -->
+</body>
+</html>
