@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../jquery-easyui-1.5.2/themes/icon.css">
+    <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../jquery-easyui-1.5.2/jquery.easyui.min.js"></script>
+    <script src="./datagrid-scrollview.js"></script>
+</head>
+<body>
+<button id="btnAdd">click</button>
+    <div style="width: 1000px; height:500px; margin: 100px auto;">
+        <table id="grid"></table>
+    </div>
+
+    <script>
+
+        var data = []   
+        for(var i=0; i<3000; i++) {
+            data.push({
+                /* "productid": "FI-SW-01",
+                "productname": "Koi",
+                "unitcost": 10.00,
+                "status": "P",
+                "listprice": 36.50,
+                "attr1": "Large", */
+                "itemid": "EST-1"
+            })
+        }
+
+        $(function() {
+            $('#grid').datagrid({
+                view:　scrollview,
+                fit: true,
+                //method: 'GET',
+                pageSize: 30,
+                page: 1,
+                //url: './data.json',
+                data: data,
+                columns: [[
+                    { field: 'itemid', title: 'itemid'},
+                    { field: 'productid', title: 'productid'},
+                    { field: 'productname', title: 'productname'},
+                    { field: 'unitcost', title: 'unitcost'},
+                    { field: 'listprice', title: 'listprice'},
+                    { field: 'attr1', title: 'attr1'}
+                ]]
+            })
+
+            $('#btnAdd').on('click', function() {
+                var data = $('#grid').datagrid('getData')
+
+                data.firstRows.unshift({
+                    "productid": "FI-SW-01",
+                    "productname": "Koi",
+                    "unitcost": 10.00,
+                    "status": "P",
+                    "listprice": 36.50,
+                    "attr1": "Large",
+                    "itemid": "EST-1",
+                    "custom": "hcxowe"
+                })
+
+                data.total += 1;
+
+                $('#grid').datagrid('gotoPage', 1)
+                $('#grid').datagrid('scrollTo', 1)
+                /* $('#grid').datagrid('insertRow', {
+                    index:　0,
+                    row: {
+                        "productid": "FI-SW-01",
+                        "productname": "Koi",
+                        "unitcost": 10.00,
+                        "status": "P",
+                        "listprice": 36.50,
+                        "attr1": "Large",
+                        "itemid": "EST-1",
+                        "custom": "hcxowe"
+                    }
+                }) */
+            })
+        })
+    </script>
+</body>
+</html>
