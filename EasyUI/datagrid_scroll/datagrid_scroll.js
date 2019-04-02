@@ -89,7 +89,7 @@
             this.trTemplate.push('<td style="' + (this.options.numerical ? '' : 'display:none;') + '">{{index}}</td>')
             this.trTemplate.push('<td style="' + (this.options.checkbox ? '' : 'display:none;') + '"><input type="checkbox" {{checked}}/></td>')
 
-            this.options.columns.forEach(function(item) {
+            this.options.columns.forEach(function (item, index) {
                 this.trTemplate.push('<td>{{'+ item.filed +'}}</td>')
             }.bind(this))
 
@@ -210,7 +210,7 @@
 
                 var endIndex = this.page[0]*this.pageSize + this.pageSize * this.page.length > this.total ? this.total : this.page[0]*this.pageSize + this.pageSize * this.page.length
 
-                $('.datagrid-row-body').html(this.zwTR + this.startZW + this.options.data.slice(this.page[0]*this.pageSize, endIndex).map(function(item){
+                $('.datagrid-row-body').html(this.zwTR + this.startZW + this.options.data.slice(this.page[0]*this.pageSize, endIndex).map(function(item, index){
                     return this.trTemplate.replace(/{{(\w+)}}/g, function(string, filed) {
                         if (filed == "checked") {
                             return item[filed] ? 'checked' : ''
